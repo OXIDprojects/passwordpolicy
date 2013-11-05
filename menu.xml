@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OX>
+    <OXMENU id="NAVIGATION_ESHOPADMIN">
+        <MAINMENU id="mxuadmin">
+            <SUBMENU id="oxpspasswordpolicy" cl="admin_oxpspasswordpolicy">
+                <TAB id="oxpspasswordpolicy_main" cl="admin_oxpspasswordpolicy_main" />
+                <BTN id="oxpspasswordpolicy_save" />
+            </SUBMENU>
+        </MAINMENU>
+    </OXMENU>
+</OX>
