@@ -23,7 +23,8 @@
  * @todo-nice2have Create container, or interface, or trait, or something for PasswordPolicyModule.
  * @todo-nice2have Track last password change for each user and force changing after some period of time.
  * @todo-nice2have Integrate password validation deeper into user component.
- * #todo-nice2have (?) Think of checking if user really logged in before redirecting to blocked page
+ * @todo-nice2have (?) Think of checking if user really logged in before 
+redirecting to blocked page
  */
 class OxpsPasswordPolicyModule extends oxView
 {

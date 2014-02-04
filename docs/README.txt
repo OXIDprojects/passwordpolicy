@@ -11,7 +11,7 @@ oxps
 5.0.x/4.7.x
 
 ==Version==
-0.7.0
+0.7.1
 
 ==Link==
 http://www.oxid-sales.com

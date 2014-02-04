@@ -69,7 +69,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
         $oUser = oxNew('oxUser');
 
         // Try loading user by username
-        $iUserId = $oUser->getIdByUserName(oxConfig::getParameter('lgn_usr'));
+        $iUserId = $oUser->getIdByUserName(oxRegistry::getConfig()->getRequestParameter('lgn_usr'));
 
         // Continue with login attempts logic only if user id valid and user is loaded
         if (!empty($iUserId) and $oUser->load($iUserId) and $oUser->getId()) {
@@ -88,9 +88,10 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
     {
         // Validate password using password policy rules
         $oModule = $this->getPasswordPolicy();
+        $oConfig = oxRegistry::getConfig();
 
-        if (is_object($oModule) and oxConfig::getParameter('lgn_pwd') and
-            $oModule->validatePassword(oxConfig::getParameter('lgn_pwd'))
+        if (is_object($oModule) and $oConfig->getRequestParameter('lgn_pwd') and
+                                    $oModule->validatePassword($oConfig->getRequestParameter('lgn_pwd'))
         ) {
             return false;
         }

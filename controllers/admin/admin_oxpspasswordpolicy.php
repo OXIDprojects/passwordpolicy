@@ -99,13 +99,13 @@ class Admin_OxpsPasswordPolicy extends oxAdminView
         $aRequirements = array();
 
         // Get values from a request
-        $iMaxAttemptsAllowed = $oConfig->getParameter($sPrefix . 'maxattemptsallowed');
-        $iTrackingPeriod = $oConfig->getParameter($sPrefix . 'trackingperiod');
-        $blAllowUnblock = (bool)$oConfig->getParameter($sPrefix . 'allowunblock');
-        $iMinPasswordLength = (int)$oConfig->getParameter($sPrefix . 'minpasswordlength');
-        $iGoodPasswordLength = (int)$oConfig->getParameter($sPrefix . 'goodpasswordlength');
-        $iMaxPasswordLength = (int)$oConfig->getParameter($sPrefix . 'maxpasswordlength');
-        $aPasswordRequirements = (array)$oConfig->getParameter($sPrefix . 'requirements');
+        $iMaxAttemptsAllowed = $oConfig->getRequestParameter($sPrefix . 'maxattemptsallowed');
+        $iTrackingPeriod = $oConfig->getRequestParameter($sPrefix . 'trackingperiod');
+        $blAllowUnblock = (bool)$oConfig->getRequestParameter($sPrefix . 'allowunblock');
+        $iMinPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'minpasswordlength');
+        $iGoodPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'goodpasswordlength');
+        $iMaxPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'maxpasswordlength');
+        $aPasswordRequirements = (array)$oConfig->getRequestParameter($sPrefix . 'requirements');
 
         // Validate values and save to settings
         if (!is_null($iMaxAttemptsAllowed) and $oModule->validatePositiveInteger((int)$iMaxAttemptsAllowed)) {

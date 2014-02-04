@@ -82,6 +82,7 @@ class OxpsPasswordPolicyForgotPwd extends OxpsPasswordPolicyForgotPwd_parent
     public function forgotPassword()
     {
         $oModule = $this->getPasswordPolicy();
+        $oConfig = oxRegistry::getConfig();
         $mBlockUser = false;
 
         // Check if unlock is allowed by settings
@@ -90,7 +91,7 @@ class OxpsPasswordPolicyForgotPwd extends OxpsPasswordPolicyForgotPwd_parent
             $oUser = oxNew('oxUser');
 
             // Try loading user by username
-            $iUserId = $oUser->getIdByUserName(oxConfig::getParameter('lgn_usr'));
+            $iUserId = $oUser->getIdByUserName($oConfig->getRequestParameter('lgn_usr'));
 
             // Continue with temporary unblock if user exists and is blocked
             if (!empty($iUserId) and $oUser->load($iUserId) and empty($oUser->oxuser__oxactive->value)) {
@@ -129,10 +130,11 @@ class OxpsPasswordPolicyForgotPwd extends OxpsPasswordPolicyForgotPwd_parent
     public function updatePassword()
     {
         $oModule = $this->getPasswordPolicy();
+        $oConfig = oxRegistry::getConfig();
         $mUnblockUser = false;
 
         // Validate password using password policy rules
-        if (is_object($oModule) and $oModule->validatePassword(oxConfig::getParameter('password_new', true))) {
+        if (is_object($oModule) and $oModule->validatePassword($oConfig->getRequestParameter('password_new', true))) {
             return false;
         }
 
@@ -145,7 +147,7 @@ class OxpsPasswordPolicyForgotPwd extends OxpsPasswordPolicyForgotPwd_parent
             $oUser = oxNew('oxUser');
 
             // Load user by
-            if ($oUser->loadUserByUpdateId(oxConfig::getParameter('uid'))) {
+            if ($oUser->loadUserByUpdateId($oConfig->getRequestParameter('uid'))) {
                 $mUnblockUser = $oUser->getId();
             }
         }
