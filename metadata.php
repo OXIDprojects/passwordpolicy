@@ -27,7 +27,7 @@ $aModule = array(
     "title" => "Password Policy",
     "description" => "Password validation, strength visualization and expiry rules",
     "thumbnail" => "out/pictures/picture.png",
-    "version" => "0.7.1",
+    "version" => "0.7.2",
     "author" => "OXID Professional Services",
     "url" => "http://www.oxid-sales.com",
     "email" => "info@oxid-esales.com",
@@ -65,5 +65,8 @@ $aModule = array(
         ),
     ),
     'settings' => array(),
-    'events' => array(),
+    'events' => array(
+        'onActivate'   => 'OxpsPasswordPolicyModule::onActivate',
+        'onDeactivate' => 'OxpsPasswordPolicyModule::onDeactivate'
+    ),
 );

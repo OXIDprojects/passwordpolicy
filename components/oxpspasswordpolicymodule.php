@@ -215,4 +215,91 @@ class OxpsPasswordPolicyModule extends oxView
     {
         return array('digits', 'capital', 'special');
     }
+
+    /**
+     * On module activation callback
+     * Calls install.sql script
+     */
+    public static function onActivate()
+    {
+        // @codeCoverageIgnoreStart
+        // Generated from developer tools, no need to test this
+        self::_dbEvent( 'install.sql.tpl', 'Error activating module: ' );
+        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * On module deactivation callback
+     */
+    public static function onDeactivate()
+    {
+        // @codeCoverageIgnoreStart
+        // Generated from developer tools, no need to test this
+        if ( function_exists( 'module_enabled_count' ) && module_enabled_count( 'oxpswatchlist' ) < 2 ) {
+            self::_dbEvent( 'uninstall.sql', 'Error deactivating module: ' );
+        }
+        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * Executes SQL queries form a file.
+     *
+     * @param string $sSqlFile      SQL file located in module docs folder (usually install.sql or uninstall.sql).
+     * @param string $sFailureError An error message to show on failure.
+     */
+    protected static function _dbEvent( $sSqlFile, $sFailureError = "Operation failed: " )
+    {
+        // @codeCoverageIgnoreStart
+        // Generated from developer tools, no need to test this
+        try {
+            $sSqlDir = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR . $sSqlFile;
+            if ( preg_match( '/\.tpl$/', $sSqlFile ) ) { // If file extension is .tpl
+                /** @var Smarty $oSmarty */
+                $oSmarty = oxRegistry::get( 'oxUtilsView' )->getSmarty();
+                $oSmarty->assign( 'oConfig', oxRegistry::getConfig() );
+                $sSql = $oSmarty->fetch( $sSqlDir );
+            } else {
+                $sSql = file_get_contents( $sSqlDir );
+            }
+
+            $oDb  = oxDb::getDb();
+            $aSql = explode( ';', $sSql );
+
+            if ( !empty( $aSql ) ) {
+                foreach ( $aSql as $sQuery ) {
+                    if ( !empty( $sQuery ) ) {
+                        $oDb->execute( $sQuery );
+                    }
+                }
+            }
+
+            self::cleanTmp();
+        } catch ( Exception $ex ) {
+            error_log( $sFailureError . $ex->getMessage() );
+        }
+        // @codeCoverageIgnoreEnd
+    }
+
+    /**
+     * Delete cache files.
+     *
+     * @return bool
+     */
+    public static function cleanTmp()
+    {
+        // @codeCoverageIgnoreStart
+        // Generated from developer tools, no need to test this
+        if ( class_exists( 'D' ) ) {
+            try {
+                D::c();
+            } catch ( Exception $ex ) {
+                error_log( 'Cache files deletion failed: ' . $ex->getMessage() );
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+        // @codeCoverageIgnoreEnd
+    }
 }
