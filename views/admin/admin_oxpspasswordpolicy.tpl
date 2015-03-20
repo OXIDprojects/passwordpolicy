@@ -1,5 +1,8 @@
 [{include file="headitem.tpl" title="OXPS_PASSWORDPOLICY_ADMIN_TITLE"|oxmultilangassign}]
-
+<form name="transfer" id="transfer" action="[{ $oViewConf->getSelfLink() }]" method="post">
+    [{$oViewConf->getHiddenSid()}]
+    <input type="hidden" name="cl" value="admin_oxpspasswordpolicy">
+</form>
 <table cellspacing="0" cellpadding="0" border="0" width="98%" xmlns="http://www.w3.org/1999/html"
        xmlns="http://www.w3.org/1999/html">
     <tr>
@@ -17,7 +20,10 @@
                 <tr>
                     <td class="edittext">
                         <form name="passwordpolicy_settings" id="passwordpolicy_settings" method="post"
-                              action="[{ $oViewConf->getSelfLink() }]cl=admin_oxpspasswordpolicy&fnc=save">
+                              action="[{$oViewConf->getSelfLink()}]">
+                            [{$oViewConf->getHiddenSid()}]
+                            <input type="hidden" name="cl" value="admin_oxpspasswordpolicy"/>
+                            <input type="hidden" name="fnc" value="save"/>
                             <table cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <th colspan="2">
