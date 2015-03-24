@@ -167,7 +167,7 @@ class OxpsPasswordPolicyModule extends oxView
         }
 
         if (!empty($sError)) {
-            oxRegistry::get("oxUtilsView")->addErrorToDisplay($sError, false, true);
+            oxRegistry::get("oxUtilsView")->addErrorToDisplay($sError);
         }
 
         return $sError;
