@@ -273,7 +273,7 @@ class OxpsPasswordPolicyAttempt extends oxBase
         // @codeCoverageIgnoreStart
         // Not covering default eShop utils
 
-        return oxUtilsServer::getInstance()->getRemoteAddress();
+        return ''; // IP address storage is illegal in Germany
         // @codeCoverageIgnoreEnd
     }
 
