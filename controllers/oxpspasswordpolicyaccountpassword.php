@@ -7,10 +7,10 @@
  * is a violation of the license agreement and will be prosecuted by
  * civil and criminal law.
  *
- * @category  module
- * @package   passwordpolicy
- * @author    OXID Professional services
- * @link      http://www.oxid-esales.com
+ * @category      module
+ * @package       passwordpolicy
+ * @author        OXID Professional services
+ * @link          http://www.oxid-esales.com
  * @copyright (C) OXID eSales AG 2003-2012
  */
 
@@ -81,10 +81,12 @@ class OxpsPasswordPolicyAccountPassword extends OxpsPasswordPolicyAccountPasswor
      */
     public function changePassword()
     {
+        /** @var oxConfig $oConfig */
+        $oConfig = $this->getConfig();
         $oModule = $this->getPasswordPolicy();
 
         // Validate password using password policy rules
-        if (is_object($oModule) and $oModule->validatePassword(oxConfig::getParameter('password_new'))) {
+        if (is_object($oModule) and $oModule->validatePassword($oConfig->getRequestParameter('password_new'))) {
             return false;
         }
 
