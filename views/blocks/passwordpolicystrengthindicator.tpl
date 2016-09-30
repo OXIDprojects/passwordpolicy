@@ -3,9 +3,10 @@
 [{oxscript include=$oViewConf->getModuleUrl("oxpspasswordpolicy", "out/src/js/oxpspasswordpolicy.js")}]
 <div id="password_strength"[{if $smarty.template eq 'form/forgotpwd_change_pwd.tpl' or
                                 $smarty.template eq 'form/user_password.tpl'  }] class="password-change"[{/if}]>
-    <h3 class="blockHead">[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_TITLE" }]</h3>
-
-    <p>[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_MEMO" }] [{$smarty.template}]</p>
+    [{oxifcontent ident="mbgtc_passwordpolicy_hinttext" object="oCont"}]
+        <h3 class="blockHead">[{$oCont->oxcontents__oxtitle->value}]</h3>
+        [{$oCont->oxcontents__oxcontent->value}]
+    [{/oxifcontent}]
 
     <div class="indicator">
         <div id="passwordDescription">[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_NOPASSWORD" }]</div>
@@ -21,7 +22,16 @@
     oxpspasswordpolicy_translations[4] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH4" }]';
     oxpspasswordpolicy_translations[5] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5" }]';
 
+    oxpspasswordpolicy_translations['minlength'] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH" }]';
+    oxpspasswordpolicy_translations['capital']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL" }]';
+    oxpspasswordpolicy_translations['digits']    = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS" }]';
+    oxpspasswordpolicy_translations['special']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL" }]';
+
     var oxpspasswordpolicy_settings = new Array();
     oxpspasswordpolicy_settings['iMinPasswordLength'] = [{ $iMinPasswordLength }];
     oxpspasswordpolicy_settings['iGoodPasswordLength'] = [{ $iGoodPasswordLength }];
+    [{foreach from=$aPasswordRequirements key=key item=item}]
+        oxpspasswordpolicy_settings['[{$key}]'] = [{if 1==$item}]1[{else}]0[{/if}];
+    [{/foreach}]
+
 </script>

@@ -60,7 +60,7 @@ class Admin_OxpsPasswordPolicy extends oxAdminView
     }
 
     /**
-     * @return object Password policy module instance.
+     * @return OxpsPasswordPolicyModule Password policy module instance.
      */
     public function getPasswordPolicy()
     {

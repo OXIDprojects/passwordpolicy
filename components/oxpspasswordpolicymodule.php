@@ -56,7 +56,7 @@ class OxpsPasswordPolicyModule extends oxView
         // @codeCoverageIgnoreStart
         // Not covering eShop default functions
 
-        return $this->getConfig()->getShopConfVar($sName, null, $this->getModuleId());
+        return $this->getConfig()->getConfigParam($sName);
         // @codeCoverageIgnoreEnd
     }
 
@@ -73,7 +73,7 @@ class OxpsPasswordPolicyModule extends oxView
         // @codeCoverageIgnoreStart
         // Not covering eShop default functions
 
-        return $this->getConfig()->saveShopConfVar($sType, $sName, $mValue, null, $this->getModuleId());
+        return $this->getConfig()->saveShopConfVar($sType, $sName, $mValue, null, 'module:' . $this->getModuleId());
         // @codeCoverageIgnoreEnd
     }
 
@@ -101,6 +101,9 @@ class OxpsPasswordPolicyModule extends oxView
 
         foreach ($aSettings as $sName => $sType) {
             $aSettings[$sName] = $this->getShopConfVar($sName);
+            if($sType == 'array' && $aSettings[$sName] === null) {
+                $aSettings[$sName] = array();
+            }
             settype($aSettings[$sName], $sType);
         }
 
@@ -224,7 +227,7 @@ class OxpsPasswordPolicyModule extends oxView
     {
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
-        self::_dbEvent( 'install.sql.tpl', 'Error activating module: ' );
+        self::_dbEvent( 'install.sql', 'Error activating module: ' );
         // @codeCoverageIgnoreEnd
     }
 
