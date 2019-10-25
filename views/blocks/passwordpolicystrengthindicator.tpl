@@ -1,18 +1,19 @@
 [{$smarty.block.parent}]
 [{oxstyle include=$oViewConf->getModuleUrl("oxpspasswordpolicy", "out/src/css/oxpspasswordpolicy.css")}]
 [{oxscript include=$oViewConf->getModuleUrl("oxpspasswordpolicy", "out/src/js/oxpspasswordpolicy.js")}]
-<div id="password_strength"[{if $smarty.template eq 'form/forgotpwd_change_pwd.tpl' or
+<div id="password-indicator-wrapper"[{if $smarty.template eq 'form/forgotpwd_change_pwd.tpl' or
                                 $smarty.template eq 'form/user_password.tpl'  }] class="password-change"[{/if}]>
-    [{oxifcontent ident="mbgtc_passwordpolicy_hinttext" object="oCont"}]
+    [{oxifcontent ident="oxpspasswordpolicy_hinttext" object="oCont"}]
         <h3 class="blockHead">[{$oCont->oxcontents__oxtitle->value}]</h3>
         [{$oCont->oxcontents__oxcontent->value}]
     [{/oxifcontent}]
 
-    <div class="indicator">
-        <div id="passwordDescription">[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_NOPASSWORD" }]</div>
+    <div id="password-indicator">
         <div id="passwordStrength" class="strength0"></div>
+        <div id="passwordStrengthText"></div>
     </div>
 </div>
+
 <script type="text/javascript">
     var oxpspasswordpolicy_translations = new Array();
     oxpspasswordpolicy_translations[0] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH0" }]';

@@ -33,7 +33,7 @@ $aModule = array(
         'en'    =>  'Password validation, strength visualization and expiry rules',
     ),
     "thumbnail"   => "out/pictures/picture.png",
-    "version"     => "0.7.5",
+    "version"     => "0.8.0",
     "author"      => "OXID Professional Services",
     "url"         => "http://www.oxid-sales.com",
     "email"       => "info@oxid-esales.com",
@@ -56,25 +56,20 @@ $aModule = array(
     ),
     'blocks'      => array(
         array(
-            'template' => 'form/user_checkout_registration.tpl',
-            'block'    => 'passwordpolicy_strengthindicator',
+            'template' => 'form/fieldset/user_account.tpl',
+            'block'    => 'user_account_password',
             'file'     => 'views/blocks/passwordpolicystrengthindicator.tpl',
         ),
         array(
             'template' => 'form/forgotpwd_change_pwd.tpl',
-            'block'    => 'passwordpolicy_strengthindicator',
+            'block'    => 'user_account_password',
             'file'     => 'views/blocks/passwordpolicystrengthindicator.tpl',
         ),
         array(
             'template' => 'form/user_password.tpl',
-            'block'    => 'passwordpolicy_strengthindicator',
+            'block'    => 'user_account_password',
             'file'     => 'views/blocks/passwordpolicystrengthindicator.tpl',
-        ),
-        array(
-            'template' => 'form/register.tpl',
-            'block'    => 'passwordpolicy_strengthindicator',
-            'file'     => 'views/blocks/passwordpolicystrengthindicator.tpl',
-        ),
+        )
     ),
     'settings'    => array(
         array( 'name' => 'iMaxAttemptsAllowed', 'type'=>'int', value => 3),

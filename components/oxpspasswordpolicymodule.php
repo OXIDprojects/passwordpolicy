@@ -142,8 +142,7 @@ class OxpsPasswordPolicyModule extends oxView
         $sPassword = (string)$sPassword;
         $sError = '';
         $iPasswordLength = mb_strlen($sPassword, $this->getEncoding());
-        $iPasswordLength_bytes = strlen($sPassword);
-        //TODO: debug if $iPasswordLength_bytes was sohom counting the correct value
+//        $iPasswordLength = strlen($sPassword);
 
         // Load module settings
         $aSettings = $this->getModuleSettings();

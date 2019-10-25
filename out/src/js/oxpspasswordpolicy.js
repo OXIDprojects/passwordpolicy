@@ -2,30 +2,19 @@
  * Password strength live indication.
  */
 
+var error_messages = [];
 jQuery(document).ready(function () {
 
     // Password type event to pass values to strength calculator
-    jQuery('input#passwordNew,input#userPassword, input[name="password_new"]').keyup(function () {
+    jQuery('input#passwordNew,input#userPassword, input[name="password_new"]').on('validation.validation', function () {
         try {
-            passwordStrength(jQuery(this).val());
-            //revalidate on every key if there was already a error message
-            if ($("#validationErrorMessage").length) {
-                $("#validationErrorMessage").empty();
-                passwordValidate(jQuery(this), jQuery(this).val());
-            }
-        } catch (err) {
-        }
-    });
-    // Password validation event to display not fullfilled requirements
-    jQuery('input#passwordNew,input#userPassword, input[name="password_new"]').on('blur', function () {
-        try {
-            if ($("#validationErrorMessage").length) {
-                $("#validationErrorMessage").empty();
-            }
+            error_messages = [];
             passwordValidate(jQuery(this), jQuery(this).val());
         } catch (err) {
         }
+        return error_messages;
     });
+
 });
 
 /**
@@ -67,6 +56,9 @@ function passwordStrength(password) {
     //if password bigger than 6 give 1 point
     if (password.length >= min_length) score++;
 
+    //if password bigger than 12 give 1 point
+    if (password.length >= (min_length * 2)) score++;
+
     //if password has both lower and uppercase characters give 1 point
     if (( password.match(/[a-z]/) ) && ( password.match(/[A-Z]/) )) score++;
 
@@ -79,7 +71,11 @@ function passwordStrength(password) {
     //if password bigger than 12 give another 1 point
     if (password.length >= good_length) score++;
 
-    document.getElementById("passwordDescription").innerHTML = desc[score];
+    if (password.length >= (good_length * 2) ) score++;
+
+    if (score > 5) score = 5;
+
+    $("#passwordStrengthText").text(desc[score]);
     document.getElementById("passwordStrength").className = "strength" + score;
 }
 
@@ -89,6 +85,8 @@ function passwordStrength(password) {
  * @param password
  */
 function passwordValidate(object, password) {
+
+    passwordStrength(password);
 
     // Loading settings
     var min_length = oxpspasswordpolicy_settings['iMinPasswordLength'];
@@ -119,13 +117,8 @@ function passwordValidate(object, password) {
  */
 function validationError(object, errortype) {
 
-    if (!$("#validationErrorMessage").length) {
-        div = '<div id="validationErrorMessage"></div>';
-        object.after(div);
-    }
     // Loading translations
     desc = oxpspasswordpolicy_translations;
 
-    $("#validationErrorMessage").append(desc[errortype] + '<br/>');
-
+    error_messages.push(desc[errortype]);
 }
