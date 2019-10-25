@@ -8,10 +8,7 @@ OXID Professional Services
 oxps
 
 ==Shop Version==
-5.0.x/4.7.x
-
-==Version==
-0.7.1
+6.x
 
 ==Link==
 http://www.oxid-sales.com
@@ -31,37 +28,13 @@ It works very simple - tracks what user is typing and gives strength points for:
 4. Password contains capital (UPPERCASE) letters. (Has no direct relation with Password Policy configuration.)
 5. Password contains special characters (dots, dashes, underscores, etc.) (Has no direct relation with Password Policy configuration.)
 
-NOTE: Those rules work independently - indicator just gives +1 strength for any on requirement fulfilled.
+NOTE: Those rules work independently - indicator just gives +1 strength for any on requirement fulfilled. Double length gives +2.
 
 And the validation on form submit is fully dependent on Password Policy configuration.
 So password strength meter is just an indicator helping to visualize strength, but not a validation mechanism.
 
 ==Installation==
-Execute included install.sql on Your database.
-Replace original templates with custom:
- * For default Azure theme - Just copy everything from changed_full directory to Your eShop root dir.
- * For custom theme - replace it in corresponding location.
-
-==Extend==
-*oxcmp_user
---login
---createUser
-*account_password
---render
---changePassword
-*forgotpwd
---render
---forgotPassword
---updatePassword
-*register
---render
-
-==Modules==
-
-
-==Modified original templates==
-application/views/azure/tpl/form/user_password.tpl
-application/views/azure/tpl/form/register.tpl
+see readme in root folder
 
 ==Uninstall==
 Execute included uninstall.sql on Your database.
