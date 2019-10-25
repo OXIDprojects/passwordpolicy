@@ -68,7 +68,7 @@ class dbMaintenance
 
         while (!$rs->EOF) {
             $sTable = $rs->fields[0];
-            $rs->moveNext();
+            $rs->moveNext(); // @TODO
             if (strpos($sTable, "oxv_")===false) {
                 $aChangesCounter[$sTable]=0;
 
@@ -85,7 +85,7 @@ class dbMaintenance
 
                 if ($rs2 && $rs2->RecordCount()>0) {
                     $rowCount = 1;
-                    while ($aRow = $rs2->fetchRow()) {
+                    while ($aRow = $rs2->fetchRow()) { //@Todo
                     $oxid = $aRow['OXID'];
                     $blNoOXID = false;
                     if ($oxid == "") {
@@ -267,7 +267,7 @@ class dbMaintenance
             $rs = $this->myDB->Query("Select * from ".$sTable);
             if ($rs && $rs->RecordCount()>0) {
                 $rowNum = 1;
-                while ($aRow = $rs->fetchRow()) {
+                while ($aRow = $rs->fetchRow()) { // @TODO
                  $oxid = $aRow['OXID'];
                  if ($oxid == "") {
                      //the tables without oxid (oxsession, oxlogs, oxadminlogs)

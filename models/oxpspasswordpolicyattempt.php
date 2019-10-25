@@ -37,7 +37,6 @@ class OxpsPasswordPolicyAttempt extends oxBase
 
     public function __construct()
     {
-
         // Parent call
         $this->_oxpsPasswordPolicyAttempt_construct_parent();
 
@@ -47,6 +46,7 @@ class OxpsPasswordPolicyAttempt extends oxBase
 
         $this->init('oxpspasswordpolicy_attempt');
     }
+
 
     /**
      * A magic method that makes the class callable.

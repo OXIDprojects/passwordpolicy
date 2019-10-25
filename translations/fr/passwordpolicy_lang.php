@@ -7,40 +7,40 @@
  * is a violation of the license agreement and will be prosecuted by
  * civil and criminal law.
  *
- * @category  translations
- * @package   passwordpolicy
- * @author    OXID Professional services
- * @link      http://www.oxid-esales.com
+ * @category      translations
+ * @package       passwordpolicy
+ * @author        OXID Professional services
+ * @link          http://www.oxid-esales.com
  * @copyright (C) OXID eSales AG 2003-2013
  */
 
-$sLangName = "Français";
+$sLangName = "Deutsch";
 
 $aLang = array(
-    'charset' => 'UTF-8',
-    'passwordpolicy' => '[TR - Password Policy]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_TITLE' => '[TR - Your account was blocked!]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_INFO' => '[TR - Sorry, Your account was blocked. You have entered wrong password too many times in a row.]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_HINT' => '[TR - To avoid this in the future, if You forget Your password, use password reset function.]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_ACTION' => '[TR - You can unblock the account using]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_RESETPASS' => '[TR - Password Reset]',
-    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_CONTACT' => '[TR - For the help with unblocking, please contact Your system administrator.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_TITLE' => '[TR - Make sure Your new password is safe]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_MEMO' => '[TR - Strong password must contain not only letters, but also capital letters, digits and special characters (e.g. dots, dashes, underscores, etc.). And the longer is a password, the better is password strength.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_NOPASSWORD' => '[TR - Password not entered]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH0' => '[TR - Very Weak]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH1' => '[TR - Weak]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH2' => '[TR - Better]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH3' => '[TR - Medium]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH4' => '[TR - Strong]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5' => '[TR - Strongest]',
-    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH' => '[TR] Das Passwort hat nicht genügend Zeichen.',
-    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL'   => '[TR] Das Passwort enthält keine Großbuchstaben.',
-    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS'    => '[TR] Das Passwort enthält keine Ziffer.',
-    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'   => '[TR] Das Passwort muss mindestens eines der folgenden Zeichen enthalten: ! @ # $ % ^ & * ? _ ~ - ( ) ',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG' => '[TR - Password You have entered is too long, please use shorter password.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS' => '[TR - Password must contain at least one digit, please use digits in Your new password.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL' => '[TR - Password must contain at least one capital (UPPERCASE) letter, please use capital letters in Your new password.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => '[TR - Password must contain at least one special character (dot, dash, underscore, etc.), please use special characters in Your new password.]',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE' => '[TR - Invalid type, please make sure You have entered valid value or contact Your system administrator.]',
+    'charset'                                                    => 'UTF-8',
+    'passwordpolicy'                                             => 'Politique de mot de passe',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_TITLE'                   => 'Votre compte a &eacute;t&eacute; bloqu&eacute;.',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_INFO'                    => 'Votre compte a &eacute;t&eacute; bloqu&eacute;. Vous avez saisi votre mot de passe de mani&egrave;re incorrecte un trop grand nombre de fois.',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_HINT'                    => 'Pour &eacute;viter cela &agrave; l&apos;avenir, veuillez utiliser la fonction de r&eacute;initialisation du mot de passe lorsque vous l&apos;avez saisi plusieurs fois de mani&egrave;re incorrecte.',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_ACTION'                  => 'Vous pouvez r&eacute;activer votre compte&nbsp;',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_RESETPASS'               => 'R&eacute;initialiser le mot de passe',
+    'OXPS_PASSWORDPOLICY_ACCOUNTBLOCKED_CONTACT'                 => 'Pour obtenir de l&apos;aide pour la r&eacute;initialisation du mot de passe, veuillez contacter le support.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_TITLE'                 => 'Assurez-vous que votre mot de passe est s&ucirc;r.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_MEMO'                  => 'Les mots de passe forts contiennent minuscules, majuscules, chiffres et caract&egrave;res sp&eacute;ciaux (p.ex. points, tirets, tirets bas). Plus le mot de passe est long, plus il est s&ucirc;r.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_NOPASSWORD'            => 'Aucun mot de passe saisi',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH0'             => 'Tr&egrave;s faible',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH1'             => 'Faible',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH2'             => 'Mieux',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH3'             => 'Moyen',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH4'             => 'Fort',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5'             => 'Tr&egrave;s fort',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH'           => 'Le mot de passe ne contient pas suffisamment de caract&egrave;res.',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL'             => 'Le mot de passe ne contient pas de lettres majuscules.',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS'              => 'Le mot de passe ne contient pas de chiffres.',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'Le mot de passe doit contenir au moins un des caract&egrave;res suivants&nbsp;: ! @ # $ % ^ &amp; * ? _ ~ - ( ) ',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'Le mot de passe est trop long, veuillez en saisir un plus court.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS'  => 'Le mot de passe doit contenir au moins un chiffre.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL' => 'Le mot de passe doit contenir au moins une lettre majuscule (par ex. des points, des tirets, des tirets bas).',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'Le mot de passe doit contenir au moins un caract&egrave;re sp&eacute;cial.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Type erron&eacute;, veuillez saisir une valeur valide. Pour d&apos;autres questions, veuillez contacter le support.',
 );

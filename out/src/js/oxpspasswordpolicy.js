@@ -8,6 +8,11 @@ jQuery(document).ready(function () {
     jQuery('input#passwordNew,input#userPassword, input[name="password_new"]').keyup(function () {
         try {
             passwordStrength(jQuery(this).val());
+            //revalidate on every key if there was already a error message
+            if ($("#validationErrorMessage").length) {
+                $("#validationErrorMessage").empty();
+                passwordValidate(jQuery(this), jQuery(this).val());
+            }
         } catch (err) {
         }
     });

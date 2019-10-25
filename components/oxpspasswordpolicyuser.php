@@ -26,12 +26,18 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
      */
     protected $_oPasswordPolicy;
 
-
     /**
      * Overridden init method, that creates password policy module object.
      */
     public function init()
     {
+        // Introducing the extension's error page controller here...
+        $this->_aAllowedClasses = array_merge(
+            $this->_aAllowedClasses,
+            [
+                'oxpspasswordpolicy'
+            ]
+        );
 
         // Parent init call
         $this->_oxpsPasswordPolicyUser_init_parent();
@@ -126,10 +132,10 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
             $oAttempt = oxNew('OxpsPasswordPolicyAttempt');
             $oAttempt->setUser($oUser);
             $oAttempt->setMaxAttemptsAllowed(
-                (int)$this->getConfig()->getShopConfVar('iMaxAttemptsAllowed', null, 'oxpspasswordpolicy')
+                (int)$this->getConfig()->getShopConfVar('iMaxAttemptsAllowed', null, 'module:oxpspasswordpolicy')
             );
             $oAttempt->setTrackingPeriod(
-                (int)$this->getConfig()->getShopConfVar('iTrackingPeriod', null, 'oxpspasswordpolicy')
+                (int)$this->getConfig()->getShopConfVar('iTrackingPeriod', null, 'module:oxpspasswordpolicy')
             );
 
             if ($this->getLoginStatus() == USER_LOGIN_FAIL) {
@@ -157,7 +163,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
     }
 
     /**
-     * Redirect user to "account blocked" page.
+     * Redirect user to "account blocked" page, when the maximum attempts are reached.
      *
      * @return null
      */

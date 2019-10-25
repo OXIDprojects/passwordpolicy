@@ -11,7 +11,7 @@
  * @package       oxps/${MODULE_NAME}
  * @author        OXID Professional services
  * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2016
+ * @copyright (C) OXID eSales AG 2003-2017
  */
 
 /**
@@ -38,6 +38,18 @@ class oxpsPasswordPolicyCheckoutUser extends oxpsPasswordPolicyCheckoutUser_pare
     }
 
     /**
+     * Parent `init` call. Method required for mocking.
+     *
+     * @return mixed
+     */
+    protected function _oxpsPasswordPolicyUser_init_parent()
+    {
+        // @codeCoverageIgnoreStart
+        return parent::init();
+        // @codeCoverageIgnoreEnd
+    }
+
+    /**
      * Set Password Policy instance
      *
      * @param mixed $mPasswordPolicy
@@ -45,14 +57,6 @@ class oxpsPasswordPolicyCheckoutUser extends oxpsPasswordPolicyCheckoutUser_pare
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
         $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew('OxpsPasswordPolicyModule');
-    }
-
-    /**
-     * @return object Password policy module instance.
-     */
-    public function getPasswordPolicy()
-    {
-        return $this->_oPasswordPolicy;
     }
 
     /**
@@ -71,15 +75,11 @@ class oxpsPasswordPolicyCheckoutUser extends oxpsPasswordPolicyCheckoutUser_pare
     }
 
     /**
-     * Parent `init` call. Method required for mocking.
-     *
-     * @return mixed
+     * @return object Password policy module instance.
      */
-    protected function _oxpsPasswordPolicyUser_init_parent()
+    public function getPasswordPolicy()
     {
-        // @codeCoverageIgnoreStart
-        return parent::init();
-        // @codeCoverageIgnoreEnd
+        return $this->_oPasswordPolicy;
     }
 
     /**

@@ -24,10 +24,16 @@ $sMetadataVersion = '1.1';
  */
 $aModule = array(
     "id"          => "oxpspasswordpolicy",
-    "title"       => "Password Policy",
-    "description" => "Password validation, strength visualization and expiry rules",
+    "title"       => array(
+        'de' => 'Kennwortrichtlinie',
+        'en' => 'Password Policy'
+    ),
+    "description" => array(
+        'de'    =>  'Prüfung der Kennwortstärke, Visualisierung, Abflaufregeln',
+        'en'    =>  'Password validation, strength visualization and expiry rules',
+    ),
     "thumbnail"   => "out/pictures/picture.png",
-    "version"     => "0.7.2",
+    "version"     => "0.7.5",
     "author"      => "OXID Professional Services",
     "url"         => "http://www.oxid-sales.com",
     "email"       => "info@oxid-esales.com",
