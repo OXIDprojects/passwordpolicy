@@ -1,0 +1,20 @@
+{
+  "name": "oxid-professional-services/password-policy",
+  "description": "OXID module for additional password validation, strength visualization and expiry rules.",
+  "type": "oxideshop-module",
+  "keywords": ["oxid", "modules", "eShop", "password", "password-strength", "password-policy"],
+  "license": "GPL-3.0",
+  "require": {
+    "oxid-esales/oxideshop-ce": "^v6.0.0"
+  },
+  "extra": {
+    "oxideshop": {
+      "target-directory": "oxps/passwordpolicy"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "OxidProfessionalServices\\PasswordPolicy\\": "../../../source/modules/oxps/passwordpolicy"
+    }
+  }
+}
