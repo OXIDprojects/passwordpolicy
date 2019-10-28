@@ -1,17 +1,23 @@
 <?php
 /**
- * This Software is the property of OXID eSales and is protected
- * by copyright law - it is NOT Freeware.
+ * This file is part of OXID Professional Services Password Policy module.
  *
- * Any unauthorized use of this software without a valid license key
- * is a violation of the license agreement and will be prosecuted by
- * civil and criminal law.
+ * OXID Professional Services Password Policy module is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * @category  tests
- * @package   passwordpolicy
- * @author    OXID Professional services
- * @link      http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2012
+ * OXID Professional Services Password Policy module is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @author        OXID Professional services
+ * @link          http://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2019
  */
 
 /**
