@@ -42,6 +42,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG' => '[TR - Password You have entered is too long, please use shorter password.]',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS' => '[TR - Password must contain at least one digit, please use digits in Your new password.]',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL' => '[TR - Password must contain at least one capital (UPPERCASE) letter, please use capital letters in Your new password.]',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER'   => 'The password must include at least one lower case letter.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => '[TR - Password must contain at least one special character (dot, dash, underscore, etc.), please use special characters in Your new password.]',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE' => '[TR - Invalid type, please make sure You have entered valid value or contact Your system administrator.]',
 );

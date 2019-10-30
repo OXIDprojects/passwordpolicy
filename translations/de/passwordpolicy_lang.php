@@ -47,7 +47,8 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'Das Passwort muss mindestens eines der folgenden Zeichen enthalten: ! @ # $ % ^ & * ? _ ~ - ( ) ',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'Das Passwort ist zu lang, bitte benutzen Sie ein kürzeres.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS'  => 'Das Passwort muss mindestens eine Zahl enthalten.',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL' => 'Das Passwort muss mindestens einen Großbuchstaben (z.B. Punkte, Bindestriche, Unterstriche) enthalten.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL' => 'Das Passwort muss mindestens einen Großbuchstaben enthalten.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER'   => 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'Das Passwort muss mindestens ein Sonderzeichen Zahl enthalten.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Fehlerhafter Typ, bitte tragen Sie einen validen Wert ein. Bei weiteren Fragen wenden Sie sich an den Support.',
 );
