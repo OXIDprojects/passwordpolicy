@@ -38,6 +38,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIREMENTS_HINT' => 'Types of characters that are mandatory for every new password.',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIREDIGITS' => 'Digits',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIRECAPITAL' => 'Capital (UPPERCASE) letters',
+    'OXPS_PASSWORDPOLICY_ADMIN_REQUIRELOWER'   => 'Lowercase letters',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIRESPECIAL' => 'Special characters',
     'OXPS_PASSWORDPOLICY_ADMIN_SAVED' => 'Settings saved. Note, if some settings were not updated, this means, You have entered invalid values.',
     'OXPS_PASSWORDPOLICY_ADMIN_APPLY_SETTINGS' => 'Apply settings',

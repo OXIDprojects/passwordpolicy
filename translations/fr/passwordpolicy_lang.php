@@ -42,6 +42,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5'             => 'Tr&egrave;s fort',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH'           => 'Le mot de passe ne contient pas suffisamment de caract&egrave;res.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL'             => 'Le mot de passe ne contient pas de lettres majuscules.',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_LOWER'               => 'Le mot de passe ne contient pas de lettres minuscules.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS'              => 'Le mot de passe ne contient pas de chiffres.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'Le mot de passe doit contenir au moins un des caract&egrave;res suivants&nbsp;: ! @ # $ % ^ &amp; * ? _ ~ - ( ) ',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'Le mot de passe est trop long, veuillez en saisir un plus court.',

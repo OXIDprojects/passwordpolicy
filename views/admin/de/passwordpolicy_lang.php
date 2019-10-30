@@ -38,6 +38,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIREMENTS_HINT' => 'Erforderliche Zeichentypen für jedes neue Passwort.',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIREDIGITS' => 'Ziffern',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIRECAPITAL' => 'Großbuchstaben',
+    'OXPS_PASSWORDPOLICY_ADMIN_REQUIRELOWER'   => 'Kleinbuchstaben',
     'OXPS_PASSWORDPOLICY_ADMIN_REQUIRESPECIAL' => 'Sonderzeichen',
     'OXPS_PASSWORDPOLICY_ADMIN_SAVED' => 'Änderungen wurden gespeichert. Falls etwas nicht aktualisert wurde, kann ein falscher Wert die Ursache sein.',
     'OXPS_PASSWORDPOLICY_ADMIN_APPLY_SETTINGS' => 'Speichern',

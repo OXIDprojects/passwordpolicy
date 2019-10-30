@@ -39,7 +39,7 @@ $aModule = array(
         'en'    =>  'Password validation, strength visualization and expiry rules',
     ),
     "thumbnail"   => "out/pictures/picture.png",
-    "version"     => "0.8.3",
+    "version"     => "0.8.4",
     "author"      => "OXID Professional Services",
     "url"         => "http://www.oxid-sales.com",
     "email"       => "info@oxid-esales.com",
@@ -85,9 +85,10 @@ $aModule = array(
         array( 'name' => 'iGoodPasswordLength', 'type'=>'int', value => 12),
         array( 'name' => 'iMaxPasswordLength', 'type'=>'int', value => 100),
         array( 'name' => 'aPasswordRequirements', 'type'=>'aarr', value => array(
-          'digits'=>true,
-          'capital'=>true,
-          'special'=>true
+            'digits'=>true,
+            'capital'=>true,
+            'special'=>true,
+            'lower'=>true,
         ))
     ),
     'events'      => array(

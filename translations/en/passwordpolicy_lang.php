@@ -42,6 +42,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5'             => 'Very strong',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH'           => 'The password is too short.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL'             => 'Please enter at least one capital letter.',
+    'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_LOWER'               => 'Please enter at least one lower case letter.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS'              => 'Please enter at least one number.',
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'The password must include at least one of the following characters: ! @ # $ % ^ &amp; * ? _ ~ - ( ) ',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'The password is too long. Please enter a shorter one.',

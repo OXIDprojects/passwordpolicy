@@ -25,6 +25,7 @@
 
     oxpspasswordpolicy_translations['minlength'] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH" }]';
     oxpspasswordpolicy_translations['capital']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL" }]';
+    oxpspasswordpolicy_translations['lower']     = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_LOWER" }]';
     oxpspasswordpolicy_translations['digits']    = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS" }]';
     oxpspasswordpolicy_translations['special']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL" }]';
 

@@ -170,6 +170,10 @@ class OxpsPasswordPolicyModule extends oxView
             $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESCAPITAL';
         }
 
+        if (!empty($aSettings['aPasswordRequirements']['lower']) and !preg_match('(\p{Ll}+)', $sPassword)) {
+            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER';
+        }
+
         if (!empty($aSettings['aPasswordRequirements']['special']) and
             !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
         ) {
