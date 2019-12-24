@@ -21,8 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     container: oxidprojects/oxid-test:${{matrix.tag}}
     env:
-      MODULE_NAME: 
-  "name": "oxid-professional-services/password-policy
+      MODULE_NAME: oxpspasswordpolicy
     steps:
     - uses: actions/checkout@v1
 
