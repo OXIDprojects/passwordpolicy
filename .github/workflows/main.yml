@@ -21,7 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     container: oxidprojects/oxid-test:${{matrix.tag}}
     env:
-      MODULE_NAME: moduleinternals
+      MODULE_NAME: 
+  "name": "oxid-professional-services/password-policy
     steps:
     - uses: actions/checkout@v1
 
@@ -39,6 +40,7 @@ jobs:
         MD=$(pwd)
         cd /var/www/oxid/
         php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor $MD
+
     - name: runt tests
       run: |
         cd /var/www/oxid/
