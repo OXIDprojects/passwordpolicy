@@ -164,7 +164,7 @@ class OxpsPasswordPolicyAttempt extends oxBase
         $sUserOxid = $this->_getUserOxid();
 
         if (!empty($sUserOxid)) {
-            $view = getViewName('oxpspasswordpolicy_attempt')
+            $view = getViewName('oxpspasswordpolicy_attempt');
             $sQuery = "SELECT `OXID` FROM `$view`
                 WHERE `OXUSERID` = ? AND `OXPSTIME` >= ?
                 HAVING COUNT(`OXID`) >= ?";
