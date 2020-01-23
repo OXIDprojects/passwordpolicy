@@ -6,6 +6,18 @@
 
 OXID module for additional password validation, strength visualization and expiry rules.
 
+# Professional Support
+
+Do you like to use this project in a commercial project in a live environment? 
+Better request profession support which may include depending on the contract:
+
+- free updates
+- installation support
+- feature implementation
+- bug fixes
+
+Please contact professional-services@oxid-esales.com to get a offer.
+
 
 ## Installation
 
