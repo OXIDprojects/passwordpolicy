@@ -8,10 +8,10 @@ OXID module for additional password validation, strength visualization and expir
 
 # Professional Support
 
-Your or you client need this module in a reliable environment to make serious businness?
-Better request professional support now.
+Do you or your client need this module in a stable and reliable environment?
+Then request your professional support right now.
 
-The support contract will fit to your needs and may include things like:
+Contact us for a support contract that fit to your needs and may include things like:
 
 - feature implementation
 - free updates
