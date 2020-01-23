@@ -171,7 +171,7 @@ class OxpsPasswordPolicyAttempt extends oxBase
 
             $mResults = oxDb::getDb()->select($sQuery,
                 [$sUserOxid, $this->_getTimeMargin(), $this->getMaxAttemptsAllowed()]
-            ));
+            );
 
             return !empty($mResults->fields[0]);
         }
