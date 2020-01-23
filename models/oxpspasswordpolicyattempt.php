@@ -164,22 +164,16 @@ class OxpsPasswordPolicyAttempt extends oxBase
         $sUserOxid = $this->_getUserOxid();
 
         if (!empty($sUserOxid)) {
-            // @codeCoverageIgnoreStart
-            // Not covering database queries
+            $view = getViewName('oxpspasswordpolicy_attempt')
+            $sQuery = "SELECT `OXID` FROM `$view`
+                WHERE `OXUSERID` = ? AND `OXPSTIME` >= ?
+                HAVING COUNT(`OXID`) >= ?";
 
-            $sQuery = "SELECT `OXID` FROM `%s`
-                WHERE `OXUSERID` = %s AND `OXPSTIME` >= %s
-                HAVING COUNT(`OXID`) >= %d";
-
-            $mResults = oxDb::getDb()->execute(sprintf($sQuery,
-                getViewName('oxpspasswordpolicy_attempt'),
-                oxDb::getDb()->quote($sUserOxid),
-                oxDb::getDb()->quote($this->_getTimeMargin()),
-                $this->getMaxAttemptsAllowed()
+            $mResults = oxDb::getDb()->select($sQuery,
+                [$sUserOxid, $this->_getTimeMargin(), $this->getMaxAttemptsAllowed()]
             ));
 
             return !empty($mResults->fields[0]);
-            // @codeCoverageIgnoreEnd
         }
 
         return false;
