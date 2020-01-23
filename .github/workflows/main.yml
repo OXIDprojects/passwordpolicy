@@ -3,30 +3,37 @@ name: oxid module tests
 on: [push]
 
 jobs:
+  stand_alone_checks:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1   
+    - name: Validate composer.json
+      run: composer validate   
+    - name: validate php syntax
+      run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+    - name: install phpcs
+      run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+    - name: phpcs psr12
+      run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
+#    - name: phplint, phpmd ...  
 
   build:
+    needs: stand_alone_checks
     strategy:
       matrix:
-        tag: [v2_6.1_php7.1, v2_6.2-rc_php7.1, v2_dev-master_php7.2]   
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: oxid
-        ports:
-          - 3306
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
-
+        php: [7.1, 7.2]
+        oxid: [6.1, 6.2-rc, dev-master]
+        exclude:
+          - oxid: dev-master
+            php: 7.1
     runs-on: ubuntu-latest
-    container: oxidprojects/oxid-test:${{matrix.tag}}
+    container:
+      image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
+      options: -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     env:
       MODULE_NAME: oxpspasswordpolicy
     steps:
     - uses: actions/checkout@v1
-
-    - name: Validate composer.json and composer.lock
-      run: composer validate
 
     - name: setup oxid
       run: bash /var/www/oxid/setup.sh
@@ -34,12 +41,6 @@ jobs:
     - name: debug
       run: cat /var/www/oxid/test_config.yml
  
-    - name: phpcs
-      run: |
-        MD=$(pwd)
-        cd /var/www/oxid/
-        php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor $MD
-
     - name: runt tests
       run: |
         cd /var/www/oxid/
