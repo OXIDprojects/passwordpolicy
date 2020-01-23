@@ -1,5 +1,7 @@
 # Password Policy
 
+![](password_policy.png)
+
 ----
 
 OXID module for additional password validation, strength visualization and expiry rules.
