@@ -11,12 +11,12 @@ OXID module for additional password validation, strength visualization and expir
 Do you like to use this project in a commercial project in a live environment? 
 Better request profession support which may include depending on the contract:
 
+- feature implementation
 - free updates
 - installation support
-- feature implementation
 - bug fixes
 
-Please contact professional-services@oxid-esales.com to get a offer.
+Please contact professional-services@oxid-esales.com to get an offer.
 
 
 ## Installation
