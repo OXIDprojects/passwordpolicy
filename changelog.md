@@ -1,3 +1,9 @@
+# 0.8.6
+- fix settings in metadata 
+related issue: https://github.com/OXIDprojects/passwordpolicy/issues/2
+related pull request: https://github.com/OXIDprojects/passwordpolicy/pull/1
+
+
 # 0.8.5
 - fix bug that caused 
 message Cannot execute queries while other unbuffered queries are active. Consider using PDOStatement::fetchAll(). Alternatively, if your code is only ever going to run against mysql, you may enable query buffering by setting the PDO::MYSQL_ATTR_USE_BUFFERED_QUERY attribute.
