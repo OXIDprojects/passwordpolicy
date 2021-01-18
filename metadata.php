@@ -40,7 +40,7 @@ $aModule = array(
         'en' => 'Password validation, strength visualization and expiry rules',
     ),
     'thumbnail' => 'out/pictures/picture.png',
-    'version' => '0.8.5',
+    'version' => '0.8.6',
     'author' => 'OXID Professional Services',
     'url' => 'http://www.oxid-sales.com',
     'email' => 'info@oxid-esales.com',
