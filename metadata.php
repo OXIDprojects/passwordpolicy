@@ -17,83 +17,86 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
 
 /**
  * Metadata version
  */
-$sMetadataVersion = '1.1';
+$sMetadataVersion = '2.1';
 
 /**
  * Module information
  */
-$aModule = array(
+$aModule = [
     'id' => 'oxpspasswordpolicy',
-    'title' => array(
+    'title' => [
         'de' => 'Kennwortrichtlinie',
         'en' => 'Password Policy'
-    ),
-    'description' => array(
+    ],
+    'description' => [
         'de' => 'Prüfung der Kennwortstärke, Visualisierung, Abflaufregeln',
         'en' => 'Password validation, strength visualization and expiry rules',
-    ),
+    ],
     'thumbnail' => 'out/pictures/picture.png',
-    'version' => '0.8.6',
+    'version' => '1.0.0',
     'author' => 'OXID Professional Services',
     'url' => 'http://www.oxid-sales.com',
     'email' => 'info@oxid-esales.com',
-    'extend' => array(
-        'oxcmp_user' => 'oxps/passwordpolicy/components/oxpspasswordpolicyuser',
-        'account_password' => 'oxps/passwordpolicy/controllers/oxpspasswordpolicyaccountpassword',
-        'forgotpwd' => 'oxps/passwordpolicy/controllers/oxpspasswordpolicyforgotpwd',
-        'register' => 'oxps/passwordpolicy/controllers/oxpspasswordpolicyregister',
-        'user' => 'oxps/passwordpolicy/controllers/oxpspasswordpolicycheckoutuser',
-    ),
-    'files' => array(
-        'oxpspasswordpolicymodule' => 'oxps/passwordpolicy/components/oxpspasswordpolicymodule.php',
-        'oxpspasswordpolicy' => 'oxps/passwordpolicy/controllers/oxpspasswordpolicy.php',
-        'oxpspasswordpolicyattempt' => 'oxps/passwordpolicy/models/oxpspasswordpolicyattempt.php',
-        'admin_oxpspasswordpolicy' => 'oxps/passwordpolicy/controllers/admin/admin_oxpspasswordpolicy.php',
-    ),
-    'templates' => array(
+    'extend' => [
+        \OxidEsales\Eshop\Application\Component\UserComponent::class
+            => \OxidProfessionalServices\PasswordPolicy\Component\UserComponent::class,
+        \OxidEsales\Eshop\Application\Controller\AccountPasswordController::class
+            => \OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController::class,
+        \OxidEsales\Eshop\Application\Controller\ForgotPasswordController::class
+            => \OxidProfessionalServices\PasswordPolicy\Controller\ForgotPasswordController::class,
+        \OxidEsales\Eshop\Application\Controller\RegisterController::class
+            => \OxidProfessionalServices\PasswordPolicy\Controller\RegisterController::class,
+        \OxidEsales\Eshop\Application\Controller\UserController::class
+            => \OxidProfessionalServices\PasswordPolicy\Controller\UserController::class,
+        ],
+    'controllers' => [
+        'oxpspasswordpolicy' => \OxidProfessionalServices\PasswordPolicy\Controller\OxpsPasswordPolicy::class,
+        'admin_oxpspasswordpolicy' => \OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin::class,
+    ],
+    'templates' => [
         'passwordpolicyaccountblocked.tpl' => 'oxps/passwordpolicy/views/pages/passwordpolicyaccountblocked.tpl',
         'admin_oxpspasswordpolicy.tpl' => 'oxps/passwordpolicy/views/admin/admin_oxpspasswordpolicy.tpl',
-    ),
-    'blocks' => array(
-        array(
+    ],
+    'blocks' => [
+        [
             'template' => 'form/fieldset/user_account.tpl',
             'block' => 'user_account_password',
             'file' => 'views/blocks/passwordpolicystrengthindicator.tpl',
-        ),
-        array(
+        ],
+        [
             'template' => 'form/forgotpwd_change_pwd.tpl',
             'block' => 'user_account_password',
             'file' => 'views/blocks/passwordpolicystrengthindicator.tpl',
-        ),
-        array(
+        ],
+        [
             'template' => 'form/user_password.tpl',
             'block' => 'user_account_password',
             'file' => 'views/blocks/passwordpolicystrengthindicator.tpl',
-        )
-    ),
-    'settings' => array(
-        array('name' => 'iMaxAttemptsAllowed', 'type' => 'int', 'value' => 3),
-        array('name' => 'iTrackingPeriod', 'type' => 'int', 'value' => 60),
-        array('name' => 'blAllowUnblock', 'type' => 'bool', 'value' => false),
-        array('name' => 'iMinPasswordLength', 'type' => 'int', 'value' => 6),
-        array('name' => 'iGoodPasswordLength', 'type' => 'int', 'value' => 12),
-        array('name' => 'iMaxPasswordLength', 'type' => 'int', 'value' => 100),
-        array('name' => 'aPasswordRequirements', 'type' => 'aarr', 'value' => array(
+        ]
+    ],
+    'settings' => [
+        ['name' => 'iMaxAttemptsAllowed', 'type' => 'int', 'value' => 3],
+        ['name' => 'iTrackingPeriod', 'type' => 'int', 'value' => 60],
+        ['name' => 'blAllowUnblock', 'type' => 'bool', 'value' => false],
+        ['name' => 'iMinPasswordLength', 'type' => 'int', 'value' => 6],
+        ['name' => 'iGoodPasswordLength', 'type' => 'int', 'value' => 12],
+        ['name' => 'iMaxPasswordLength', 'type' => 'int', 'value' => 100],
+        ['name' => 'aPasswordRequirements', 'type' => 'aarr', 'value' => [
             'digits' => true,
             'capital' => true,
             'special' => true,
             'lower' => true,
-        ))
-    ),
-    'events' => array(
-        'onActivate' => 'OxpsPasswordPolicyModule::onActivate',
-        'onDeactivate' => 'OxpsPasswordPolicyModule::onDeactivate',
-    ),
-);
+        ]]
+    ],
+    'events' => [
+        'onActivate' => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::onActivate',
+        'onDeactivate' => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::onDeactivate',
+    ],
+];

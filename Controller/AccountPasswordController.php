@@ -16,14 +16,18 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
+
+namespace OxidProfessionalServices\PasswordPolicy\Controller;
+
+use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
  * Password policy main controller
  */
-class OxpsPasswordPolicyAccountPassword extends OxpsPasswordPolicyAccountPassword_parent
+class AccountPasswordController extends AccountPasswordController_parent
 {
 
     /**
@@ -52,7 +56,7 @@ class OxpsPasswordPolicyAccountPassword extends OxpsPasswordPolicyAccountPasswor
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew('OxpsPasswordPolicyModule');
+        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**

@@ -20,6 +20,8 @@
  * @copyright (C) OXID eSales AG 2003-2019
  */
 
+use oxpspasswordpolicyattempt;
+
 /**
  * Tests for "OxpsPasswordPolicyUser" class
  */

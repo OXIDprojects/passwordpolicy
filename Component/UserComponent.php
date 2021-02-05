@@ -16,15 +16,20 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
+
+namespace OxidProfessionalServices\PasswordPolicy\Component;
+
+use \OxidEsales\Eshop\Core\Registry;
+use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use \OxidProfessionalServices\PasswordPolicy\Model\Attempt;
 
 /**
  * Extend user component to intercept login failures
  */
-
-class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
+class UserComponent extends UserComponent_parent
 {
 
     /**
@@ -38,6 +43,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
     public function init()
     {
         // Introducing the extension's error page controller here...
+        // @Todo: Ensure whitelist name is still valid
         $this->_aAllowedClasses = array_merge(
             $this->_aAllowedClasses,
             [
@@ -58,7 +64,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew('OxpsPasswordPolicyModule');
+        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**
@@ -81,7 +87,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
         $oUser = oxNew('oxUser');
 
         // Try loading user by username
-        $iUserId = $oUser->getIdByUserName(oxRegistry::getConfig()->getRequestParameter('lgn_usr'));
+        $iUserId = $oUser->getIdByUserName(Registry::getConfig()->getRequestParameter('lgn_usr'));
 
         // Continue with login attempts logic only if user id valid and user is loaded
         if (!empty($iUserId) and $oUser->load($iUserId) and $oUser->getId()) {
@@ -100,7 +106,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
     {
         // Validate password using password policy rules
         $oModule = $this->getPasswordPolicy();
-        $oConfig = oxRegistry::getConfig();
+        $oConfig = Registry::getConfig();
 
         if (is_object($oModule) and $oConfig->getRequestParameter('lgn_pwd') and
                                     $oModule->validatePassword($oConfig->getRequestParameter('lgn_pwd'))
@@ -135,7 +141,7 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
             }
 
             // Create attempts object and assign user
-            $oAttempt = oxNew('OxpsPasswordPolicyAttempt');
+            $oAttempt = oxNew(Attempt::class);
             $oAttempt->setUser($oUser);
             $oAttempt->setMaxAttemptsAllowed(
                 (int)$this->getConfig()->getShopConfVar('iMaxAttemptsAllowed', null, 'module:oxpspasswordpolicy')
@@ -178,8 +184,8 @@ class OxpsPasswordPolicyUser extends OxpsPasswordPolicyUser_parent
         // @codeCoverageIgnoreStart
         // Not covering redirects.
 
-        oxRegistry::getUtils()->redirect(
-            oxRegistry::getConfig()->getShopHomeURL() . 'cl=oxpspasswordpolicy',
+        Registry::getUtils()->redirect(
+            Registry::getConfig()->getShopHomeURL() . 'cl=oxpspasswordpolicy',
             false,
             302
         );

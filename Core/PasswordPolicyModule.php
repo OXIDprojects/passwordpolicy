@@ -32,7 +32,14 @@
  * @todo-nice2have (?) Think of checking if user really logged in before 
 redirecting to blocked page
  */
-class OxpsPasswordPolicyModule extends oxView
+
+namespace OxidProfessionalServices\PasswordPolicy\Core;
+
+use \OxidEsales\Eshop\Core\Registry;
+use \OxidEsales\Eshop\Core\Model\BaseModel;
+use \OxidEsales\Eshop\Core\DatabaseProvider;
+
+class PasswordPolicyModule extends BaseModel
 {
 
     /**
@@ -181,7 +188,7 @@ class OxpsPasswordPolicyModule extends oxView
         }
 
         if (!empty($sError)) {
-            oxRegistry::get("oxUtilsView")->addErrorToDisplay($sError);
+            Registry::get("oxUtilsView")->addErrorToDisplay($sError);
         }
 
         return $sError;
@@ -269,19 +276,19 @@ class OxpsPasswordPolicyModule extends oxView
             $sSqlDir = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR . $sSqlFile;
             if ( preg_match( '/\.tpl$/', $sSqlFile ) ) { // If file extension is .tpl
                 /** @var Smarty $oSmarty */
-                $oSmarty = oxRegistry::get( 'oxUtilsView' )->getSmarty();
-                $oSmarty->assign( 'oConfig', oxRegistry::getConfig() );
+                $oSmarty = Registry::get( 'oxUtilsView' )->getSmarty();
+                $oSmarty->assign( 'oConfig', Registry::getConfig() );
                 $sSql = $oSmarty->fetch( $sSqlDir );
             } else {
                 $sSql = file_get_contents( $sSqlDir );
             }
 
-            $oDb  = oxDb::getDb();
+            $oDb  = DatabaseProvider::getDb();
             $aSql = explode( ';', $sSql );
 
             if ( !empty( $aSql ) ) {
                 foreach ( $aSql as $sQuery ) {
-                    if ( !empty( $sQuery ) ) {
+                    if ( !empty( $sQuery ) || !empty(trim($sQuery)) ) {
                         $oDb->execute( $sQuery );
                     }
                 }

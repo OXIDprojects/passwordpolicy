@@ -16,9 +16,14 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
+
+namespace OxidProfessionalServices\PasswordPolicy\Controller;
+
+use \OxidEsales\Eshop\Core\Registry;
+use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
  * Password policy main controller
@@ -40,9 +45,9 @@ class OxpsPasswordPolicy extends oxUBase
      */
     public function render()
     {
-        $oModule = oxNew('OxpsPasswordPolicyModule');
+        $oModule = oxNew(PasswordPolicyModule::class);
 
-        $this->_aViewData['sShopUrl'] = oxRegistry::getConfig()->getShopUrl();
+        $this->_aViewData['sShopUrl'] = Registry::getConfig()->getShopUrl();
         $this->_aViewData['blAllowUnblock'] = (bool)$oModule->getModuleSetting('blAllowUnblock');
 
         // Parent render call

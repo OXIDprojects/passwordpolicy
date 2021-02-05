@@ -16,21 +16,24 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
 
+namespace OxidProfessionalServices\PasswordPolicy\Controller;
+
+use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+
 /**
- * Overridden registration controller.
+ * Class oxpsPasswordPolicyUser
  */
-class OxpsPasswordPolicyRegister extends OxpsPasswordPolicyRegister_parent
+class UserController extends UserController_parent
 {
 
     /**
      * @var object $_oPasswordPolicy Password policy module instance.
      */
     protected $_oPasswordPolicy;
-
 
     /**
      * Overridden init method, that creates password policy module object.
@@ -39,9 +42,21 @@ class OxpsPasswordPolicyRegister extends OxpsPasswordPolicyRegister_parent
     {
 
         // Parent call
-        $this->_oxpsPasswordPolicyRegister_init_parent();
+        $this->_oxpsPasswordPolicyUser_init_parent();
 
         $this->setPasswordPolicy();
+    }
+
+    /**
+     * Parent `init` call. Method required for mocking.
+     *
+     * @return mixed
+     */
+    protected function _oxpsPasswordPolicyUser_init_parent()
+    {
+        // @codeCoverageIgnoreStart
+        return parent::init();
+        // @codeCoverageIgnoreEnd
     }
 
     /**
@@ -51,15 +66,7 @@ class OxpsPasswordPolicyRegister extends OxpsPasswordPolicyRegister_parent
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew('OxpsPasswordPolicyModule');
-    }
-
-    /**
-     * @return object Password policy module instance.
-     */
-    public function getPasswordPolicy()
-    {
-        return $this->_oPasswordPolicy;
+        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**
@@ -74,20 +81,15 @@ class OxpsPasswordPolicyRegister extends OxpsPasswordPolicyRegister_parent
         $this->_aViewData = array_merge($this->_aViewData, $this->getPasswordPolicy()->getModuleSettings());
 
         // Parent call
-        return $this->_oxpsPasswordPolicyRegister_render_parent();
+        return $this->_oxpsPasswordPolicyUser_render_parent();
     }
 
-
     /**
-     * Parent `init` call. Method required for mocking.
-     *
-     * @return mixed
+     * @return object Password policy module instance.
      */
-    protected function _oxpsPasswordPolicyRegister_init_parent()
+    public function getPasswordPolicy()
     {
-        // @codeCoverageIgnoreStart
-        return parent::init();
-        // @codeCoverageIgnoreEnd
+        return $this->_oPasswordPolicy;
     }
 
     /**
@@ -95,7 +97,7 @@ class OxpsPasswordPolicyRegister extends OxpsPasswordPolicyRegister_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyRegister_render_parent()
+    protected function _oxpsPasswordPolicyUser_render_parent()
     {
         // @codeCoverageIgnoreStart
         return parent::render();

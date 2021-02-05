@@ -16,14 +16,19 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
+
+namespace OxidProfessionalServices\PasswordPolicy\Model;
+
+use \OxidEsales\Eshop\Core\Model\BaseModel;
+use \OxidEsales\Eshop\Core\DatabaseProvider;
 
 /**
  * Password entry attempts tracking model
  */
-class OxpsPasswordPolicyAttempt extends oxBase
+class OxpsPasswordPolicyAttempt extends BaseModel
 {
     /**
      * @var oxUser
@@ -41,6 +46,9 @@ class OxpsPasswordPolicyAttempt extends oxBase
     protected $_iTrackingPeriod;
 
 
+    /**
+     * OxpsPasswordPolicyAttempt constructor. Initialises the model with the corresponding database table.
+     */
     public function __construct()
     {
         // Parent call
@@ -169,7 +177,7 @@ class OxpsPasswordPolicyAttempt extends oxBase
                 WHERE `OXUSERID` = ? AND `OXPSTIME` >= ?
                 HAVING COUNT(`OXID`) >= ?";
 
-            $mResults = oxDb::getDb()->select($sQuery,
+            $mResults = DatabaseProvider::getDb()->select($sQuery,
                 [$sUserOxid, $this->_getTimeMargin(), $this->getMaxAttemptsAllowed()]
             );
 
@@ -195,16 +203,16 @@ class OxpsPasswordPolicyAttempt extends oxBase
         if (!empty($sUserOxid)) {
 
             // Clause to delete only defined user attempts
-            $sUserClause = "`OXUSERID` = " . oxDb::getDb()->quote($sUserOxid);
+            $sUserClause = "`OXUSERID` = " . DatabaseProvider::getDb()->quote($sUserOxid);
         } else {
 
             // Clause to delete only expired entries (older than tracking period)
-            $sUserClause = "`OXPSTIME` < " . oxDb::getDb()->quote($this->_getTimeMargin());
+            $sUserClause = "`OXPSTIME` < " . DatabaseProvider::getDb()->quote($this->_getTimeMargin());
         }
 
         $sQuery = "DELETE FROM `%s` WHERE %s";
 
-        return (bool)oxDb::getDb()->execute(sprintf($sQuery, getViewName('oxpspasswordpolicy_attempt'), $sUserClause));
+        return (bool)DatabaseProvider::getDb()->execute(sprintf($sQuery, getViewName('oxpspasswordpolicy_attempt'), $sUserClause));
         // @codeCoverageIgnoreEnd
     }
 
