@@ -9,7 +9,7 @@
   },
   "require-dev": {
 
-  }
+  },
   "extra": {
     "oxideshop": {
       "target-directory": "oxps/passwordpolicy"

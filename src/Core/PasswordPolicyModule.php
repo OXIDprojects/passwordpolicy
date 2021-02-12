@@ -275,7 +275,7 @@ class PasswordPolicyModule extends BaseModel
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
         try {
-            $sSqlDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR . $sSqlFile;
+            $sSqlDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . '../docs' . DIRECTORY_SEPARATOR . $sSqlFile;
             if (preg_match('/\.tpl$/', $sSqlFile)) { // If file extension is .tpl
                 /** @var Smarty $oSmarty */
                 $oSmarty = Registry::get('oxUtilsView')->getSmarty();
