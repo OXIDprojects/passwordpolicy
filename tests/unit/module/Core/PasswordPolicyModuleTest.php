@@ -21,13 +21,13 @@
  */
 
 /**
- * Tests for "OxpsPasswordPolicyModule" class
+ * Tests for "PasswordPolicyModule" class
  */
-class Unit_Module_Components_OxpsPasswordPolicyModuleTest extends OxidTestCase
+class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
 {
 
     /**
-     * @var OxpsPasswordPolicyModule
+     * @var \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule
      */
     protected $SUT;
 
@@ -41,10 +41,10 @@ class Unit_Module_Components_OxpsPasswordPolicyModuleTest extends OxidTestCase
     {
         parent::setUp();
 
-        $this->SUT = oxNew('OxpsPasswordPolicyModule');
+        $this->SUT = oxNew(\OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::class);
 
         // Set default oxConfig mock
-        oxRegistry::set("oxConfig", new oxConfigMock());
+        \OxidEsales\Eshop\Core\Registry::set("oxConfig", new oxConfigMock());
     }
 
 
@@ -354,7 +354,7 @@ class Unit_Module_Components_OxpsPasswordPolicyModuleTest extends OxidTestCase
         $oUtilsViewMock->expects($this->any())->method('addErrorToDisplay')
             ->with($this->anything(), false, true);
 
-        oxRegistry::set("oxUtilsView", $oUtilsViewMock);
+        \OxidEsales\Eshop\Core\Registry::set("oxUtilsView", $oUtilsViewMock);
     }
 }
 

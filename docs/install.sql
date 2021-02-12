@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS `oxpspasswordpolicy_attempt` (
   `OXPSIP` varchar(64) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`OXID`),
   KEY `OXUSERID` (`OXUSERID`)
-) ENGINE=Innodb DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=Innodb DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci

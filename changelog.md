@@ -1,3 +1,12 @@
+# 1.0.0
+* Reworked the module to match the metadata 2.1 specifications
+* Introduced namespaces
+* Changed the folder structure and class names to be closer to PSR-4
+* Fixed an error with the installer that occurred when attempting to enable the module repeatedly
+* Changed layout by having the indicator directly blow the password field
+* Workaround for key up validation 
+
+
 # 0.8.6
 - fix settings in metadata 
 related issue: https://github.com/OXIDprojects/passwordpolicy/issues/2

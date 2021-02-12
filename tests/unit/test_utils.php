@@ -89,7 +89,7 @@ function oxAddClassModule( $sModuleClass, $sClass )
     $aModules = $oFactory->getModuleVar( "aModules" );
 
     //unsetting _possible_ registry instance
-    oxRegistry::set( $sClass, null );
+    \OxidEsales\Eshop\Core\Registry::set( $sClass, null );
 
     if ( $aModules[strtolower( $sClass )] )
         $sModuleClass = $aModules[strtolower( $sClass )] . '&' . $sModuleClass;
@@ -107,7 +107,7 @@ function oxRemClassModule( $sModuleClass, $sClass = '' )
     //$aModules = $myConfig->getConfigParam( 'aModules' );
 
     //unsetting _possible_ registry instance
-    oxRegistry::set( $sClass, null );
+    \OxidEsales\Eshop\Core\Registry::set( $sClass, null );
 
     $oFactory = new oxUtilsObject();
     $aModules = $oFactory->getModuleVar( "aModules" );
@@ -284,7 +284,7 @@ class oxTestModules
      */
     public static function addModuleObject( $sClassName, $oObject )
     {
-        oxRegistry::set( $sClassName, null );
+        \OxidEsales\Eshop\Core\Registry::set( $sClassName, null );
         oxUtilsObject::setClassInstance( $sClassName, $oObject );
         /*
         $sClassName = strtolower($sClassName);
@@ -1158,8 +1158,8 @@ class oxTestModuleLoader
     {
         // if theres a chain already saved and is not empty
         if ( count( self::$_aChain ) ) {
-            oxRegistry::getConfig()->setConfigParam( "aModules", self::$_aChain );
-            oxRegistry::get( "oxUtilsObject" )->setModuleVar( "aDisabledModules", array() );
+            \OxidEsales\Eshop\Core\Registry::getConfig()->setConfigParam( "aModules", self::$_aChain );
+            \OxidEsales\Eshop\Core\Registry::get( "oxUtilsObject" )->setModuleVar( "aDisabledModules", array() );
         }
     }
 

@@ -5,8 +5,25 @@
 var error_messages = [];
 jQuery(document).ready(function () {
 
+    var wrapper = jQuery('#password-indicator-wrapper');
+    let block = wrapper.parent();
+    var passwordDiv = block.find('div').first();
+    var helpblock = block.find('.help-block');
+
+    passwordDiv.append(wrapper);
+    if (helpblock) {
+        passwordDiv.append(helpblock);
+    }
+    wrapper.show();
+
+    let pswField = jQuery('input#passwordNew,input#userPassword, input[name="password_new"]');
+    pswField.on('keyup', function () {
+        //workaround for current oxid validation that does not do validation on keyup
+        //keyup is important for valuidation because at this point the value is changed and validation will notice change
+        jQuery(this).trigger('keydown');
+    });
     // Password type event to pass values to strength calculator
-    jQuery('input#passwordNew,input#userPassword, input[name="password_new"]').on('validation.validation', function () {
+    pswField.on('validation.validation', function () {
         try {
             error_messages = [];
             passwordValidate(jQuery(this), jQuery(this).val());
@@ -23,6 +40,7 @@ jQuery(document).ready(function () {
  * @param password
  */
 function passwordStrength(password) {
+    var desc;
     try {
 
         // Loading translations
@@ -30,7 +48,7 @@ function passwordStrength(password) {
     } catch (err) {
 
         // Use hardcoded default  values
-        var desc = new Array();
+        desc = [];
         desc[0] = "Very Weak";
         desc[1] = "Weak";
         desc[2] = "Better";
@@ -38,17 +56,18 @@ function passwordStrength(password) {
         desc[4] = "Strong";
         desc[5] = "Strongest";
     }
-
+    var min_length;
+    var good_length;
     try {
 
         // Loading settings
-        var min_length = oxpspasswordpolicy_settings['iMinPasswordLength'];
-        var good_length = oxpspasswordpolicy_settings['iGoodPasswordLength'];
+        min_length = oxpspasswordpolicy_settings['iMinPasswordLength'];
+        good_length = oxpspasswordpolicy_settings['iGoodPasswordLength'];
     } catch (err) {
 
         // Use hardcoded default  values
-        var min_length = 6;
-        var good_length = 12;
+        min_length = 6;
+        good_length = 12;
     }
 
     var score = 0;
@@ -63,7 +82,7 @@ function passwordStrength(password) {
     if (password.match(/\d+/) && password.match(/[^\d]+/)) score++;
 
     //if password has at least one special caracther give 1 point
-    if (password.match(/.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/))    score++;
+    if (password.match(/.[!,@#$%^&*?_~()\-]/))    score++;
 
     //if password bigger than 12 give another 1 point
     if (password.length >= good_length) score++;
@@ -79,7 +98,7 @@ function passwordStrength(password) {
 
 /**
  * Display all missing requirements for an password when focus get lost.
- *
+ * @param object
  * @param password
  */
 function passwordValidate(object, password) {
@@ -102,7 +121,7 @@ function passwordValidate(object, password) {
 
     if (digits && !(password.match(/\d+/))) validationError(object, 'digits');
 
-    if (special && !(password.match(/.[!,@,#,$,%,^,&,*,?,_,~,(,),-]/))) validationError(object, 'special');
+    if (special && !(password.match(/.[!,@#$%^&*?_~()\-]/))) validationError(object, 'special');
 
 }
 

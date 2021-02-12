@@ -55,14 +55,14 @@ require_once OX_BASE_PATH . 'core/oxfunctions.php';
 
 // As in new bootstrap to get db instance.
 $oConfigFile = new OxConfigFile( OX_BASE_PATH . "config.inc.php" );
-OxRegistry::set("OxConfigFile", $oConfigFile);
-oxRegistry::set("oxConfig", new oxConfig());
+\OxidEsales\Eshop\Core\Registry::set("OxConfigFile", $oConfigFile);
+\OxidEsales\Eshop\Core\Registry::set("oxConfig", new oxConfig());
 
 // As in new bootstrap to get db instance.
 $oDb = new oxDb();
 $oDb->setConfig( $oConfigFile );
 $oLegacyDb = $oDb->getDb();
-OxRegistry::set( 'OxDb', $oLegacyDb );
+\OxidEsales\Eshop\Core\Registry::set( 'OxDb', $oLegacyDb );
 
 oxConfig::getInstance();
 
