@@ -18,7 +18,7 @@
   "autoload": {
     "psr-4": {
       "OxidProfessionalServices\\PasswordPolicy\\": "src",
-      "OxidProfessionalServices\\PasswordPolicy\\Tests": "tests"
+      "OxidProfessionalServices\\PasswordPolicy\\Tests\\": "tests"
     }
   }
-},
+}
