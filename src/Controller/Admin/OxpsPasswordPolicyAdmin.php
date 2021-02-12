@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,8 +23,8 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
 
-use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
-use \OxidEsales\Eshop\Application\Controller\Admin\AdminController;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
 
 class OxpsPasswordPolicyAdmin extends AdminController
 {
@@ -31,20 +32,22 @@ class OxpsPasswordPolicyAdmin extends AdminController
     /**
      * Current class template name.
      * @var string
+     *
      */
+    //phpcs:ignore
     protected $_sThisTemplate = 'admin_oxpspasswordpolicy.tpl';
 
     /**
-     * @var object $_oPasswordPolicy Password policy module instance.
+     * @var object $passwordPolicy Password policy module instance.
      */
-    protected $_oPasswordPolicy;
+    protected $passwordPolicy;
 
 
-    function __construct()
+    public function __construct()
     {
 
         // Parent call
-        $this->_admin_OxpsPasswordPolicy_construct_parent();
+        $this->adminOxpsPasswordPolicyConstructParent();
     }
 
 
@@ -54,7 +57,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
     public function init()
     {
         // Parent init call
-        $this->_admin_OxpsPasswordPolicy_init_parent();
+        $this->adminOxpsPasswordPolicyInitParent();
 
         $this->setPasswordPolicy();
     }
@@ -67,7 +70,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
+        $this->passwordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**
@@ -75,7 +78,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
      */
     public function getPasswordPolicy()
     {
-        return $this->_oPasswordPolicy;
+        return $this->passwordPolicy;
     }
 
 
@@ -91,7 +94,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
         $this->_aViewData = array_merge($this->_aViewData, $this->getPasswordPolicy()->getModuleSettings());
 
         // Parent render call
-        return $this->_admin_OxpsPasswordPolicy_render_parent();
+        return $this->adminOxpsPasswordPolicyRenderParent();
     }
 
 
@@ -103,55 +106,53 @@ class OxpsPasswordPolicyAdmin extends AdminController
     public function save()
     {
         // Constants and initial params
-        $oConfig = $this->getConfig();
-        $sPrefix = 'passwordpolicy_';
-        $oModule = $this->getPasswordPolicy();
-        $aRequirementsOptions = $oModule->getPasswordRequirementsOptions();
-        $aRequirements = array();
+        $config = $this->getConfig();
+        $prefix = 'passwordpolicy_';
+        $module = $this->getPasswordPolicy();
+        $requirementsOptions = $module->getPasswordRequirementsOptions();
+        $requirements = array();
 
         // Get values from a request
-        $iMaxAttemptsAllowed = $oConfig->getRequestParameter($sPrefix . 'maxattemptsallowed');
-        $iTrackingPeriod = $oConfig->getRequestParameter($sPrefix . 'trackingperiod');
-        $blAllowUnblock = (bool)$oConfig->getRequestParameter($sPrefix . 'allowunblock');
-        $iMinPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'minpasswordlength');
-        $iGoodPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'goodpasswordlength');
-        $iMaxPasswordLength = (int)$oConfig->getRequestParameter($sPrefix . 'maxpasswordlength');
-        $aPasswordRequirements = (array)$oConfig->getRequestParameter($sPrefix . 'requirements');
+        $maxAttemptsAllowed = $config->getRequestParameter($prefix . 'maxattemptsallowed');
+        $trackingPeriod = $config->getRequestParameter($prefix . 'trackingperiod');
+        $allowUnblock = (bool)$config->getRequestParameter($prefix . 'allowunblock');
+        $minPasswordLength = (int)$config->getRequestParameter($prefix . 'minpasswordlength');
+        $goodPasswordLength = (int)$config->getRequestParameter($prefix . 'goodpasswordlength');
+        $maxPasswordLength = (int)$config->getRequestParameter($prefix . 'maxpasswordlength');
+        $passwordRequirements = (array)$config->getRequestParameter($prefix . 'requirements');
 
         // Validate values and save to settings
-        if (!is_null($iMaxAttemptsAllowed) and $oModule->validatePositiveInteger((int)$iMaxAttemptsAllowed)) {
-            $oModule->saveShopConfVar("int", "iMaxAttemptsAllowed", (int)$iMaxAttemptsAllowed);
+        if (!is_null($maxAttemptsAllowed) and $module->validatePositiveInteger((int)$maxAttemptsAllowed)) {
+            $module->saveShopConfVar("int", "iMaxAttemptsAllowed", (int)$maxAttemptsAllowed);
         }
 
-        if (!is_null($iTrackingPeriod) and $oModule->validatePositiveInteger((int)$iTrackingPeriod)) {
-            $oModule->saveShopConfVar("int", "iTrackingPeriod", (int)$iTrackingPeriod);
+        if (!is_null($trackingPeriod) and $module->validatePositiveInteger((int)$trackingPeriod)) {
+            $module->saveShopConfVar("int", "iTrackingPeriod", (int)$trackingPeriod);
         }
 
-        $oModule->saveShopConfVar("bool", "blAllowUnblock", $blAllowUnblock);
+        $module->saveShopConfVar("bool", "blAllowUnblock", $allowUnblock);
 
-        if (($iMinPasswordLength <= $iGoodPasswordLength) and ($iGoodPasswordLength <= $iMaxPasswordLength)) {
-
-            if ($oModule->validatePositiveInteger($iMinPasswordLength, 6)) {
-                $oModule->saveShopConfVar("int", "iMinPasswordLength", $iMinPasswordLength);
+        if (($minPasswordLength <= $goodPasswordLength) and ($goodPasswordLength <= $maxPasswordLength)) {
+            if ($module->validatePositiveInteger($minPasswordLength, 6)) {
+                $module->saveShopConfVar("int", "iMinPasswordLength", $minPasswordLength);
             }
 
-            if ($oModule->validatePositiveInteger($iGoodPasswordLength)) {
-                $oModule->saveShopConfVar("int", "iGoodPasswordLength", $iGoodPasswordLength);
+            if ($module->validatePositiveInteger($goodPasswordLength)) {
+                $module->saveShopConfVar("int", "iGoodPasswordLength", $goodPasswordLength);
             }
 
-            if ($oModule->validatePositiveInteger($iMaxPasswordLength)) {
-                $oModule->saveShopConfVar("int", "iMaxPasswordLength", $iMaxPasswordLength);
+            if ($module->validatePositiveInteger($maxPasswordLength)) {
+                $module->saveShopConfVar("int", "iMaxPasswordLength", $maxPasswordLength);
             }
         }
 
-        if (is_array($aPasswordRequirements)) {
-
+        if (is_array($passwordRequirements)) {
             // Check posted options and build array for saving
-            foreach ($aRequirementsOptions as $option) {
-                $aRequirements[$option] = !empty($aPasswordRequirements[$option]);
+            foreach ($requirementsOptions as $option) {
+                $requirements[$option] = !empty($passwordRequirements[$option]);
             }
 
-            $oModule->saveShopConfVar("aarr", "aPasswordRequirements", $aRequirements);
+            $module->saveShopConfVar("aarr", "aPasswordRequirements", $requirements);
         }
 
         $this->_aViewData["message"] = 'OXPS_PASSWORDPOLICY_ADMIN_SAVED';
@@ -163,7 +164,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
      *
      * @return null
      */
-    protected function _admin_OxpsPasswordPolicy_construct_parent()
+    protected function adminOxpsPasswordPolicyConstructParent()
     {
         // @codeCoverageIgnoreStart
         return parent::__construct();
@@ -175,7 +176,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
      *
      * @return null
      */
-    protected function _admin_OxpsPasswordPolicy_init_parent()
+    protected function adminOxpsPasswordPolicyInitParent()
     {
         // @codeCoverageIgnoreStart
         return parent::init();
@@ -187,7 +188,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
      *
      * @return null
      */
-    protected function _admin_OxpsPasswordPolicy_render_parent()
+    protected function adminOxpsPasswordPolicyRenderParent()
     {
         // @codeCoverageIgnoreStart
         return parent::render();

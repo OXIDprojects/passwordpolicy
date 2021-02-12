@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,66 +23,15 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
-use \OxidEsales\Eshop\Core\Registry;
-use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
  * Overridden password reset controller.
  */
 class ForgotPasswordController extends ForgotPasswordController_parent
 {
-
-    /**
-     * @var object $_oPasswordPolicy Password policy module instance.
-     */
-    protected $_oPasswordPolicy;
-
-
-    /**
-     * Overridden init method, that creates password policy module object.
-     */
-    public function init()
-    {
-
-        // Parent call
-        $this->_oxpsPasswordPolicyForgotPwd_init_parent();
-
-        $this->setPasswordPolicy();
-    }
-
-    /**
-     * Set Password Policy instance
-     *
-     * @param mixed $mPasswordPolicy
-     */
-    public function setPasswordPolicy($oPasswordPolicy = null)
-    {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
-    }
-
-    /**
-     * @return object Password policy module instance.
-     */
-    public function getPasswordPolicy()
-    {
-        return $this->_oPasswordPolicy;
-    }
-
-
-    /**
-     * Overridden render method to add password policy parameters.
-     *
-     * @return string
-     */
-    public function render()
-    {
-        // Assign current settings values
-        $this->_aViewData = array_merge($this->_aViewData, $this->getPasswordPolicy()->getModuleSettings());
-
-        // Parent call
-        return $this->_oxpsPasswordPolicyForgotPwd_render_parent();
-    }
-
+    use ControllerWithPasswordPolicy;
 
     /**
      * Overridden method.
@@ -98,7 +48,6 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
         // Check if unlock is allowed by settings
         if (is_object($oModule) and $oModule->getModuleSetting('blAllowUnblock')) {
-
             $oUser = oxNew('oxUser');
 
             // Try loading user by username
@@ -106,7 +55,6 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
             // Continue with temporary unblock if user exists and is blocked
             if (!empty($iUserId) and $oUser->load($iUserId) and empty($oUser->oxuser__oxactive->value)) {
-
                 // Unblock the user and mark the user ass required to be blocked after parent call.
                 $oUser->oxuser__oxactive = new oxField(true);
                 $oUser->save();
@@ -115,13 +63,12 @@ class ForgotPasswordController extends ForgotPasswordController_parent
         }
 
         // Parent call
-        $mResponse = $this->_oxpsPasswordPolicyForgotPwd_forgotPassword_parent();
+        $mResponse = $this->oxpsPasswordPolicyForgotPasswordParent();
 
         // Reload and block user again if set.
         $oUser = oxNew('oxUser');
 
         if (!empty($mBlockUser) and $oUser->load($mBlockUser)) {
-
             $oUser->oxuser__oxactive = new oxField(false);
             $oUser->save();
         }
@@ -153,7 +100,6 @@ class ForgotPasswordController extends ForgotPasswordController_parent
         $blAllowUnblock = (is_object($oModule) and $oModule->getModuleSetting('blAllowUnblock'));
 
         if ($blAllowUnblock) {
-
             // Save target user OXID.
             $oUser = oxNew('oxUser');
 
@@ -164,11 +110,10 @@ class ForgotPasswordController extends ForgotPasswordController_parent
         }
 
         // Parent call
-        $mParentReturn = $this->_oxpsPasswordPolicyForgotPwd_updatePassword_parent();
+        $mParentReturn = $this->oxpsPasswordPolicyUpdatePasswordParent();
 
         // Check if unlock is allowed by settings, user is valid and update was successful
         if ($blAllowUnblock and $mUnblockUser and ($mParentReturn == 'forgotpwd?success=1')) {
-
             $oUser = oxNew('oxUser');
 
             // Load user by
@@ -183,35 +128,11 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
 
     /**
-     * Parent `init` call. Method required for mocking.
-     *
-     * @return null
-     */
-    protected function _oxpsPasswordPolicyForgotPwd_init_parent()
-    {
-        // @codeCoverageIgnoreStart
-        return parent::init();
-        // @codeCoverageIgnoreEnd
-    }
-
-    /**
-     * Parent `render` call. Method required for mocking.
-     *
-     * @return null
-     */
-    protected function _oxpsPasswordPolicyForgotPwd_render_parent()
-    {
-        // @codeCoverageIgnoreStart
-        return parent::render();
-        // @codeCoverageIgnoreEnd
-    }
-
-    /**
      * Parent `forgotPassword` call. Method required for mocking.
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyForgotPwd_forgotPassword_parent()
+    protected function oxpsPasswordPolicyForgotPasswordParent()
     {
         // @codeCoverageIgnoreStart
         return parent::forgotPassword();
@@ -223,7 +144,7 @@ class ForgotPasswordController extends ForgotPasswordController_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyForgotPwd_updatePassword_parent()
+    protected function oxpsPasswordPolicyUpdatePasswordParent()
     {
         // @codeCoverageIgnoreStart
         return parent::updatePassword();

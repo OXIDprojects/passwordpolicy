@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -42,9 +43,9 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
         parent::setUp();
 
         $this->SUT = $this->getMock('OxpsPasswordPolicyAccountPassword', array(
-            '_oxpsPasswordPolicyAccountPassword_init_parent',
-            '_oxpsPasswordPolicyAccountPassword_render_parent',
-            '_oxpsPasswordPolicyAccountPassword_changePassword_parent'
+            'oxpsPasswordPolicyAccountPasswordInitParent',
+            'oxpsPasswordPolicyAccountPasswordRenderParent',
+            'oxpsPasswordPolicyAccountPasswordChangePasswordParent'
         ));
     }
 
@@ -60,7 +61,7 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
     /**
      * `getPasswordPolicy` returns `PasswordPolicyModule` object after init (or password policy set)
      */
-    public function testGetPasswordPolicy_initRan_returnPasswordPolicyModuleInstance()
+    public function testGetPasswordPolicyInitRanReturnPasswordPolicyModuleInstance()
     {
         $this->SUT->init();
 
@@ -71,9 +72,9 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
     /**
      * `render` should add Password Policy settings to ViewData array and call parent
      */
-    public function testRender_addPasswordPolicySettingsCallParent()
+    public function testRenderAddPasswordPolicySettingsCallParent()
     {
-        $this->SUT->expects($this->once())->method('_oxpsPasswordPolicyAccountPassword_render_parent');
+        $this->SUT->expects($this->once())->method('oxpsPasswordPolicyAccountPasswordRenderParent');
 
         $aConfigKeys = array(
             'iMaxAttemptsAllowed', 'iTrackingPeriod', 'blAllowUnblock',
@@ -93,9 +94,9 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
     /**
      * `changePassword` should only call parent if no Password Policy module instance set.
      */
-    public function testChangePassword_noModuleInstance_callParent()
+    public function testChangePasswordNoModuleInstanceCallParent()
     {
-        $this->SUT->expects($this->once())->method('_oxpsPasswordPolicyAccountPassword_changePassword_parent');
+        $this->SUT->expects($this->once())->method('oxpsPasswordPolicyAccountPasswordChangePasswordParent');
 
         $this->SUT->changePassword();
     }
@@ -103,7 +104,7 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
     /**
      * `changePassword` should return false if password is invalid or empty
      */
-    public function testChangePassword_invalidPassword_returnFalse()
+    public function testChangePasswordInvalidPasswordReturnFalse()
     {
         // Password policy module mock
         $oModule = $this->getMock('OxpsPasswordPolicyModule', array('validatePassword'));
@@ -111,7 +112,7 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
 
         oxTestModules::addModuleObject("OxpsPasswordPolicyModule", $oModule);
 
-        $this->SUT->expects($this->never())->method('_oxpsPasswordPolicyAccountPassword_changePassword_parent');
+        $this->SUT->expects($this->never())->method('oxpsPasswordPolicyAccountPasswordChangePasswordParent');
 
         $this->SUT->init();
         $this->assertFalse($this->SUT->changePassword());
@@ -120,7 +121,7 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
     /**
      * `changePassword` should call parent if password is valid
      */
-    public function testChangePassword_passwordIsValid_callParent()
+    public function testChangePasswordPasswordIsValidCallParent()
     {
         modConfig::getInstance()->setParameter('password_new', 'abcDEFG_123-pass');
 
@@ -131,7 +132,7 @@ class Unit_Module_Controllers_OxpsPasswordPolicyAccountPasswordTest extends Oxid
 
         oxTestModules::addModuleObject("OxpsPasswordPolicyModule", $oModule);
 
-        $this->SUT->expects($this->once())->method('_oxpsPasswordPolicyAccountPassword_changePassword_parent');
+        $this->SUT->expects($this->once())->method('oxpsPasswordPolicyAccountPasswordChangePasswordParent');
 
         $this->SUT->init();
         $this->SUT->changePassword();

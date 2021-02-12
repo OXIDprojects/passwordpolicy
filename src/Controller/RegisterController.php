@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,48 +23,12 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
-use \OxidEsales\Eshop\Core\Registry;
-use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
- * Password policy main controller
+ * Overridden registration controller.
  */
-class OxpsPasswordPolicy extends oxUBase
+class RegisterController extends RegisterController_parent
 {
-
-    /**
-     * @var string Template name.
-     */
-    protected $_sThisTemplate = "passwordpolicyaccountblocked.tpl";
-
-
-    /**
-     * Overridden render method.
-     * Adds shop URL to view data.
-     *
-     * @return mixed
-     */
-    public function render()
-    {
-        $oModule = oxNew(PasswordPolicyModule::class);
-
-        $this->_aViewData['sShopUrl'] = Registry::getConfig()->getShopUrl();
-        $this->_aViewData['blAllowUnblock'] = (bool)$oModule->getModuleSetting('blAllowUnblock');
-
-        // Parent render call
-        return $this->_oxpsPasswordPolicy_render_parent();
-    }
-
-
-    /**
-     * Parent `render` call. Method required for mocking.
-     *
-     * @return mixed
-     */
-    protected function _oxpsPasswordPolicy_render_parent()
-    {
-        // @codeCoverageIgnoreStart
-        return parent::render();
-        // @codeCoverageIgnoreEnd
-    }
+    use ControllerWithPasswordPolicy;
 }

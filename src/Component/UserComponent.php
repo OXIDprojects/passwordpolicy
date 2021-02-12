@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,9 +23,9 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Component;
 
-use \OxidEsales\Eshop\Core\Registry;
-use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
-use \OxidProfessionalServices\PasswordPolicy\Model\Attempt;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidProfessionalServices\PasswordPolicy\Model\Attempt;
 
 /**
  * Extend user component to intercept login failures
@@ -33,9 +34,9 @@ class UserComponent extends UserComponent_parent
 {
 
     /**
-     * @var object $_oPasswordPolicy Password policy module instance.
+     * @var object $passwordPolicy Password policy module instance.
      */
-    protected $_oPasswordPolicy;
+    protected $passwordPolicy;
 
     /**
      * Overridden init method, that creates password policy module object.
@@ -52,7 +53,7 @@ class UserComponent extends UserComponent_parent
         );
 
         // Parent init call
-        $this->_oxpsPasswordPolicyUser_init_parent();
+        $this->oxpsPasswordPolicyUserInitParent();
 
         $this->setPasswordPolicy();
     }
@@ -64,7 +65,7 @@ class UserComponent extends UserComponent_parent
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
+        $this->passwordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**
@@ -72,7 +73,7 @@ class UserComponent extends UserComponent_parent
      */
     public function getPasswordPolicy()
     {
-        return $this->_oPasswordPolicy;
+        return $this->passwordPolicy;
     }
 
     /**
@@ -82,7 +83,7 @@ class UserComponent extends UserComponent_parent
     public function login()
     {
         // Parent login call
-        $mLoginResponse = $this->_oxpsPasswordPolicyUser_login_parent();
+        $mLoginResponse = $this->oxpsPasswordPolicyUserLoginParent();
 
         $oUser = oxNew('oxUser');
 
@@ -91,7 +92,7 @@ class UserComponent extends UserComponent_parent
 
         // Continue with login attempts logic only if user id valid and user is loaded
         if (!empty($iUserId) and $oUser->load($iUserId) and $oUser->getId()) {
-            $this->_handleLoginAttempts($oUser);
+            $this->handleLoginAttempts($oUser);
         }
 
         return $mLoginResponse;
@@ -108,14 +109,15 @@ class UserComponent extends UserComponent_parent
         $oModule = $this->getPasswordPolicy();
         $oConfig = Registry::getConfig();
 
-        if (is_object($oModule) and $oConfig->getRequestParameter('lgn_pwd') and
+        if (
+            is_object($oModule) and $oConfig->getRequestParameter('lgn_pwd') and
                                     $oModule->validatePassword($oConfig->getRequestParameter('lgn_pwd'))
         ) {
             return false;
         }
 
         // Parent create user call
-        return $this->_oxpsPasswordPolicyUser_createUser_parent();
+        return $this->oxpsPasswordPolicyUserCreateUserParent();
     }
 
 
@@ -126,17 +128,15 @@ class UserComponent extends UserComponent_parent
      *
      * @param object $oUser
      */
-    protected function _handleLoginAttempts($oUser)
+    protected function handleLoginAttempts($oUser)
     {
 
         // User object must be valid and loaded
         if (($oUser instanceof oxUser) and $oUser->getId()) {
-
             // Check user status
             if (empty($oUser->oxuser__oxactive->value)) {
-
                 // Redirect user to block page if he is not active.
-                $this->_redirectBlockedUser();
+                $this->redirectBlockedUser();
                 return;
             }
 
@@ -151,26 +151,22 @@ class UserComponent extends UserComponent_parent
             );
 
             if ($this->getLoginStatus() == USER_LOGIN_FAIL) {
-
                 // Log attempts
                 $oAttempt->log();
 
                 if ($oAttempt->maximumReached()) {
-
                     // Block user and redirect to blocked user page
                     $oUser->oxuser__oxactive = new oxField(0);
                     $oUser->save();
 
                     // Redirect user
-                    $this->_redirectBlockedUser();
+                    $this->redirectBlockedUser();
                     return;
                 }
             } else {
-
                 // Purge all login attempts for the user
                 $oAttempt->clean();
             }
-
         }
     }
 
@@ -179,7 +175,7 @@ class UserComponent extends UserComponent_parent
      *
      * @return null
      */
-    protected function _redirectBlockedUser()
+    protected function redirectBlockedUser()
     {
         // @codeCoverageIgnoreStart
         // Not covering redirects.
@@ -199,7 +195,7 @@ class UserComponent extends UserComponent_parent
      *
      * @return null
      */
-    protected function _oxpsPasswordPolicyUser_init_parent()
+    protected function oxpsPasswordPolicyUserInitParent()
     {
         // @codeCoverageIgnoreStart
         return parent::init();
@@ -211,7 +207,7 @@ class UserComponent extends UserComponent_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyUser_login_parent()
+    protected function oxpsPasswordPolicyUserLoginParent()
     {
         // @codeCoverageIgnoreStart
         return parent::login();
@@ -223,7 +219,7 @@ class UserComponent extends UserComponent_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyUser_createUser_parent()
+    protected function oxpsPasswordPolicyUserCreateUserParent()
     {
         // @codeCoverageIgnoreStart
         return parent::createUser();

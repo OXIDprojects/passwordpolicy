@@ -1,4 +1,5 @@
 <?php
+
 /**
  * #PHPHEADER_OXID_LICENSE_INFORMATION#
  *
@@ -9,10 +10,10 @@
  */
 
 // DO NOT TOUCH THIS _ INSTEAD FIX NOTICES - DODGER
-error_reporting( (E_ALL ^ E_NOTICE) | E_STRICT );
+error_reporting((E_ALL ^ E_NOTICE) | E_STRICT);
 ini_set('display_errors', true);
 
-define ('OXID_PHP_UNIT', true);
+define('OXID_PHP_UNIT', true);
 
 $_sOverridenShopBasePath = null;
 
@@ -31,7 +32,7 @@ function overrideGetShopBasePath($sPath)
     $_sOverridenShopBasePath = $sPath;
 }
 
-define( 'OX_BASE_PATH',  isset( $_sOverridenShopBasePath ) ? $_sOverridenShopBasePath : oxPATH  );
+define('OX_BASE_PATH', isset($_sOverridenShopBasePath) ? $_sOverridenShopBasePath : oxPATH);
 
 /*
 function getShopBasePath()
@@ -45,7 +46,7 @@ function getShopBasePath()
 
 function getTestsBasePath()
 {
-    return realpath(dirname(__FILE__).'/../');
+    return realpath(dirname(__FILE__) . '/../');
 }
 
 require_once 'test_utils.php';
@@ -54,15 +55,15 @@ require_once 'test_utils.php';
 require_once OX_BASE_PATH . 'core/oxfunctions.php';
 
 // As in new bootstrap to get db instance.
-$oConfigFile = new OxConfigFile( OX_BASE_PATH . "config.inc.php" );
+$oConfigFile = new OxConfigFile(OX_BASE_PATH . "config.inc.php");
 \OxidEsales\Eshop\Core\Registry::set("OxConfigFile", $oConfigFile);
 \OxidEsales\Eshop\Core\Registry::set("oxConfig", new oxConfig());
 
 // As in new bootstrap to get db instance.
 $oDb = new oxDb();
-$oDb->setConfig( $oConfigFile );
+$oDb->setConfig($oConfigFile);
 $oLegacyDb = $oDb->getDb();
-\OxidEsales\Eshop\Core\Registry::set( 'OxDb', $oLegacyDb );
+\OxidEsales\Eshop\Core\Registry::set('OxDb', $oLegacyDb);
 
 oxConfig::getInstance();
 
@@ -80,8 +81,9 @@ class modOxUtilsDate extends oxUtilsDate
 
     public function getTime()
     {
-        if (!is_null($this->_sTime))
+        if (!is_null($this->_sTime)) {
             return $this->_sTime;
+        }
 
         return parent::getTime();
     }

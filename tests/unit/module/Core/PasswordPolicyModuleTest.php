@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -197,7 +198,8 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
             } elseif ($iLength > $aSettings['iMaxPasswordLength']) {
                 $this->assertEquals(
                     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG',
-                    $this->SUT->validatePassword($sValue));
+                    $this->SUT->validatePassword($sValue)
+                );
             }
         }
     }
@@ -393,9 +395,11 @@ class oxConfigMock extends oxConfig
      * @param bool $bPasswordRequiresCapital
      * @param bool $bPasswordRequiresSpecial
      */
-    public function __mockPasswordRequirements($bPasswordRequiresDigits, $bPasswordRequiresCapital,
-                                               $bPasswordRequiresSpecial)
-    {
+    public function __mockPasswordRequirements(
+        $bPasswordRequiresDigits,
+        $bPasswordRequiresCapital,
+        $bPasswordRequiresSpecial
+    ) {
         $this->_bPasswordRequiresDigits = $bPasswordRequiresDigits;
         $this->_bPasswordRequiresCapital = $bPasswordRequiresCapital;
         $this->_bPasswordRequiresSpecial = $bPasswordRequiresSpecial;

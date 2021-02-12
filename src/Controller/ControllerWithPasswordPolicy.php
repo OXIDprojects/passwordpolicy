@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,18 +23,18 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
-use \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
  * Class oxpsPasswordPolicyUser
  */
-class UserController extends UserController_parent
+trait ControllerWithPasswordPolicy
 {
 
     /**
-     * @var object $_oPasswordPolicy Password policy module instance.
+     * @var object $passwordPolicy Password policy module instance.
      */
-    protected $_oPasswordPolicy;
+    protected $passwordPolicy;
 
     /**
      * Overridden init method, that creates password policy module object.
@@ -42,7 +43,7 @@ class UserController extends UserController_parent
     {
 
         // Parent call
-        $this->_oxpsPasswordPolicyUser_init_parent();
+        $this->oxpsPasswordPolicyInitParent();
 
         $this->setPasswordPolicy();
     }
@@ -52,7 +53,7 @@ class UserController extends UserController_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyUser_init_parent()
+    protected function oxpsPasswordPolicyInitParent()
     {
         // @codeCoverageIgnoreStart
         return parent::init();
@@ -66,7 +67,7 @@ class UserController extends UserController_parent
      */
     public function setPasswordPolicy($oPasswordPolicy = null)
     {
-        $this->_oPasswordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
+        $this->passwordPolicy = is_object($oPasswordPolicy) ? $oPasswordPolicy : oxNew(PasswordPolicyModule::class);
     }
 
     /**
@@ -81,7 +82,7 @@ class UserController extends UserController_parent
         $this->_aViewData = array_merge($this->_aViewData, $this->getPasswordPolicy()->getModuleSettings());
 
         // Parent call
-        return $this->_oxpsPasswordPolicyUser_render_parent();
+        return $this->oxpsPasswordPolicyRenderParent();
     }
 
     /**
@@ -89,7 +90,7 @@ class UserController extends UserController_parent
      */
     public function getPasswordPolicy()
     {
-        return $this->_oPasswordPolicy;
+        return $this->passwordPolicy;
     }
 
     /**
@@ -97,7 +98,7 @@ class UserController extends UserController_parent
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyUser_render_parent()
+    protected function oxpsPasswordPolicyRenderParent()
     {
         // @codeCoverageIgnoreStart
         return parent::render();

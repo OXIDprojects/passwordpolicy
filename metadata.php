@@ -58,7 +58,8 @@ $aModule = [
         ],
     'controllers' => [
         'oxpspasswordpolicy' => \OxidProfessionalServices\PasswordPolicy\Controller\OxpsPasswordPolicy::class,
-        'admin_oxpspasswordpolicy' => \OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin::class,
+        'admin_oxpspasswordpolicy' =>
+            \OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin::class,
     ],
     'templates' => [
         'passwordpolicyaccountblocked.tpl' => 'oxps/passwordpolicy/views/pages/passwordpolicyaccountblocked.tpl',

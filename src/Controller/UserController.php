@@ -17,26 +17,18 @@
  * along with OXID Professional Services Password Policy module.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @author        OXID Professional services
- * @link          http://www.oxid-esales.com
- * @copyright (C) OXID eSales AG 2003-2019
+ * @link          https://www.oxid-esales.com
+ * @copyright (C) OXID eSales AG 2003-2021
  */
+
+namespace OxidProfessionalServices\PasswordPolicy\Controller;
+
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 
 /**
- * Tests for "OxpsPasswordPolicy" class
+ * Class oxpsPasswordPolicyUser
  */
-class Unit_Module_Controllers_OxpsPasswordPolicyTest extends OxidTestCase
+class UserController extends UserController_parent
 {
-
-    /**
-     * `render` should return parent call results
-     */
-    public function testRender_returnParentSetsShopUrl()
-    {
-        $SUT = $this->getMock('OxpsPasswordPolicy', array('_oxpsPasswordPolicy_render_parent'));
-        $SUT->expects($this->any())->method('_oxpsPasswordPolicy_render_parent')
-            ->will($this->returnValue('render_parent'));
-
-        $this->assertEquals('render_parent', $SUT->render());
-        $this->assertArrayHasKey('sShopUrl', $SUT->getViewData());
-    }
+    use ControllerWithPasswordPolicy;
 }

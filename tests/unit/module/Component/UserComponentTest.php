@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -47,22 +48,22 @@ class Unit_Module_Components_OxpsPasswordPolicyUserTest extends OxidTestCase
         $this->SUT = $this->getMock(
             'OxpsPasswordPolicyUser',
             array(
-                '_oxpsPasswordPolicyUser_init_parent',
-                '_oxpsPasswordPolicyUser_login_parent',
-                '_oxpsPasswordPolicyUser_createUser_parent',
-                '_redirectBlockedUser',
+                'oxpsPasswordPolicyUserInitParent',
+                'oxpsPasswordPolicyUserLoginParent',
+                'oxpsPasswordPolicyUserCreateUserParent',
+                'redirectBlockedUser',
                 'getLoginStatus',
                 'getConfig',
             )
         );
 
-        $this->SUT->expects($this->any())->method('_oxpsPasswordPolicyUser_init_parent')
+        $this->SUT->expects($this->any())->method('oxpsPasswordPolicyUserInitParent')
             ->will($this->returnValue(null));
-        $this->SUT->expects($this->any())->method('_oxpsPasswordPolicyUser_login_parent')
+        $this->SUT->expects($this->any())->method('oxpsPasswordPolicyUserLoginParent')
             ->will($this->returnValue('login_parent'));
-        $this->SUT->expects($this->any())->method('_oxpsPasswordPolicyUser_createUser_parent')
+        $this->SUT->expects($this->any())->method('oxpsPasswordPolicyUserCreateUserParent')
             ->will($this->returnValue('create_user_parent'));
-        $this->SUT->expects($this->any())->method('_redirectBlockedUser')->will($this->returnValue(null));
+        $this->SUT->expects($this->any())->method('redirectBlockedUser')->will($this->returnValue(null));
 
         // Config mock inception
         $oConfig = $this->getMock('oxConfig', array('getShopConfVar'));
@@ -226,7 +227,7 @@ class Unit_Module_Components_OxpsPasswordPolicyUserTest extends OxidTestCase
     public function testCreateUser_noParam_validationFailReturnFalse()
     {
 
-        $this->SUT->expects($this->once())->method('_oxpsPasswordPolicyUser_createUser_parent');
+        $this->SUT->expects($this->once())->method('oxpsPasswordPolicyUser_createUser_parent');
 
         $this->SUT->init();
         $this->SUT->createUser();
@@ -246,7 +247,7 @@ class Unit_Module_Components_OxpsPasswordPolicyUserTest extends OxidTestCase
 
         oxTestModules::addModuleObject("OxpsPasswordPolicyModule", $oModule);
 
-        $this->SUT->expects($this->once())->method('_oxpsPasswordPolicyUser_createUser_parent');
+        $this->SUT->expects($this->once())->method('oxpsPasswordPolicyUser_createUser_parent');
 
         $this->SUT->init();
         $this->SUT->createUser();

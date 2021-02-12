@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -22,8 +23,8 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Model;
 
-use \OxidEsales\Eshop\Core\Model\BaseModel;
-use \OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Model\BaseModel;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 /**
  * Password entry attempts tracking model
@@ -33,17 +34,17 @@ class OxpsPasswordPolicyAttempt extends BaseModel
     /**
      * @var oxUser
      */
-    protected $_oUser;
+    protected $user;
 
     /**
-     * @var integer $_iMaxAttemptsAllowed Maximum number of attempts before user is blocked.
+     * @var integer $maxAttemptsAllowed Maximum number of attempts before user is blocked.
      */
-    protected $_iMaxAttemptsAllowed;
+    protected $maxAttemptsAllowed;
 
     /**
-     * @var integer $_iTrackingPeriod A period in minutes to track attempts sequence.
+     * @var integer $trackingPeriod A period in minutes to track attempts sequence.
      */
-    protected $_iTrackingPeriod;
+    protected $trackingPeriod;
 
 
     /**
@@ -52,7 +53,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
     public function __construct()
     {
         // Parent call
-        $this->_oxpsPasswordPolicyAttempt_construct_parent();
+        $this->oxpsPasswordPolicyAttemptConstructParent();
 
         // Set defaults
         $this->setMaxAttemptsAllowed(3);
@@ -79,7 +80,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      */
     public function getUser()
     {
-        return $this->_oUser;
+        return $this->user;
     }
 
     /**
@@ -91,7 +92,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
     public function setUser($oUser)
     {
         if ($oUser instanceof oxUser) {
-            $this->_oUser = $oUser;
+            $this->user = $oUser;
         }
     }
 
@@ -102,18 +103,18 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      */
     public function getMaxAttemptsAllowed()
     {
-        return $this->_iMaxAttemptsAllowed;
+        return $this->maxAttemptsAllowed;
     }
 
     /**
      * Set maximum allowed attempts value.
      *
-     * @param int $iMaxAttemptsAllowed
+     * @param int $maxAttemptsAllowed
      */
-    public function setMaxAttemptsAllowed($iMaxAttemptsAllowed)
+    public function setMaxAttemptsAllowed($maxAttemptsAllowed)
     {
-        if ($this->_isPositiveInteger($iMaxAttemptsAllowed)) {
-            $this->_iMaxAttemptsAllowed = $iMaxAttemptsAllowed;
+        if ($this->isPositiveInteger($maxAttemptsAllowed)) {
+            $this->maxAttemptsAllowed = $maxAttemptsAllowed;
         }
     }
 
@@ -124,18 +125,18 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      */
     public function getTrackingPeriod()
     {
-        return $this->_iTrackingPeriod;
+        return $this->trackingPeriod;
     }
 
     /**
      * Set tracking period value.
      *
-     * @param int $iTrackingPeriod
+     * @param int $trackingPeriod
      */
-    public function setTrackingPeriod($iTrackingPeriod)
+    public function setTrackingPeriod($trackingPeriod)
     {
-        if ($this->_isPositiveInteger($iTrackingPeriod)) {
-            $this->_iTrackingPeriod = $iTrackingPeriod;
+        if ($this->isPositiveInteger($trackingPeriod)) {
+            $this->trackingPeriod = $trackingPeriod;
         }
     }
 
@@ -147,13 +148,13 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      */
     public function log()
     {
-        $sUserOxid = $this->_getUserOxid();
+        $sUserOxid = $this->getUserOxid();
 
         if (!empty($sUserOxid)) {
             $this->assign(array(
                 'oxuserid' => $sUserOxid,
-                'oxpstime' => $this->_getAttemptTime(),
-                'oxpsip' => $this->_getIpAddress(),
+                'oxpstime' => $this->getAttemptTime(),
+                'oxpsip' => $this->getIpAddress(),
             ));
 
             return (bool)$this->save();
@@ -169,7 +170,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      */
     public function maximumReached()
     {
-        $sUserOxid = $this->_getUserOxid();
+        $sUserOxid = $this->getUserOxid();
 
         if (!empty($sUserOxid)) {
             $view = getViewName('oxpspasswordpolicy_attempt');
@@ -177,8 +178,9 @@ class OxpsPasswordPolicyAttempt extends BaseModel
                 WHERE `OXUSERID` = ? AND `OXPSTIME` >= ?
                 HAVING COUNT(`OXID`) >= ?";
 
-            $mResults = DatabaseProvider::getDb()->select($sQuery,
-                [$sUserOxid, $this->_getTimeMargin(), $this->getMaxAttemptsAllowed()]
+            $mResults = DatabaseProvider::getDb()->select(
+                $sQuery,
+                [$sUserOxid, $this->getTimeMargin(), $this->getMaxAttemptsAllowed()]
             );
 
             return !empty($mResults->fields[0]);
@@ -198,21 +200,21 @@ class OxpsPasswordPolicyAttempt extends BaseModel
         // @codeCoverageIgnoreStart
         // Not covering database queries
 
-        $sUserOxid = $this->_getUserOxid();
+        $sUserOxid = $this->getUserOxid();
 
         if (!empty($sUserOxid)) {
-
             // Clause to delete only defined user attempts
             $sUserClause = "`OXUSERID` = " . DatabaseProvider::getDb()->quote($sUserOxid);
         } else {
-
             // Clause to delete only expired entries (older than tracking period)
-            $sUserClause = "`OXPSTIME` < " . DatabaseProvider::getDb()->quote($this->_getTimeMargin());
+            $sUserClause = "`OXPSTIME` < " . DatabaseProvider::getDb()->quote($this->getTimeMargin());
         }
 
         $sQuery = "DELETE FROM `%s` WHERE %s";
 
-        return (bool)DatabaseProvider::getDb()->execute(sprintf($sQuery, getViewName('oxpspasswordpolicy_attempt'), $sUserClause));
+        return (bool)DatabaseProvider::getDb()->execute(
+            sprintf($sQuery, getViewName('oxpspasswordpolicy_attempt'), $sUserClause)
+        );
         // @codeCoverageIgnoreEnd
     }
 
@@ -223,7 +225,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      * @param mixed $number
      * @return bool
      */
-    protected function _isPositiveInteger($number)
+    protected function isPositiveInteger($number)
     {
         return (is_integer($number) and ($number > 0));
     }
@@ -234,9 +236,9 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      *
      * @return string|null
      */
-    protected function _getUserOxid()
+    protected function getUserOxid()
     {
-        return (is_object($this->_oUser) ? $this->_oUser->getId() : null);
+        return (is_object($this->user) ? $this->user->getId() : null);
     }
 
     /**
@@ -245,7 +247,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      *
      * @return string Date-time value.
      */
-    protected function _getTimeMargin()
+    protected function getTimeMargin()
     {
         // @codeCoverageIgnoreStart
         // Not covering default php methods
@@ -262,7 +264,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      *
      * @return string
      */
-    protected function _getAttemptTime()
+    protected function getAttemptTime()
     {
         // @codeCoverageIgnoreStart
         // Not covering default php method
@@ -276,7 +278,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      *
      * @return string
      */
-    protected function _getIpAddress()
+    protected function getIpAddress()
     {
         // @codeCoverageIgnoreStart
         // Not covering default eShop utils
@@ -291,7 +293,7 @@ class OxpsPasswordPolicyAttempt extends BaseModel
      *
      * @return mixed
      */
-    protected function _oxpsPasswordPolicyAttempt_construct_parent()
+    protected function oxpsPasswordPolicyAttemptConstructParent()
     {
         // @codeCoverageIgnoreStart
         return parent::__construct();

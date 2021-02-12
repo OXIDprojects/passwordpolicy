@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of OXID Professional Services Password Policy module.
  *
@@ -29,15 +30,15 @@
  * @todo-nice2have Create container, or interface, or trait, or something for PasswordPolicyModule.
  * @todo-nice2have Track last password change for each user and force changing after some period of time.
  * @todo-nice2have Integrate password validation deeper into user component.
- * @todo-nice2have (?) Think of checking if user really logged in before 
+ * @todo-nice2have (?) Think of checking if user really logged in before
 redirecting to blocked page
  */
 
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
-use \OxidEsales\Eshop\Core\Registry;
-use \OxidEsales\Eshop\Core\Model\BaseModel;
-use \OxidEsales\Eshop\Core\DatabaseProvider;
+use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Model\BaseModel;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 
 class PasswordPolicyModule extends BaseModel
 {
@@ -45,7 +46,7 @@ class PasswordPolicyModule extends BaseModel
     /**
      * @var string Module ID used as module identifier in `oxconfig` DB table.
      */
-    protected $_sModuleId = 'oxpspasswordpolicy';
+    protected $moduleId = 'oxpspasswordpolicy';
 
 
     /**
@@ -55,7 +56,7 @@ class PasswordPolicyModule extends BaseModel
      */
     public function getModuleId()
     {
-        return $this->_sModuleId;
+        return $this->moduleId;
     }
 
     /**
@@ -114,7 +115,7 @@ class PasswordPolicyModule extends BaseModel
 
         foreach ($aSettings as $sName => $sType) {
             $aSettings[$sName] = $this->getShopConfVar($sName);
-            if($sType == 'array' && $aSettings[$sName] === null) {
+            if ($sType == 'array' && $aSettings[$sName] === null) {
                 $aSettings[$sName] = array();
             }
             settype($aSettings[$sName], $sType);
@@ -181,7 +182,8 @@ class PasswordPolicyModule extends BaseModel
             $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER';
         }
 
-        if (!empty($aSettings['aPasswordRequirements']['special']) and
+        if (
+            !empty($aSettings['aPasswordRequirements']['special']) and
             !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
         ) {
             $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL';
@@ -245,7 +247,7 @@ class PasswordPolicyModule extends BaseModel
     {
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
-        self::_dbEvent( 'install.sql', 'Error activating module: ' );
+        self::dbEvent('install.sql', 'Error activating module: ');
         // @codeCoverageIgnoreEnd
     }
 
@@ -256,8 +258,8 @@ class PasswordPolicyModule extends BaseModel
     {
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
-        if ( function_exists( 'module_enabled_count' ) && module_enabled_count( 'oxpswatchlist' ) < 2 ) {
-            self::_dbEvent( 'uninstall.sql', 'Error deactivating module: ' );
+        if (function_exists('module_enabled_count') && module_enabled_count('oxpswatchlist') < 2) {
+            self::dbEvent('uninstall.sql', 'Error deactivating module: ');
         }
         // @codeCoverageIgnoreEnd
     }
@@ -268,35 +270,35 @@ class PasswordPolicyModule extends BaseModel
      * @param string $sSqlFile      SQL file located in module docs folder (usually install.sql or uninstall.sql).
      * @param string $sFailureError An error message to show on failure.
      */
-    protected static function _dbEvent( $sSqlFile, $sFailureError = "Operation failed: " )
+    protected static function dbEvent($sSqlFile, $sFailureError = "Operation failed: ")
     {
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
         try {
-            $sSqlDir = dirname( __DIR__ ) . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR . $sSqlFile;
-            if ( preg_match( '/\.tpl$/', $sSqlFile ) ) { // If file extension is .tpl
+            $sSqlDir = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'docs' . DIRECTORY_SEPARATOR . $sSqlFile;
+            if (preg_match('/\.tpl$/', $sSqlFile)) { // If file extension is .tpl
                 /** @var Smarty $oSmarty */
-                $oSmarty = Registry::get( 'oxUtilsView' )->getSmarty();
-                $oSmarty->assign( 'oConfig', Registry::getConfig() );
-                $sSql = $oSmarty->fetch( $sSqlDir );
+                $oSmarty = Registry::get('oxUtilsView')->getSmarty();
+                $oSmarty->assign('oConfig', Registry::getConfig());
+                $sSql = $oSmarty->fetch($sSqlDir);
             } else {
-                $sSql = file_get_contents( $sSqlDir );
+                $sSql = file_get_contents($sSqlDir);
             }
 
             $oDb  = DatabaseProvider::getDb();
-            $aSql = explode( ';', $sSql );
+            $aSql = explode(';', $sSql);
 
-            if ( !empty( $aSql ) ) {
-                foreach ( $aSql as $sQuery ) {
-                    if ( !empty( $sQuery ) || !empty(trim($sQuery)) ) {
-                        $oDb->execute( $sQuery );
+            if (!empty($aSql)) {
+                foreach ($aSql as $sQuery) {
+                    if (!empty($sQuery) || !empty(trim($sQuery))) {
+                        $oDb->execute($sQuery);
                     }
                 }
             }
 
             self::cleanTmp();
-        } catch ( Exception $ex ) {
-            error_log( $sFailureError . $ex->getMessage() );
+        } catch (Exception $ex) {
+            error_log($sFailureError . $ex->getMessage());
         }
         // @codeCoverageIgnoreEnd
     }
@@ -310,11 +312,11 @@ class PasswordPolicyModule extends BaseModel
     {
         // @codeCoverageIgnoreStart
         // Generated from developer tools, no need to test this
-        if ( class_exists( 'D' ) ) {
+        if (class_exists('D')) {
             try {
                 D::c();
-            } catch ( Exception $ex ) {
-                error_log( 'Cache files deletion failed: ' . $ex->getMessage() );
+            } catch (Exception $ex) {
+                error_log('Cache files deletion failed: ' . $ex->getMessage());
             }
 
             return true;
