@@ -7,6 +7,9 @@
   "require": {
     "oxid-esales/oxideshop-ce": "^v6.3"
   },
+  "require-dev": {
+
+  },
   "extra": {
     "oxideshop": {
       "target-directory": "oxps/passwordpolicy"
@@ -14,7 +17,8 @@
   },
   "autoload": {
     "psr-4": {
-      "OxidProfessionalServices\\PasswordPolicy\\": "."
+      "OxidProfessionalServices\\PasswordPolicy\\": "src",
+      "OxidProfessionalServices\\PasswordPolicy\\Tests\\": "tests"
     }
   }
 }
