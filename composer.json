@@ -5,10 +5,7 @@
   "keywords": ["oxid", "modules", "eShop", "password", "password-strength", "password-policy"],
   "license": "GPL-3.0-only",
   "require": {
-    "oxid-esales/oxideshop-ce": "^v6.3"
-  },
-  "require-dev": {
-
+    "php": ">=7.0"
   },
   "extra": {
     "oxideshop": {
