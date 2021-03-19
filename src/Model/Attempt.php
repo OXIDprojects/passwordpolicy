@@ -29,7 +29,7 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 /**
  * Password entry attempts tracking model
  */
-class OxpsPasswordPolicyAttempt extends BaseModel
+class Attempt extends BaseModel
 {
     /**
      * @var oxUser

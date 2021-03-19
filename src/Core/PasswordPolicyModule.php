@@ -40,7 +40,7 @@ use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Model\BaseModel;
 use OxidEsales\Eshop\Core\DatabaseProvider;
 
-class PasswordPolicyModule extends BaseModel
+class PasswordPolicyModule
 {
 
     /**
@@ -70,7 +70,7 @@ class PasswordPolicyModule extends BaseModel
         // @codeCoverageIgnoreStart
         // Not covering eShop default functions
 
-        return $this->getConfig()->getConfigParam($sName);
+        return Registry::getConfig()->getConfigParam($sName);
         // @codeCoverageIgnoreEnd
     }
 
@@ -87,7 +87,7 @@ class PasswordPolicyModule extends BaseModel
         // @codeCoverageIgnoreStart
         // Not covering eShop default functions
 
-        return $this->getConfig()->saveShopConfVar($sType, $sName, $mValue, null, 'module:' . $this->getModuleId());
+        return Registry::getConfig()->saveShopConfVar($sType, $sName, $mValue, null, 'module:' . $this->getModuleId());
         // @codeCoverageIgnoreEnd
     }
 
@@ -203,7 +203,7 @@ class PasswordPolicyModule extends BaseModel
      */
     public function getEncoding()
     {
-        return (!empty($this->getConfig()->iUtfMode) ? 'UTF-8' : 'ISO-8859-15');
+        return (!empty(Registry::getConfig()->iUtfMode) ? 'UTF-8' : 'ISO-8859-15');
     }
 
     /**
@@ -296,33 +296,10 @@ class PasswordPolicyModule extends BaseModel
                 }
             }
 
-            self::cleanTmp();
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             error_log($sFailureError . $ex->getMessage());
         }
         // @codeCoverageIgnoreEnd
     }
 
-    /**
-     * Delete cache files.
-     *
-     * @return bool
-     */
-    public static function cleanTmp()
-    {
-        // @codeCoverageIgnoreStart
-        // Generated from developer tools, no need to test this
-        if (class_exists('D')) {
-            try {
-                D::c();
-            } catch (Exception $ex) {
-                error_log('Cache files deletion failed: ' . $ex->getMessage());
-            }
-
-            return true;
-        } else {
-            return false;
-        }
-        // @codeCoverageIgnoreEnd
-    }
 }

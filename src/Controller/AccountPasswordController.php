@@ -40,7 +40,7 @@ class AccountPasswordController extends AccountPasswordController_parent
     public function changePassword()
     {
         /** @var oxConfig $oConfig */
-        $oConfig = $this->getConfig();
+        $oConfig = Registry::getConfig();
         $oModule = $this->getPasswordPolicy();
 
         // Validate password using password policy rules

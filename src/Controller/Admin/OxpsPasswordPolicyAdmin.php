@@ -106,7 +106,7 @@ class OxpsPasswordPolicyAdmin extends AdminController
     public function save()
     {
         // Constants and initial params
-        $config = $this->getConfig();
+        $config = Registry::getConfig();
         $prefix = 'passwordpolicy_';
         $module = $this->getPasswordPolicy();
         $requirementsOptions = $module->getPasswordRequirementsOptions();

@@ -25,6 +25,8 @@ namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\Field;
 
 /**
  * Overridden password reset controller.
@@ -48,7 +50,7 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
         // Check if unlock is allowed by settings
         if (is_object($oModule) and $oModule->getModuleSetting('blAllowUnblock')) {
-            $oUser = oxNew('oxUser');
+            $oUser = oxNew(User::class);
 
             // Try loading user by username
             $iUserId = $oUser->getIdByUserName($oConfig->getRequestParameter('lgn_usr'));
@@ -56,7 +58,7 @@ class ForgotPasswordController extends ForgotPasswordController_parent
             // Continue with temporary unblock if user exists and is blocked
             if (!empty($iUserId) and $oUser->load($iUserId) and empty($oUser->oxuser__oxactive->value)) {
                 // Unblock the user and mark the user ass required to be blocked after parent call.
-                $oUser->oxuser__oxactive = new oxField(true);
+                $oUser->oxuser__oxactive = new Field(true);
                 $oUser->save();
                 $mBlockUser = $iUserId;
             }
@@ -66,10 +68,10 @@ class ForgotPasswordController extends ForgotPasswordController_parent
         $mResponse = $this->oxpsPasswordPolicyForgotPasswordParent();
 
         // Reload and block user again if set.
-        $oUser = oxNew('oxUser');
+        $oUser = oxNew(User::class);
 
         if (!empty($mBlockUser) and $oUser->load($mBlockUser)) {
-            $oUser->oxuser__oxactive = new oxField(false);
+            $oUser->oxuser__oxactive = new Field(false);
             $oUser->save();
         }
 
@@ -101,7 +103,7 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
         if ($blAllowUnblock) {
             // Save target user OXID.
-            $oUser = oxNew('oxUser');
+            $oUser = oxNew(User::class);
 
             // Load user by
             if ($oUser->loadUserByUpdateId($oConfig->getRequestParameter('uid'))) {
@@ -114,11 +116,11 @@ class ForgotPasswordController extends ForgotPasswordController_parent
 
         // Check if unlock is allowed by settings, user is valid and update was successful
         if ($blAllowUnblock and $mUnblockUser and ($mParentReturn == 'forgotpwd?success=1')) {
-            $oUser = oxNew('oxUser');
+            $oUser = oxNew(User::class);
 
             // Load user by
             if ($oUser->load($mUnblockUser)) {
-                $oUser->oxuser__oxactive = new oxField(true);
+                $oUser->oxuser__oxactive = new Field(true);
                 $oUser->save();
             }
         }

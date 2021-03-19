@@ -24,6 +24,7 @@
 namespace OxidProfessionalServices\PasswordPolicy\Component;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Application\Model\User;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule;
 use OxidProfessionalServices\PasswordPolicy\Model\Attempt;
 
@@ -85,7 +86,7 @@ class UserComponent extends UserComponent_parent
         // Parent login call
         $mLoginResponse = $this->oxpsPasswordPolicyUserLoginParent();
 
-        $oUser = oxNew('oxUser');
+        $oUser = oxNew(User::class);
 
         // Try loading user by username
         $iUserId = $oUser->getIdByUserName(Registry::getConfig()->getRequestParameter('lgn_usr'));
@@ -144,10 +145,10 @@ class UserComponent extends UserComponent_parent
             $oAttempt = oxNew(Attempt::class);
             $oAttempt->setUser($oUser);
             $oAttempt->setMaxAttemptsAllowed(
-                (int)$this->getConfig()->getShopConfVar('iMaxAttemptsAllowed', null, 'module:oxpspasswordpolicy')
+                (int)Registry::getConfig()->getShopConfVar('iMaxAttemptsAllowed', null, 'module:oxpspasswordpolicy')
             );
             $oAttempt->setTrackingPeriod(
-                (int)$this->getConfig()->getShopConfVar('iTrackingPeriod', null, 'module:oxpspasswordpolicy')
+                (int)Registry::getConfig()->getShopConfVar('iTrackingPeriod', null, 'module:oxpspasswordpolicy')
             );
 
             if ($this->getLoginStatus() == USER_LOGIN_FAIL) {
@@ -156,7 +157,7 @@ class UserComponent extends UserComponent_parent
 
                 if ($oAttempt->maximumReached()) {
                     // Block user and redirect to blocked user page
-                    $oUser->oxuser__oxactive = new oxField(0);
+                    $oUser->oxuser__oxactive = new OxidEsales\Eshop\Core\Field(0);
                     $oUser->save();
 
                     // Redirect user
