@@ -13,16 +13,16 @@ jobs:
       run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
     - name: install phpcs
       run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-    - name: phpcs psr12
-      run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
+    # - name: phpcs psr12
+    #   run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
 #    - name: phplint, phpmd ...  
 
   build:
     needs: stand_alone_checks
     strategy:
       matrix:
-        php: [7.1, 7.2]
-        oxid: [6.1, 6.2-rc, dev-master]
+        php: [7.1] # [7.1, 7.2]
+        oxid: [6.1] # [6.1, 6.2-rc, dev-master]
         exclude:
           - oxid: dev-master
             php: 7.1
@@ -32,17 +32,40 @@ jobs:
       options: -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
     env:
       MODULE_NAME: oxpspasswordpolicy
+      DB_HOST: "mysql"
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: oxid
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
     - uses: actions/checkout@v1
 
+    # - name: setup oxid
+    #   run: bash /var/www/oxid/setup.sh
     - name: setup oxid
-      run: bash /var/www/oxid/setup.sh
+      run: bash /var/www/oxideshop/scripts/setupOxid.sh
+
+    - name: install this package into oxid
+      run: bash /var/www/oxideshop/scripts/setupPackage.sh
+
+    - name: activate module
+      run: bash /var/www/oxideshop/scripts/activateModule.sh
  
-    - name: debug
-      run: cat /var/www/oxid/test_config.yml
+    # - name: debug
+    #   run: cat /var/www/oxid/test_config.yml
  
+    # - name: activate module
+    #     vendor/bin/oxid module:activate moduleinternals
+    #     vendor/bin/oxid list
+    #     vendor/bin/oxid -vvv fix:states -a
+
     - name: runt tests
       run: |
-        cd /var/www/oxid/
+        cd /var/www/oxideshop/
         vendor/bin/runtests
-        ls -al source/log
+        # ls -al source/log
