@@ -1,3 +1,13 @@
+# 2.0.0
+
+### changed
+* remove password attempts feature 
+the feature did not pass the security check, it needs captcha dynamic blocking times and cleaner implementation and so it will be transferred in a separate module
+* big refactoring (before upgrade disable and remove the old module from source /modules directory)
+
+
+
+
 # 1.0.0
 * Reworked the module to match the metadata 2.1 specifications
 * Introduced namespaces

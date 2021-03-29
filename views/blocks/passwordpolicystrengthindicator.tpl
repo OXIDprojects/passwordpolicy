@@ -29,11 +29,5 @@
     oxpspasswordpolicy_translations['digits']    = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS" }]';
     oxpspasswordpolicy_translations['special']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL" }]';
 
-    var oxpspasswordpolicy_settings = new Array();
-    oxpspasswordpolicy_settings['iMinPasswordLength'] = [{ $iMinPasswordLength }];
-    oxpspasswordpolicy_settings['iGoodPasswordLength'] = [{ $iGoodPasswordLength }];
-    [{foreach from=$aPasswordRequirements key=key item=item}]
-        oxpspasswordpolicy_settings['[{$key}]'] = [{if 1==$item}]1[{else}]0[{/if}];
-    [{/foreach}]
-
+    var oxpspasswordpolicy_settings = [{$oViewConf->getJsonPasswordPolicySettings()}];
 </script>

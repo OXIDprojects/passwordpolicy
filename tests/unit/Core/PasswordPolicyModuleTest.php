@@ -28,7 +28,7 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
 {
 
     /**
-     * @var \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule
+     * @var \OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig
      */
     protected $SUT;
 
@@ -42,7 +42,7 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
     {
         parent::setUp();
 
-        $this->SUT = oxNew(\OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::class);
+        $this->SUT = oxNew(\OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig::class);
 
         // Set default oxConfig mock
         \OxidEsales\Eshop\Core\Registry::set("oxConfig", new oxConfigMock());
@@ -121,8 +121,6 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
                 $this->assertArrayHasKey('digits', $mValue);
                 $this->assertArrayHasKey('capital', $mValue);
                 $this->assertArrayHasKey('special', $mValue);
-            } elseif ($sName == 'blAllowUnblock') {
-                $this->assertType('boolean', $mValue);
             } else {
                 $this->assertType('integer', $mValue);
                 $this->assertGreaterThan(0, $mValue);
@@ -317,22 +315,6 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
     }
 
     /**
-     * `validatePositiveInteger` should validate min, max ranges correctly
-     */
-    public function testValidatePositiveInteger_minMaxRangeGiven_validatesCorrectly()
-    {
-        $iMin = 10;
-        $iMax = 100;
-
-        $this->assertFalse($this->SUT->validatePositiveInteger(9, $iMin, $iMax));
-        $this->assertTrue($this->SUT->validatePositiveInteger(10, $iMin, $iMax));
-        $this->assertTrue($this->SUT->validatePositiveInteger(50, $iMin, $iMax));
-        $this->assertTrue($this->SUT->validatePositiveInteger(100, $iMin, $iMax));
-        $this->assertFalse($this->SUT->validatePositiveInteger(1000000, $iMin, $iMax));
-    }
-
-
-    /**
      * Get all available module settings names.
      *
      * @return array
@@ -340,7 +322,6 @@ class Unit_Module_Components_PasswordPolicyModuleTest extends OxidTestCase
     private function _getModuleSettingsNames()
     {
         return array(
-            'iMaxAttemptsAllowed', 'iTrackingPeriod', 'blAllowUnblock',
             'iMinPasswordLength', 'iGoodPasswordLength', 'iMaxPasswordLength', 'aPasswordRequirements'
         );
     }

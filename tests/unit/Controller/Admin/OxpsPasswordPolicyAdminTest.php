@@ -89,7 +89,6 @@ class Unit_Module_Controllers_Admin_OxpsPasswordPolicyTest extends OxidTestCase
             ->will($this->returnValue('parent_render'));
 
         $aConfigKeys = array(
-            'iMaxAttemptsAllowed', 'iTrackingPeriod', 'blAllowUnblock',
             'iMinPasswordLength', 'iGoodPasswordLength', 'iMaxPasswordLength', 'aPasswordRequirements'
         );
 

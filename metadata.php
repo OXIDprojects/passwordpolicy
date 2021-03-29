@@ -24,6 +24,18 @@
 /**
  * Metadata version
  */
+
+use OxidEsales\Eshop\Core\InputValidator;
+use OxidEsales\Eshop\Core\ViewConfig;
+use OxidProfessionalServices\PasswordPolicy\Component\UserComponent;
+use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin;
+use OxidProfessionalServices\PasswordPolicy\Controller\ForgotPasswordController;
+use OxidProfessionalServices\PasswordPolicy\Controller\RegisterController;
+use OxidProfessionalServices\PasswordPolicy\Controller\UserController;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
+
 $sMetadataVersion = '2.1';
 
 /**
@@ -45,24 +57,14 @@ $aModule = [
     'url' => 'http://www.oxid-sales.com',
     'email' => 'info@oxid-esales.com',
     'extend' => [
-        \OxidEsales\Eshop\Application\Component\UserComponent::class
-            => \OxidProfessionalServices\PasswordPolicy\Component\UserComponent::class,
-        \OxidEsales\Eshop\Application\Controller\AccountPasswordController::class
-            => \OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController::class,
-        \OxidEsales\Eshop\Application\Controller\ForgotPasswordController::class
-            => \OxidProfessionalServices\PasswordPolicy\Controller\ForgotPasswordController::class,
-        \OxidEsales\Eshop\Application\Controller\RegisterController::class
-            => \OxidProfessionalServices\PasswordPolicy\Controller\RegisterController::class,
-        \OxidEsales\Eshop\Application\Controller\UserController::class
-            => \OxidProfessionalServices\PasswordPolicy\Controller\UserController::class,
+        ViewConfig::class => PasswordPolicyConfig::class,
+        InputValidator::class => PasswordPolicyValidator::class
         ],
     'controllers' => [
-        'oxpspasswordpolicy' => \OxidProfessionalServices\PasswordPolicy\Controller\OxpsPasswordPolicy::class,
         'admin_oxpspasswordpolicy' =>
-            \OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin::class,
+            OxpsPasswordPolicyAdmin::class,
     ],
     'templates' => [
-        'passwordpolicyaccountblocked.tpl' => 'oxps/passwordpolicy/views/pages/passwordpolicyaccountblocked.tpl',
         'admin_oxpspasswordpolicy.tpl' => 'oxps/passwordpolicy/views/admin/admin_oxpspasswordpolicy.tpl',
     ],
     'blocks' => [
@@ -83,10 +85,7 @@ $aModule = [
         ]
     ],
     'settings' => [
-        ['name' => 'iMaxAttemptsAllowed', 'type' => 'int', 'value' => 3],
-        ['name' => 'iTrackingPeriod', 'type' => 'int', 'value' => 60],
-        ['name' => 'blAllowUnblock', 'type' => 'bool', 'value' => false],
-        ['name' => 'iMinPasswordLength', 'type' => 'int', 'value' => 6],
+        ['name' => 'iMinPasswordLength', 'type' => 'int', 'value' => 8],
         ['name' => 'iGoodPasswordLength', 'type' => 'int', 'value' => 12],
         ['name' => 'iMaxPasswordLength', 'type' => 'int', 'value' => 100],
         ['name' => 'aPasswordRequirements', 'type' => 'aarr', 'value' => [
@@ -97,7 +96,5 @@ $aModule = [
         ]]
     ],
     'events' => [
-        'onActivate' => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::onActivate',
-        'onDeactivate' => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyModule::onDeactivate',
     ],
 ];

@@ -28,46 +28,6 @@
                                 <tr>
                                     <th colspan="2">
                                         <strong>
-                                            [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_ACCOUNTBLOCK" }]
-                                        </strong>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <td class="edittext" width="120">
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_MAXATTEMPTS" }]
-                                    </td>
-                                    <td class="edittext">
-                                        <input type="test" name="passwordpolicy_maxattemptsallowed"
-                                               value="[{ $iMaxAttemptsAllowed }]" maxlength="4"/>
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_MAXATTEMPTS_HINT" }]
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="edittext" width="120">
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_TRACKINGPERIOD" }]
-                                    </td>
-                                    <td class="edittext">
-                                        <input type="test" name="passwordpolicy_trackingperiod"
-                                               value="[{ $iTrackingPeriod }]" maxlength="12"/>
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_TRACKINGPERIOD_HINT" }]
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="edittext" width="120">
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_ALLOWUNBLOCK_LABEL" }]
-                                    </td>
-                                    <td class="edittext">
-                                        <input type="checkbox" name="passwordpolicy_allowunblock"
-                                               value="1"[{if $blAllowUnblock }] checked="ckecked"[{/if}]/>
-                                        [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_ALLOWUNBLOCK" }]
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="2">
-                                        <strong>
                                             [{ oxmultilang ident="OXPS_PASSWORDPOLICY_ADMIN_PASSWORDSTRENGTH" }]
                                         </strong>
                                     </th>
