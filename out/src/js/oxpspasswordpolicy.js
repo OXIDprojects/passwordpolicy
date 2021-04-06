@@ -61,12 +61,12 @@ function passwordStrength(password) {
     try {
 
         // Loading settings
-        min_length = oxpspasswordpolicy_settings['iMinPasswordLength'];
-        good_length = oxpspasswordpolicy_settings['iGoodPasswordLength'];
+        min_length = oxpspasswordpolicy_settings['minPasswordLength'];
+        good_length = oxpspasswordpolicy_settings['goodPasswordLength'];
     } catch (err) {
 
         // Use hardcoded default  values
-        min_length = 6;
+        min_length = 8;
         good_length = 12;
     }
 
@@ -106,7 +106,7 @@ function passwordValidate(object, password) {
     passwordStrength(password);
 
     // Loading settings
-    var min_length = oxpspasswordpolicy_settings['iMinPasswordLength'];
+    var min_length = oxpspasswordpolicy_settings['minPasswordLength'];
     var digits = oxpspasswordpolicy_settings['digits'];
     var capital = oxpspasswordpolicy_settings['capital'];
     var lower   = oxpspasswordpolicy_settings['lower'];

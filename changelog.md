@@ -1,11 +1,16 @@
-# 2.0.0
+# 2.0.0 unreleased
+
+## removed
+* removed password attempts feature (should become a new module)
+* removed extra settings page (use module setting, extensions->modules, select password policy module -> select settings)
 
 ### changed
-* remove password attempts feature 
 the feature did not pass the security check, it needs captcha dynamic blocking times and cleaner implementation and so it will be transferred in a separate module
 * big refactoring (before upgrade disable and remove the old module from source /modules directory)
+* config parameter names changed
 
-
+### added
+* tests and development tools
 
 
 # 1.0.0

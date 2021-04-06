@@ -27,14 +27,10 @@
 
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
-use OxidProfessionalServices\PasswordPolicy\Component\UserComponent;
-use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin;
-use OxidProfessionalServices\PasswordPolicy\Controller\ForgotPasswordController;
-use OxidProfessionalServices\PasswordPolicy\Controller\RegisterController;
-use OxidProfessionalServices\PasswordPolicy\Controller\UserController;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 
 $sMetadataVersion = '2.1';
 
@@ -42,7 +38,7 @@ $sMetadataVersion = '2.1';
  * Module information
  */
 $aModule = [
-    'id' => 'oxpspasswordpolicy',
+    'id' => PasswordPolicyConfig::ModuelId,
     'title' => [
         'de' => 'Kennwortrichtlinie',
         'en' => 'Password Policy'
@@ -57,7 +53,7 @@ $aModule = [
     'url' => 'http://www.oxid-sales.com',
     'email' => 'info@oxid-esales.com',
     'extend' => [
-        ViewConfig::class => PasswordPolicyConfig::class,
+        ViewConfig::class => PasswordPolicyViewConfig::class,
         InputValidator::class => PasswordPolicyValidator::class
         ],
     'controllers' => [
@@ -85,16 +81,12 @@ $aModule = [
         ]
     ],
     'settings' => [
-        ['name' => 'iMinPasswordLength', 'type' => 'int', 'value' => 8],
-        ['name' => 'iGoodPasswordLength', 'type' => 'int', 'value' => 12],
-        ['name' => 'iMaxPasswordLength', 'type' => 'int', 'value' => 100],
-        ['name' => 'aPasswordRequirements', 'type' => 'aarr', 'value' => [
-            'digits' => true,
-            'capital' => true,
-            'special' => true,
-            'lower' => true,
-        ]]
+        ['group' => 'passwordpolicy', 'name' => PasswordPolicyConfig::SettingGoodPasswordLength, 'type' => 'num', 'value' => 12],
+        ['group' => 'passwordpolicy', 'name' => PasswordPolicyConfig::SettingMinPasswordLength, 'type' => 'num', 'value' => 8],
+        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingUpper, 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingLower, 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingSpecial, 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingDigits, 'type' => 'bool', 'value' => true],
     ],
-    'events' => [
-    ],
+    'events' => [],
 ];

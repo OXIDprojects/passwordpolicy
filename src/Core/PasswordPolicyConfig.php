@@ -21,6 +21,8 @@
  * @copyright (C) OXID eSales AG 2003-2019
  */
 
+declare(strict_types=1);
+
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Core\Registry;
@@ -30,130 +32,56 @@ use OxidEsales\Eshop\Core\DatabaseProvider;
 /**
  * Password policy config helpers used in controllers mostly
  */
-class PasswordPolicyConfig extends PasswordPolicyConfig_parent
+class PasswordPolicyConfig
 {
+    private const SettingsPrefix = 'oxpspasswordpolicy';
+    public const SettingGoodPasswordLength = self::SettingsPrefix . 'GoodPasswordLength';
+    public const SettingMinPasswordLength = self::SettingsPrefix . 'MinPasswordLength';
+    public const SettingDigits = self::SettingsPrefix . 'Digits';
+    public const SettingSpecial = self::SettingsPrefix . 'Special';
+    public const SettingUpper = self::SettingsPrefix . 'Upper';
+    public const SettingLower = self::SettingsPrefix . 'Lower';
 
-    /**
-     * @var string Module ID used as module identifier in `oxconfig` DB table.
-     */
-    protected $moduleId = 'oxpspasswordpolicy';
-
-
-    /**
-     * Get module ID.
-     *
-     * @return string
-     */
-    private function getModuleId(): string
+    public function getGoodPasswordLength(): int
     {
-        return $this->moduleId;
+        return (int) Registry::getConfig()->getConfigParam(self::SettingGoodPasswordLength, 12);
+    }
+
+    public function getPasswordNeedDigits(): bool
+    {
+        return $this->isConfigParam(self::SettingDigits);
+    }
+
+    public function getPasswordNeedUpperCase(): bool
+    {
+        return $this->isConfigParam(self::SettingUpper);
+    }
+
+    public function getPasswordNeedLowerCase(): bool
+    {
+        return $this->isConfigParam(self::SettingLower);
+    }
+
+    public function getPasswordNeedSpecialCharacter(): bool
+    {
+        return $this->isConfigParam(self::SettingSpecial);
     }
 
     /**
-     * Load module configuration value from database.
-     *
-     * @param string $sName Configuration value name.
-     * @return mixed
+     * returns the hardcoded maximum length for passwords
+     * a maximum length is need to avoid problems when processing long data (e.g. bufferoverflows, memory limits)
+     * 255 is used because most security checks will be happy finding the limit and
+     * also it is big enough to allow secure passwords
+     * @return int
      */
-    public function getShopConfVar($sName)
+    public function getMaxPasswordLength(): int
     {
-        // @codeCoverageIgnoreStart
-        // Not covering eShop default functions
-
-        return Registry::getConfig()->getConfigParam($sName);
-        // @codeCoverageIgnoreEnd
+        //this hardcoded limit to simplify settings
+        return 255;
     }
 
-    /**
-     * Saves config value to database.
-     *
-     * @param string $sType
-     * @param string $sName
-     * @param mixed $mValue
-     * @return null
-     */
-    public function saveShopConfVar($sType, $sName, $mValue)
+    private function isConfigParam(string $name): bool
     {
-        // @codeCoverageIgnoreStart
-        // Not covering eShop default functions
-
-        Registry::getConfig()->saveShopConfVar($sType, $sName, $mValue, null, 'module:' . $this->getModuleId());
-        // @codeCoverageIgnoreEnd
+        return (bool) Registry::getConfig()->getConfigParam($name, true);
     }
-
-    /**
-     * Return module settings.
-     *
-     * @param bool $blReturnNames Returns only settings names array if TRUE.
-     * @return array Loaded settings as assoc. array.
-     */
-    public function getModuleSettings($blReturnNames = false)
-    {
-        $aSettings = array(
-            'iMinPasswordLength' => 'integer',
-            'iGoodPasswordLength' => 'integer',
-            'iMaxPasswordLength' => 'integer',
-            'aPasswordRequirements' => 'array',
-        );
-
-        if ($blReturnNames) {
-            return array_keys($aSettings);
-        }
-
-        foreach ($aSettings as $sName => $sType) {
-            $aSettings[$sName] = $this->getShopConfVar($sName);
-            if ($sType == 'array' && $aSettings[$sName] === null) {
-                $aSettings[$sName] = array();
-            }
-            settype($aSettings[$sName], $sType);
-        }
-
-        return $aSettings;
-    }
-
-    /**
-     * Get module setting value.
-     *
-     * @param string $sName One of available module settings.
-     * @return mixed|null
-     */
-    public function getModuleSetting(string $sName)
-    {
-        $aSettings = $this->getModuleSettings();
-        return (isset($aSettings[$sName]) ? $aSettings[$sName] : null);
-    }
-
-
-    /**
-     * Check if number is a positive integer.
-     *
-     * @param mixed $mNumber
-     * @param mixed $mMin
-     * @param mixed $mMax
-     * @return bool
-     */
-    public function validatePositiveInteger($mNumber): bool
-    {
-        return (is_integer($mNumber) and ($mNumber > 0));
-    }
-
-    /**
-     * Available password content requirements options.
-     *
-     * @return array
-     */
-    public function getPasswordRequirementsOptions()
-    {
-        return array('digits', 'capital', 'special');
-    }
-
-    public function getJsonPasswordPolicySettings()
-    {
-        // Assign current settings values
-        $settings = $this->getModuleSettings();
-        $settings = array_merge($settings, $settings['aPasswordRequirements']);
-        unset($settings['aPasswordRequirements']);
-        return json_encode($settings, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    }
-
 }
