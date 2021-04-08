@@ -38,7 +38,7 @@ $sMetadataVersion = '2.1';
  * Module information
  */
 $aModule = [
-    'id' => PasswordPolicyConfig::ModuelId,
+    'id' => 'oxpspasswordpolicy',
     'title' => [
         'de' => 'Kennwortrichtlinie',
         'en' => 'Password Policy'
@@ -48,7 +48,7 @@ $aModule = [
         'en' => 'Password validation, strength visualization and expiry rules',
     ],
     'thumbnail' => 'out/pictures/picture.png',
-    'version' => '1.0.0',
+    'version' => '2.0.0',
     'author' => 'OXID Professional Services',
     'url' => 'http://www.oxid-sales.com',
     'email' => 'info@oxid-esales.com',

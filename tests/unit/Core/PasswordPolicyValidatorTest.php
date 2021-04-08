@@ -73,7 +73,7 @@ class PasswordPolicyValidatorTest extends TestCase
 
     public function savePasswordLength(int $len): void
     {
-        Registry::getConfig()->setConfigParam('iPasswordLength', $len);
+        Registry::getConfig()->setConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, $len);
     }
 
     /**
@@ -118,7 +118,7 @@ class PasswordPolicyValidatorTest extends TestCase
         $permutations = $this->policyCombinations($mainPolicyName, $mainPolicyValue);
         $res = [];
         foreach ($permutations as $permutation) {
-            $permutation['iPasswordLength'] = 8;
+            $permutation[PasswordPolicyConfig::SettingMinPasswordLength] = 8;
             $res[] = [$permutation, $psw, $willPass];
         }
 

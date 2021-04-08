@@ -69,7 +69,7 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
         $settings = $this->getModuleSettings();
 
         // Validate password according to settings params
-        if ($iPasswordLength < $this->getPasswordLength()) {
+        if ($iPasswordLength < $settings->getMinPasswordLength()) {
             $sError = 'ERROR_MESSAGE_PASSWORD_TOO_SHORT';
         }
 
