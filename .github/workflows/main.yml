@@ -82,7 +82,7 @@ jobs:
           MYSQL_DATABASE: oxid
         ports:
           - 3306
-        options: --tmpfs=/var/lib/mysql --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --tmpfs=/tmp/ --tmpfs=/var/lib/mysql/ --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     steps:
