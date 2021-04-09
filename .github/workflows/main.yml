@@ -3,19 +3,25 @@ name: oxid module tests
 on: [push]
 
 jobs:
-  stand_alone_checks:
+  codestyle_checks:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
     runs-on: ubuntu-latest
+    needs: install
+    container:
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     steps:
-    - uses: actions/checkout@v1   
-    - name: Validate composer.json
-      run: composer validate   
-    - name: validate php syntax
-      run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
-#    - name: install phpcs
-#      run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-    # - name: phpcs psr12
-    #   run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
-#    - name: phplint, phpmd ...  
+      - uses: actions/checkout@v1
+      - name: Validate composer.json
+        run: composer validate
+      - name: validate php syntax
+        run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+      - name: phive install
+        run: phive install
+      - name: run code checks
+        run: tools/php-cs-fixer fix --dry-run --diff-format=udiff .
   install:
     strategy:
       matrix:
@@ -30,7 +36,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: install
-        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid-docker.git\", \"type\":\"vcs\"}" --remove-vcs
+        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
 
       - name: move artifacts to projects folder
         run: |
@@ -56,34 +62,6 @@ jobs:
         with:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
           path: oxid.tar.gz
-
-  codestyle_checks:
-    strategy:
-      matrix:
-        php: [ 7.3, 7.4 ] # [7.1, 7.2]
-        oxid: [ 6.2 ]
-    runs-on: ubuntu-latest
-    needs: install
-    container:
-      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
-    steps:
-      - uses: actions/checkout@v1
-      - name: Download a single artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
-      - name: extract temp artifact
-        run: |
-          tar xzf oxid.tar.gz && mv oxid /__w
-      - name: prepare autoload
-        run: |
-          bin/symlinkProjectModules.sh
-          bin/createModuleAutoload.sh
-        working-directory: /__w/oxid
-
-      - name: run code checks
-        run: composer ci:codecheck
-        working-directory: /__w/oxid
 
   unit_tests:
     strategy:
