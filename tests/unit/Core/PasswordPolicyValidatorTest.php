@@ -82,30 +82,30 @@ class PasswordPolicyValidatorTest extends TestCase
     public function passwordPolicyProvider(): array
     {
         return array_merge(
-        $this->withPolicyCombinations(
+            $this->withPolicyCombinations(
             "ThisPasswordFulfills5Requirements!",
             true
         ),
-        $this->withPolicyCombinations(
+            $this->withPolicyCombinations(
             "NOLOWER1/",
             false,
             PasswordPolicyConfig::SettingLower,
         ),
-        $this->withPolicyCombinations(
+            $this->withPolicyCombinations(
             "noupper1/",
             false,
             PasswordPolicyConfig::SettingUpper,
         ),
-        $this->withPolicyCombinations(
+            $this->withPolicyCombinations(
             "noSpecial2Day",
             false,
             PasswordPolicyConfig::SettingSpecial
         ),
-        $this->withPolicyCombinations(
+            $this->withPolicyCombinations(
             "2Short!",
             false
         )
-    );
+        );
     }
 
     private function withPolicyCombinations(
@@ -113,8 +113,7 @@ class PasswordPolicyValidatorTest extends TestCase
         bool $willPass,
         string $mainPolicyName='',
         bool $mainPolicyValue=true
-    ): array
-    {
+    ): array {
         $permutations = $this->policyCombinations($mainPolicyName, $mainPolicyValue);
         $res = [];
         foreach ($permutations as $permutation) {
@@ -141,7 +140,7 @@ class PasswordPolicyValidatorTest extends TestCase
         ];
 
         $res = [];
-        foreach (range(0,15) as $combination) {
+        foreach (range(0, 15) as $combination) {
             $permutation = [];
             foreach ($flags as $name => $flag) {
                 $permutation[$name] = false;

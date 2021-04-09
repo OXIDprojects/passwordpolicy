@@ -139,5 +139,4 @@ class PasswordPolicyConfigTest extends TestCase
     {
         Registry::getConfig()->setConfigParam($name, $value);
     }
-
 }

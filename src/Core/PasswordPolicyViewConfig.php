@@ -52,5 +52,4 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
         }
         return $res;
     }
-
 }

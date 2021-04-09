@@ -9,7 +9,6 @@
 namespace OxidProfessionalServices\PasswordPolicy\Core {
     class PasswordPolicyViewConfig_parent extends \OxidEsales\Eshop\Core\ViewConfig
     {
-
     }
 }
 
@@ -17,6 +16,5 @@ namespace OxidProfessionalServices\PasswordPolicy\Core {
 namespace OxidProfessionalServices\PasswordPolicy\Core {
     class PasswordPolicyValidator_parent extends \OxidEsales\Eshop\Core\InputValidator
     {
-
     }
 }
