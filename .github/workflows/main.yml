@@ -17,9 +17,13 @@ jobs:
     #   run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
 #    - name: phplint, phpmd ...  
   install:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ] # [
     runs-on: ubuntu-latest
     container:
-      image: composer:2.0.12
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     env:
       MODULE_NAME: oxid-professional-services/password-policy
     steps:
@@ -50,20 +54,24 @@ jobs:
       - name: Upload oxid-with-deps
         uses: actions/upload-artifact@v2
         with:
-          name: oxid-with-deps
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
           path: oxid.tar.gz
 
   codestyle_checks:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     needs: install
     container:
-      image: oxidesales/oxideshop-docker-php:7.4
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     steps:
       - uses: actions/checkout@v1
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: oxid-with-deps
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
       - name: extract temp artifact
         run: |
           tar xzf oxid.tar.gz && mv oxid /__w
@@ -78,16 +86,20 @@ jobs:
         working-directory: /__w/oxid
 
   unit_tests:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     needs: install
     container:
-      image: oxidesales/oxideshop-docker-php:7.4
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     steps:
       - uses: actions/checkout@v1
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: oxid-with-deps
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
       - name: extract temp artifact
         run: |
           tar xzf oxid.tar.gz && mv oxid /__w
@@ -102,10 +114,14 @@ jobs:
         working-directory: /__w/oxid
 
   integration_tests:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     needs: install
     container:
-      image: oxidesales/oxideshop-docker-php:7.4
+      image: oxidprojects/oxid-apache-php:oxid6.2-php7.4
     env:
       DB_NAME: oxid
       DB_HOST: db
@@ -125,7 +141,7 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: oxid-with-deps
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
 
       - name: extract temp artifact
         run: |
