@@ -5,11 +5,13 @@
   "keywords": ["oxid", "modules", "eShop", "password", "password-strength", "password-policy"],
   "license": "GPL-3.0-only",
   "require": {
-    "oxid-esales/oxideshop-ce": "^v6.3",
-    "php": ">=7.1"
+    "oxid-esales/oxideshop-ce": "^v6.6",
+    "php": ">=7.3",
+    "ext-json": "*"
   },
   "require-dev": {
-
+    "php-parallel-lint/php-parallel-lint": "^1.2",
+    "oxid-esales/oxideshop-ide-helper": "^4"
   },
   "extra": {
     "oxideshop": {
@@ -21,5 +23,23 @@
       "OxidProfessionalServices\\PasswordPolicy\\": "src",
       "OxidProfessionalServices\\PasswordPolicy\\Tests\\": "tests"
     }
+  },
+  "scripts": {
+    "fix:codestyle": "tools/php-cs-fixer fix .",
+    "fix": [
+      "@fix:codestyle"
+    ],
+    "test:style": "tools/php-cs-fixer fix --dry-run --diff-format=udiff .",
+    "test:syntax": "vendor/bin/parallel-lint src/ tests/ metadata.php",
+    "test:static": "tools/phpstan --memory-limit=-1 analyse src/",
+    "test:unit": "phpunit -c tests/phpunit.xml tests/Unit/",
+    "test:infection": "infection --min-msi=78 --min-covered-msi=97",
+    "test": [
+      "@test:syntax",
+      "@test:style",
+      "@test:static",
+      "@test:unit",
+      "@test:infection"
+    ]
   }
 }

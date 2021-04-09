@@ -5,21 +5,23 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         forceCoversAnnotation="true"
+         forceCoversAnnotation="false"
          processIsolation="false"
          stopOnError="false"
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutTestsThatDoNotTestAnything="false"
          verbose="false">
+    <testsuites>
+        <testsuite name="UnitTests">
+            <directory>unit/</directory>
+        </testsuite>
+    </testsuites>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true"
                    processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../src/Core</directory>
-            <directory suffix=".php">../src/Controller</directory>
-            <directory suffix=".php">../src/Component</directory>
-            <directory suffix=".php">../src/Model</directory>
+            <directory suffix=".php">../src</directory>
         </whitelist>
     </filter>
 </phpunit>

@@ -3,38 +3,109 @@ name: oxid module tests
 on: [push]
 
 jobs:
-  stand_alone_checks:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1   
-    - name: Validate composer.json
-      run: composer validate   
-    - name: validate php syntax
-      run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
-    - name: install phpcs
-      run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
-    # - name: phpcs psr12
-    #   run: php phpcs.phar --standard=PSR12 --extensions=php --ignore=vendor .
-#    - name: phplint, phpmd ...  
-
-  build:
-    needs: stand_alone_checks
+  codestyle_checks:
     strategy:
       matrix:
-        php: [7.1] # [7.1, 7.2]
-        oxid: [6.1] # [6.1, 6.2-rc, dev-master]
-        exclude:
-          - oxid: dev-master
-            php: 7.1
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     container:
-      image: oxidprojects/oxid-test:v3_${{matrix.oxid}}_php${{matrix.php}}
-      options: -v /var/run/mysqld/mysqld.sock:/var/run/mysqld/mysqld.sock
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Validate composer.json
+        run: composer validate
+      - name: validate php syntax
+        run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
+      - name: install php-cs-fixer
+        run: phive install php-cs-fixer:2.18.5 --trust-gpg-keys E82B2FB314E9906E
+      - name: run code checks
+        run: tools/php-cs-fixer fix --dry-run --diff-format=udiff .
+  install:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ] # [
+    runs-on: ubuntu-latest
+    container:
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     env:
-      MODULE_NAME: oxpspasswordpolicy
-      DB_HOST: "mysql"
+      MODULE_NAME: oxid-professional-services/password-policy
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: install
+        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
+
+      - name: move artifacts to projects folder
+        run: |
+          mkdir -p /__w/oxid/project-modules/module-under-test && cp -r * /__w/oxid/project-modules/module-under-test
+      - name: add project module folder
+        run:
+          composer config repositories.build path /__w/oxid/project-modules/\*
+        working-directory: /__w/oxid
+
+      - name: require module
+        run: cd /__w/oxid && composer require --no-interaction $MODULE_NAME
+        working-directory: /__w/oxid
+
+      - name: move config to source folder
+        run: cp config.inc.php-dist source/config.inc.php
+        working-directory: /__w/oxid
+
+      - name: zip temp artifact
+        run: tar czf oxid.tar.gz --directory /__w oxid
+
+      - name: Upload oxid-with-deps
+        uses: actions/upload-artifact@v2
+        with:
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
+          path: oxid.tar.gz
+
+  unit_tests:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
+    runs-on: ubuntu-latest
+    needs: install
+    container:
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+    steps:
+      - uses: actions/checkout@v1
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
+      - name: extract temp artifact
+        run: |
+          tar xzf oxid.tar.gz && mv oxid /__w
+      - name: prepare autoload
+        run: |
+          bin/symlinkProjectModules.sh
+          bin/createModuleAutoload.sh
+        working-directory: /__w/oxid
+
+      - name: run unit tests
+        run: vendor/bin/phpunit --testsuite unit-tests
+        working-directory: /__w/oxid
+
+  integration_tests:
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        oxid: [ 6.2 ]
+    runs-on: ubuntu-latest
+    needs: install
+    container:
+      image: oxidprojects/oxid-apache-php:oxid6.2-php7.4
+    env:
+      DB_NAME: oxid
+      DB_HOST: db
+      DB_USER: root
+      DB_PASS: root
     services:
-      mysql:
+      db:
         image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: root
@@ -43,29 +114,27 @@ jobs:
           - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
-    - uses: actions/checkout@v1
+      - uses: actions/checkout@v1
+      - name: Download a single artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
 
-    # - name: setup oxid
-    #   run: bash /var/www/oxid/setup.sh
-    - name: setup oxid
-      run: bash /var/www/oxideshop/scripts/setupOxid.sh
+      - name: extract temp artifact
+        run: |
+          tar xzf oxid.tar.gz && mv oxid /__w
+      - name: prepare autoload
+        run: |
+          bin/symlinkProjectModules.sh
+          bin/createModuleAutoload.sh
+        working-directory: /__w/oxid
 
-    - name: install this package into oxid
-      run: bash /var/www/oxideshop/scripts/setupPackage.sh
+      - name: prepare db dump
+        run: |
+          composer ci:prep:db
+          composer ci:prep:integration
+        working-directory: /__w/oxid
 
-    - name: activate module
-      run: bash /var/www/oxideshop/scripts/activateModule.sh
- 
-    # - name: debug
-    #   run: cat /var/www/oxid/test_config.yml
- 
-    # - name: activate module
-    #     vendor/bin/oxid module:activate moduleinternals
-    #     vendor/bin/oxid list
-    #     vendor/bin/oxid -vvv fix:states -a
-
-    - name: runt tests
-      run: |
-        cd /var/www/oxideshop/
-        vendor/bin/runtests
-        # ls -al source/log
+      - name: run integration tests
+        run: vendor/bin/phpunit --prepend source/bootstrap.php --testsuite integration-tests
+        working-directory: /__w/oxid

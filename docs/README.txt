@@ -34,7 +34,7 @@ And the validation on form submit is fully dependent on Password Policy configur
 So password strength meter is just an indicator helping to visualize strength, but not a validation mechanism.
 
 ==Installation==
-see readme in root folder
+module comes preinstalled with oxid
 
 ==Uninstall==
-Execute included uninstall.sql on Your database.
+you can deactivate the module in the admin area
