@@ -83,28 +83,28 @@ class PasswordPolicyValidatorTest extends TestCase
     {
         return array_merge(
             $this->withPolicyCombinations(
-            "ThisPasswordFulfills5Requirements!",
-            true
-        ),
+                "ThisPasswordFulfills5Requirements!",
+                true
+            ),
             $this->withPolicyCombinations(
-            "NOLOWER1/",
-            false,
-            PasswordPolicyConfig::SettingLower,
-        ),
+                "NOLOWER1/",
+                false,
+                PasswordPolicyConfig::SettingLower,
+            ),
             $this->withPolicyCombinations(
-            "noupper1/",
-            false,
-            PasswordPolicyConfig::SettingUpper,
-        ),
+                "noupper1/",
+                false,
+                PasswordPolicyConfig::SettingUpper,
+            ),
             $this->withPolicyCombinations(
-            "noSpecial2Day",
-            false,
-            PasswordPolicyConfig::SettingSpecial
-        ),
+                "noSpecial2Day",
+                false,
+                PasswordPolicyConfig::SettingSpecial
+            ),
             $this->withPolicyCombinations(
-            "2Short!",
-            false
-        )
+                "2Short!",
+                false
+            )
         );
     }
 
