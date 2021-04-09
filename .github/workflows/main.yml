@@ -62,7 +62,7 @@ jobs:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
           path: oxid.tar.gz
 
-  unit_tests:
+  oxid_unit_tests:
     strategy:
       matrix:
         php: [ 7.3, 7.4 ] # [7.1, 7.2]
