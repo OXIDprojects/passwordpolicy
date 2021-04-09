@@ -26,7 +26,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: install
-        run: composer create-project keywan-ghadami-oxid/test-oxid-docker:dev-oxid-6.2 /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid-docker.git\", \"type\":\"vcs\"}" --remove-vcs
+        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid-docker.git\", \"type\":\"vcs\"}" --remove-vcs
 
       - name: move artifacts to projects folder
         run: |
