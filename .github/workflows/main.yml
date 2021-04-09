@@ -86,7 +86,6 @@ jobs:
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
     steps:
-      - uses: actions/checkout@v1
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
