@@ -17,8 +17,8 @@ jobs:
         run: composer validate
       - name: validate php syntax
         run: find . -not -path "./vendor/*" -name "*.php" -print0 | xargs -0 -n1 -P8 php -l
-      - name: phive install
-        run: phive install
+      - name: install php-cs-fixer
+        run: phive install php-cs-fixer:2.18.5 --trust-gpg-keys E82B2FB314E9906E
       - name: run code checks
         run: tools/php-cs-fixer fix --dry-run --diff-format=udiff .
   install:
