@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
-      options: --tmpfs=/tmp/
+      options: --tmpfs=/tmp:noatime
     env:
       MODULE_NAME: oxid-professional-services/password-policy
     steps:
@@ -55,13 +55,13 @@ jobs:
         working-directory: /tmp/oxid
 
       - name: zip temp artifact
-        run: tar czf oxid.tar.gz --directory /tmp oxid
+        run: tar czf /tmp/oxid.tar.gz --directory /tmp oxid
 
       - name: Upload oxid-with-deps
         uses: actions/upload-artifact@v2
         with:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
-          path: oxid.tar.gz
+          path: /tmp/oxid.tar.gz
 
   oxid_unit_tests:
     strategy:
@@ -84,18 +84,19 @@ jobs:
           MYSQL_DATABASE: oxid
         ports:
           - 3306
-        options: --tmpfs=/tmp/ --tmpfs=/var/lib/mysql/ --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --tmpfs=/tmp:noatime --tmpfs=/var/lib/mysql:noatime --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
-      options: --tmpfs=/tmp/
+      options: --tmpfs=/tmp:exec,noatime
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
+          name: /tmp/oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
       - name: extract temp artifact
         run: |
-          tar xzf oxid.tar.gz && mv oxid /tmp
+          tar xzf oxid.tar.gz
+        working-directory: /tmp/
       - name: prepare autoload
         run: |
           bin/symlinkProjectModules.sh
