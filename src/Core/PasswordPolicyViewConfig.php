@@ -36,7 +36,6 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
 {
     public function getJsonPasswordPolicySettings(): string
     {
-        /** @var PasswordPolicyConfig $config */
         $config = Registry::get(PasswordPolicyConfig::class);
         $array = [];
         $array['goodPasswordLength'] = $config->getGoodPasswordLength();
