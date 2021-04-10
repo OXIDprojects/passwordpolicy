@@ -42,7 +42,7 @@ class PasswordPolicyConfig
     public const SettingUpper = self::SettingsPrefix . 'Upper';
     public const SettingLower = self::SettingsPrefix . 'Lower';
 
-    public function getMinPasswordLength(): int
+    public function getMinPasswordLength(): string
     {
         return (int) Registry::getConfig()->getConfigParam(self::SettingMinPasswordLength, 8);
     }
