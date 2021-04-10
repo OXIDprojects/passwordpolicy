@@ -56,10 +56,7 @@ $aModule = [
         ViewConfig::class => PasswordPolicyViewConfig::class,
         InputValidator::class => PasswordPolicyValidator::class
         ],
-    'controllers' => [
-        'admin_oxpspasswordpolicy' =>
-            OxpsPasswordPolicyAdmin::class,
-    ],
+    'controllers' => [],
     'templates' => [
         'admin_oxpspasswordpolicy.tpl' => 'oxps/passwordpolicy/views/admin/admin_oxpspasswordpolicy.tpl',
     ],
