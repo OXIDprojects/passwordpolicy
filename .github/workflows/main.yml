@@ -71,10 +71,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     env:
-      DB_NAME: oxid
-      DB_HOST: db
-      DB_USER: root
-      DB_PASS: root
+      MYSQL_NAME: oxid
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASS: root
       SHOP_URL: http://localhost/
     services:
       db:
@@ -104,8 +104,12 @@ jobs:
           bin/createModuleAutoload.sh
         working-directory: /tmp/oxid
 
-      - name: l
-        run: ls -al
+      - name: mysql shema
+        run: mysql -u $MYSQL_USER -h db -p$MYSQL_PASSWORD $MYSQL_DATABASE < "vendor/oxid-esales/oxideshop-ce/source/Setup/Sql/database_schema.sql"
+        working-directory: /tmp/oxid
+
+      - name: mysql data
+        run: mysql -u $MYSQL_USER -h db -p$MYSQL_PASSWORD $MYSQL_DATABASE < "vendor/oxid-esales/oxideshop-ce/source/Setup/Sql/initial_data.sql"
         working-directory: /tmp/oxid
 
       - name: console
