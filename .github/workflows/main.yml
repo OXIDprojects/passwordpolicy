@@ -125,5 +125,5 @@ jobs:
         working-directory: /tmp/oxid
 
       - name: run unit tests
-        run: php vendor/bin/phpunit --bootstrap vendor/oxid-esales/testing-library/bootstrap.php -c /var/www/oxideshop/source/modules/oxps/passwordpolicy/tests/phpunit.xml
+        run: php vendor/bin/phpunit --bootstrap vendor/oxid-esales/testing-library/bootstrap.php -c /tmp/oxid/source/modules/oxps/passwordpolicy/tests/phpunit.xml
         working-directory: /tmp/oxid
