@@ -113,7 +113,11 @@ jobs:
         working-directory: /tmp/oxid
 
       - name: console
-        run: vendor/bin/oe-console
+        run: vendor/bin/oe-console oe:module:activate oxpspasswordpolicy
+        working-directory: /tmp/oxid
+
+      - name: check mod config
+        run: cat var/configuration/shops/1.yaml
         working-directory: /tmp/oxid
 
       - name: composer validate
