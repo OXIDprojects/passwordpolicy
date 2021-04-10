@@ -74,7 +74,7 @@ jobs:
       MYSQL_DATABASE: oxid
       MYSQL_HOST: db
       MYSQL_USER: root
-      MYSQL_PASS: root
+      MYSQL_PASSWORD: root
       SHOP_URL: http://localhost/
     services:
       db:
