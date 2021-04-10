@@ -72,7 +72,7 @@ jobs:
     needs: install
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
-      options: --tmpfs=/tmp:exec,noatime
+      #options: --tmpfs=/tmp:exec,noatime
     env:
       MYSQL_DATABASE: oxid
       MYSQL_HOST: db
@@ -113,8 +113,16 @@ jobs:
         run: composer validate
         working-directory: /tmp/oxid
 
+      - name: psalm config
+        run: cat psalm.xml
+        working-directory: /tmp/oxid
+
+      - name: module files
+        run: ls source/modules/oxps/passwordpolicy/src
+        working-directory: /tmp/oxid
+
       - name: run psalm
-        run: php tools/psalm --no-progress --no-cache --debug
+        run: php tools/psalm --no-progress --no-cache
         working-directory: /tmp/oxid
 
 
