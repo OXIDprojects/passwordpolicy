@@ -140,11 +140,6 @@ jobs:
         run: |
           tar xzf oxid.tar.gz
         working-directory: /tmp/
-      - name: prepare autoload
-        run: |
-          bin/symlinkProjectModules.sh
-          bin/createModuleAutoload.sh
-        working-directory: /tmp/oxid
 
       - name: mysql shema
         run: mysql -u $MYSQL_USER -h db -p$MYSQL_PASSWORD $MYSQL_DATABASE < "vendor/oxid-esales/oxideshop-ce/source/Setup/Sql/database_schema.sql"
