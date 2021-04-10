@@ -113,8 +113,8 @@ jobs:
         run: composer validate
         working-directory: /tmp/oxid
 
-      - name: run unit tests
-        run: php tools/psalm project-modules/passwordpolicy/src source/modules/oxps/passwordpolicy/metadata.php
+      - name: run psalm
+        run: php tools/psalm --no-progress --no-cache --debug project-modules/passwordpolicy/src source/modules/oxps/passwordpolicy/metadata.php
         working-directory: /tmp/oxid
 
 
