@@ -21,10 +21,6 @@ jobs:
         run: phive install php-cs-fixer:2.18.5 --trust-gpg-keys E82B2FB314E9906E
       - name: run code checks
         run: tools/php-cs-fixer fix --dry-run --diff-format=udiff .
-      - name: mount
-        run: mount
-      - name: w
-        run: ls -al /__w/
   install:
     strategy:
       matrix:
@@ -33,32 +29,33 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+      options: --tmpfs=/tmp/
     env:
       MODULE_NAME: oxid-professional-services/password-policy
     steps:
       - uses: actions/checkout@v1
 
       - name: install
-        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
+        run: composer create-project oxid-professional-services/test-oxid /tmp/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
 
       - name: move artifacts to projects folder
         run: |
-          mkdir -p /__w/oxid/project-modules/module-under-test && cp -r * /__w/oxid/project-modules/module-under-test
+          mkdir -p /tmp/oxid/project-modules/module-under-test && cp -r * /tmp/oxid/project-modules/module-under-test
       - name: add project module folder
         run:
-          composer config repositories.build path /__w/oxid/project-modules/\*
-        working-directory: /__w/oxid
+          composer config repositories.build path /tmp/oxid/project-modules/\*
+        working-directory: /tmp/oxid
 
       - name: require module
-        run: cd /__w/oxid && composer require --no-interaction $MODULE_NAME
-        working-directory: /__w/oxid
+        run: cd /tmp/oxid && composer require --no-interaction $MODULE_NAME
+        working-directory: /tmp/oxid
 
       - name: move config to source folder
         run: cp config.inc.php-dist source/config.inc.php
-        working-directory: /__w/oxid
+        working-directory: /tmp/oxid
 
       - name: zip temp artifact
-        run: tar czf oxid.tar.gz --directory /__w oxid
+        run: tar czf oxid.tar.gz --directory /tmp oxid
 
       - name: Upload oxid-with-deps
         uses: actions/upload-artifact@v2
@@ -78,6 +75,7 @@ jobs:
       DB_HOST: db
       DB_USER: root
       DB_PASS: root
+      SHOP_URL: http://localhost/
     services:
       db:
         image: mysql:5.7
@@ -89,6 +87,7 @@ jobs:
         options: --tmpfs=/tmp/ --tmpfs=/var/lib/mysql/ --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+      options: --tmpfs=/tmp/
     steps:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
@@ -96,13 +95,29 @@ jobs:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
       - name: extract temp artifact
         run: |
-          tar xzf oxid.tar.gz && mv oxid /__w
+          tar xzf oxid.tar.gz && mv oxid /tmp
       - name: prepare autoload
         run: |
           bin/symlinkProjectModules.sh
           bin/createModuleAutoload.sh
-        working-directory: /__w/oxid
+        working-directory: /tmp/oxid
+
+      - name: l
+        run: ls -al
+        working-directory: /tmp/oxid
+
+      - name: console
+        run: vendor/bin/oe-console
+        working-directory: /tmp/oxid
+
+      - name: composer validate
+        run: composer validate
+        working-directory: /tmp/oxid
+
+      - name: oxid config
+        run: cat source/config.inc.php
+        working-directory: /tmp/oxid
 
       - name: run unit tests
         run: vendor/bin/runtests
-        working-directory: /__w/oxid
+        working-directory: /tmp/oxid
