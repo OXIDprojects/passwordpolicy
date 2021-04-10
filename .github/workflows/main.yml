@@ -93,7 +93,7 @@ jobs:
         working-directory: /tmp/oxid
 
       - name: run unit tests
-        run: php tools/psalm
+        run: php tools/psalm project-modules/passwordpolicy/src source/modules/oxps/passwordpolicy/metadata.php
         working-directory: /tmp/oxid
 
 
