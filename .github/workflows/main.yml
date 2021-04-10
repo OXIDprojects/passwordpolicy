@@ -114,7 +114,7 @@ jobs:
         working-directory: /tmp/oxid
 
       - name: run psalm
-        run: php tools/psalm --no-progress --no-cache --debug project-modules/passwordpolicy/src source/modules/oxps/passwordpolicy/metadata.php
+        run: php tools/psalm --no-progress --no-cache --debug
         working-directory: /tmp/oxid
 
 
