@@ -27,7 +27,6 @@
 
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
-use OxidProfessionalServices\PasswordPolicy\Controller\Admin\OxpsPasswordPolicyAdmin;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
@@ -58,7 +57,6 @@ $aModule = [
         ],
     'controllers' => [],
     'templates' => [
-        'admin_oxpspasswordpolicy.tpl' => 'oxps/passwordpolicy/views/admin/admin_oxpspasswordpolicy.tpl',
     ],
     'blocks' => [
         [
