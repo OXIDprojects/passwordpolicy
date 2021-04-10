@@ -112,7 +112,7 @@ jobs:
       SHOP_URL: http://localhost/
     services:
       db:
-        image: mysql:5.7
+        image: mariadb:10.5
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: oxid
