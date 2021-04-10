@@ -92,7 +92,8 @@ jobs:
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
-          name: /tmp/oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
+          name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
+          path: /tmp
       - name: extract temp artifact
         run: |
           tar xzf oxid.tar.gz
