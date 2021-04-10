@@ -73,6 +73,21 @@ jobs:
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
       options: --tmpfs=/tmp:exec,noatime
+    env:
+      MYSQL_DATABASE: oxid
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      SHOP_URL: http://localhost/
+    services:
+      db:
+        image: mariadb:10.5
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: oxid
+        ports:
+          - 3306
+        options: --tmpfs=/tmp:noatime --tmpfs=/var/lib/mysql:noatime --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Download oxid installation
         uses: actions/download-artifact@v2
@@ -83,6 +98,12 @@ jobs:
         run: |
           tar xzf oxid.tar.gz
         working-directory: /tmp/
+
+      - name: prepare autoload
+        run: |
+          bin/symlinkProjectModules.sh
+          bin/createModuleAutoload.sh
+        working-directory: /tmp/oxid
 
       - name: prepare autoload
         run: bin/createModuleAutoload.sh
