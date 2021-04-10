@@ -21,6 +21,10 @@ jobs:
         run: phive install php-cs-fixer:2.18.5 --trust-gpg-keys E82B2FB314E9906E
       - name: run code checks
         run: tools/php-cs-fixer fix --dry-run --diff-format=udiff .
+      - name: mount
+        run: mount
+      - name: w
+        run: ls -al /__w/
   install:
     strategy:
       matrix:
