@@ -73,7 +73,7 @@ class PasswordPolicyValidatorTest extends TestCase
 
     public function savePasswordLength(int $len): void
     {
-        Registry::getConfig()->setConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, $len);
+        Registry::getConfig()->setConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, (string) $len);
     }
 
     /**

@@ -6,7 +6,7 @@ jobs:
   codestyle_checks:
     strategy:
       matrix:
-        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        php: [ 7.4 ] # [7.1, 7.2]
         oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     container:
@@ -24,117 +24,135 @@ jobs:
   install:
     strategy:
       matrix:
-        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        php: [ 7.4 ] # [7.1, 7.2]
         oxid: [ 6.2 ] # [
     runs-on: ubuntu-latest
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+      options: --tmpfs=/build:noatime
     env:
       MODULE_NAME: oxid-professional-services/password-policy
     steps:
       - uses: actions/checkout@v1
 
       - name: install
-        run: composer create-project oxid-professional-services/test-oxid /__w/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
+        run: composer create-project oxid-professional-services/test-oxid /build/oxid --no-interaction -s dev --repository="{\"url\":\"https://github.com/keywan-ghadami-oxid/test-oxid.git\", \"type\":\"vcs\"}" --remove-vcs
 
       - name: move artifacts to projects folder
         run: |
-          mkdir -p /__w/oxid/project-modules/module-under-test && cp -r * /__w/oxid/project-modules/module-under-test
+          mkdir -p /build/oxid/project-modules/module-under-test && cp -r * /build/oxid/project-modules/module-under-test
       - name: add project module folder
         run:
-          composer config repositories.build path /__w/oxid/project-modules/\*
-        working-directory: /__w/oxid
+          composer config repositories.build path /build/oxid/project-modules/\*
+        working-directory: /build/oxid
 
       - name: require module
-        run: cd /__w/oxid && composer require --no-interaction $MODULE_NAME
-        working-directory: /__w/oxid
+        run: composer require --no-interaction $MODULE_NAME
+        working-directory: /build/oxid
 
       - name: move config to source folder
         run: cp config.inc.php-dist source/config.inc.php
-        working-directory: /__w/oxid
+        working-directory: /build/oxid
 
       - name: zip temp artifact
-        run: tar czf oxid.tar.gz --directory /__w oxid
+        run: tar czf /build/oxid.tar.gz --directory /build oxid
 
       - name: Upload oxid-with-deps
         uses: actions/upload-artifact@v2
         with:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
-          path: oxid.tar.gz
+          path: /build/oxid.tar.gz
 
-  unit_tests:
+  static_code_checks:
     strategy:
       matrix:
-        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        php: [ 7.4 ] # [7.1, 7.2]
         oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     needs: install
     container:
       image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+      options: --tmpfs=/build:exec,noatime
     steps:
-      - uses: actions/checkout@v1
-      - name: Download a single artifact
+      - name: Download oxid installation
         uses: actions/download-artifact@v2
         with:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
-      - name: extract temp artifact
+          path: /build
+      - name: extract oxid installation
         run: |
-          tar xzf oxid.tar.gz && mv oxid /__w
+          tar xzf oxid.tar.gz
+        working-directory: /build/
+
       - name: prepare autoload
-        run: |
-          bin/symlinkProjectModules.sh
-          bin/createModuleAutoload.sh
-        working-directory: /__w/oxid
+        run: bin/createModuleAutoload.sh
+        working-directory: /build/oxid
 
-      - name: run unit tests
-        run: vendor/bin/phpunit --testsuite unit-tests
-        working-directory: /__w/oxid
+      - name: run psalm
+        run: php tools/psalm --no-progress --no-cache
+        working-directory: /build/oxid
 
-  integration_tests:
+
+  oxid_unit_tests:
     strategy:
       matrix:
-        php: [ 7.3, 7.4 ] # [7.1, 7.2]
+        php: [ 7.4 ] # [7.1, 7.2]
         oxid: [ 6.2 ]
     runs-on: ubuntu-latest
     needs: install
-    container:
-      image: oxidprojects/oxid-apache-php:oxid6.2-php7.4
     env:
-      DB_NAME: oxid
-      DB_HOST: db
-      DB_USER: root
-      DB_PASS: root
+      MYSQL_DATABASE: oxid
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      SHOP_URL: http://localhost/
     services:
       db:
-        image: mysql:5.7
+        image: mariadb:10.5
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: oxid
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --tmpfs=/tmp:noatime --tmpfs=/var/lib/mysql:noatime --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    container:
+      image: oxidprojects/oxid-apache-php:oxid${{ matrix.oxid }}-php${{ matrix.php }}
+      options: --tmpfs=/build:exec,noatime
     steps:
-      - uses: actions/checkout@v1
       - name: Download a single artifact
         uses: actions/download-artifact@v2
         with:
           name: oxid${{ matrix.oxid }}-php${{ matrix.php }}-with-deps
-
+          path: /build
       - name: extract temp artifact
         run: |
-          tar xzf oxid.tar.gz && mv oxid /__w
-      - name: prepare autoload
-        run: |
-          bin/symlinkProjectModules.sh
-          bin/createModuleAutoload.sh
-        working-directory: /__w/oxid
+          tar xzf oxid.tar.gz
+        working-directory: /build/
 
-      - name: prepare db dump
-        run: |
-          composer ci:prep:db
-          composer ci:prep:integration
-        working-directory: /__w/oxid
+      - name: mysql shema
+        run: mysql -u $MYSQL_USER -h db -p$MYSQL_PASSWORD $MYSQL_DATABASE < "vendor/oxid-esales/oxideshop-ce/source/Setup/Sql/database_schema.sql"
+        working-directory: /build/oxid
 
-      - name: run integration tests
-        run: vendor/bin/phpunit --prepend source/bootstrap.php --testsuite integration-tests
-        working-directory: /__w/oxid
+      - name: mysql data
+        run: mysql -u $MYSQL_USER -h db -p$MYSQL_PASSWORD $MYSQL_DATABASE < "vendor/oxid-esales/oxideshop-ce/source/Setup/Sql/initial_data.sql"
+        working-directory: /build/oxid
+
+      - name: console
+        run: vendor/bin/oe-console oe:module:activate oxpspasswordpolicy
+        working-directory: /build/oxid
+
+      - name: check mod config
+        run: cat var/configuration/shops/1.yaml
+        working-directory: /build/oxid
+
+      - name: composer validate
+        run: composer validate
+        working-directory: /build/oxid
+
+      - name: oxid config
+        run: cat source/config.inc.php
+        working-directory: /build/oxid
+
+      - name: run unit tests
+        run: php vendor/bin/phpunit --bootstrap vendor/oxid-esales/testing-library/bootstrap.php -c /build/oxid/source/modules/oxps/passwordpolicy/tests/phpunit.xml
+        working-directory: /build/oxid

@@ -36,7 +36,8 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      * @param User $user
      * @param string $newPassword
      * @param string $confirmationPassword
-     * @param false $shouldCheckPasswordLength
+     * @param bool $shouldCheckPasswordLength this parameter is ignored, the password policy module always checks the
+     * length of passwords because it is important for security
      * @return StandardException|\OxidEsales\EshopCommunity\Core\Exception\StandardException|null
      */
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
@@ -61,7 +62,6 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function validatePassword(string $sPassword): ?StandardException
     {
-        $sPassword = (string)$sPassword;
         $sError = '';
         $iPasswordLength = mb_strlen($sPassword, 'UTF-8');
 
@@ -99,6 +99,7 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
         $res = null;
         if (!empty($sError)) {
             $translateString = Registry::getLang()->translateString($sError);
+            /** @var StandardException $exception  (makes psalm happy) */
             $exception = oxNew(InputException::class, $translateString);
 
             $res = $this->addValidationError("oxuser__oxpassword", $exception);
@@ -114,6 +115,6 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function getPasswordLength()
     {
-        return Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, 8);
+        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, 8);
     }
 }
