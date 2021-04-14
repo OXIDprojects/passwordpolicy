@@ -52,4 +52,5 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE'   => 'Das Passwort muss mindestens einen Kleinbuchstaben enthalten.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'Das Passwort muss mindestens ein Sonderzeichen Zahl enthalten.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Fehlerhafter Typ, bitte tragen Sie einen validen Wert ein. Bei weiteren Fragen wenden Sie sich an den Support.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN'  => 'Das Passwort befindet sich bereits in einer gehackten Datenbank und ist somit unsicher!'
 );

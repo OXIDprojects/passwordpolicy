@@ -39,6 +39,8 @@ class PasswordPolicyConfig
     public const SettingMinPasswordLength = self::SettingsPrefix . 'MinPasswordLength';
     public const SettingDigits = self::SettingsPrefix . 'Digits';
     public const SettingSpecial = self::SettingsPrefix . 'Special';
+    public const SettingAPIKey = self::SettingsPrefix . 'APIKey';
+    public const SettingSecretKey = self::SettingsPrefix . 'SecretKey';
     public const SettingUpper = self::SettingsPrefix . 'UpperCase';
     public const SettingLower = self::SettingsPrefix . 'LowerCase';
 
@@ -83,6 +85,16 @@ class PasswordPolicyConfig
     {
         //this hardcoded limit to simplify settings
         return 255;
+    }
+
+    public function getAPIKey(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SettingAPIKey);
+    }
+
+    public function getSecretKey(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SettingSecretKey);
     }
 
     private function isConfigParam(string $name): bool

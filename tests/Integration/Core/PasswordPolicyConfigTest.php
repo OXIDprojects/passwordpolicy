@@ -54,6 +54,11 @@ class PasswordPolicyConfigTest extends TestCase
         $this->subjectUnderTest = new PasswordPolicyConfig();
     }
 
+    public function testGetAPIKey(): void
+    {
+        $this->saveAPIKey("2342355ss33wsada3");
+        $this->assertEquals("2342355ss33wsada3", $this->subjectUnderTest->getAPIKey());
+    }
     /**
      * @dataProvider lengthProvider
      * @param int $len
@@ -110,6 +115,10 @@ class PasswordPolicyConfigTest extends TestCase
         ];
     }
 
+    public function saveAPIKey(string $key): void
+    {
+        $this->setConfig(PasswordPolicyConfig::SettingAPIKey, $key);
+    }
     public function saveGoodPasswordLength(int $len): void
     {
         $this->setConfig(PasswordPolicyConfig::SettingGoodPasswordLength, $len);
@@ -139,4 +148,6 @@ class PasswordPolicyConfigTest extends TestCase
     {
         Registry::getConfig()->setConfigParam($name, $value);
     }
+
+
 }
