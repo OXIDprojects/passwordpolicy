@@ -42,8 +42,8 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
         $array['minPasswordLength'] = $this->getPasswordLength();
         $array['digits'] = $config->getPasswordNeedDigits();
         $array['special'] = $config->getPasswordNeedSpecialCharacter();
-        $array['lower'] = $config->getPasswordNeedLowerCase();
-        $array['upper'] = $config->getPasswordNeedUpperCase();
+        $array['lowercase'] = $config->getPasswordNeedLowerCase();
+        $array['uppercase'] = $config->getPasswordNeedUpperCase();
         $res = json_encode($array, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
         if ($res === false) {
             $error = json_last_error_msg();

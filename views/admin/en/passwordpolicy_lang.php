@@ -20,12 +20,14 @@ $sLangName = "English";
 $aLang = array(
     'charset' => 'UTF-8',
     'oxpspasswordpolicy' => 'Password Policy',
+    'SHOP_MODULE_oxpspasswordpolicyMinPasswordLength' => "Minimum length",
+    'HELP_SHOP_MODULE_oxpspasswordpolicyMinPasswordLength' => 'Min passwort length. Should be greater then 8.',
     'SHOP_MODULE_GROUP_passwordpolicy' => 'Password strength settings',
     'SHOP_MODULE_oxpspasswordpolicyGoodPasswordLength' => 'Good length',
-    'HELP_SHOP_MODULE_oxpspasswordpolicyGoodlength' => 'Recommended, Strong password length (greater than "Minimal length").',
+    'HELP_SHOP_MODULE_oxpspasswordpolicyGoodlength' => 'Recommended, strong password length. Should be greater than 12.',
     'SHOP_MODULE_GROUP_passwordpolicy_requirements' => 'Required symbols',
     'SHOP_MODULE_oxpspasswordpolicyDigits' => 'Digits',
-    'SHOP_MODULE_oxpspasswordpolicyUpper' => 'Capital (UPPERCASE) letters',
-    'SHOP_MODULE_oxpspasswordpolicyLower'   => 'Lowercase letters',
+    'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Capital (UPPERCASE) letters',
+    'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Lowercase letters',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Special characters',
 );

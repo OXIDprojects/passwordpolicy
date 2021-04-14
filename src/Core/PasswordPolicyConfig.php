@@ -39,8 +39,8 @@ class PasswordPolicyConfig
     public const SettingMinPasswordLength = self::SettingsPrefix . 'MinPasswordLength';
     public const SettingDigits = self::SettingsPrefix . 'Digits';
     public const SettingSpecial = self::SettingsPrefix . 'Special';
-    public const SettingUpper = self::SettingsPrefix . 'Upper';
-    public const SettingLower = self::SettingsPrefix . 'Lower';
+    public const SettingUpper = self::SettingsPrefix . 'UpperCase';
+    public const SettingLower = self::SettingsPrefix . 'LowerCase';
 
     public function getMinPasswordLength(): int
     {

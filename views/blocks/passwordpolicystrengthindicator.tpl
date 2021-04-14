@@ -24,8 +24,8 @@
     oxpspasswordpolicy_translations[5] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_STRENGTH5" }]';
 
     oxpspasswordpolicy_translations['minlength'] = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_MINLENGTH" }]';
-    oxpspasswordpolicy_translations['capital']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_CAPITAL" }]';
-    oxpspasswordpolicy_translations['lower']     = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_LOWER" }]';
+    oxpspasswordpolicy_translations['uppercase']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_UPPERCASE" }]';
+    oxpspasswordpolicy_translations['lowercase']     = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_LOWERCASE" }]';
     oxpspasswordpolicy_translations['digits']    = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_DIGITS" }]';
     oxpspasswordpolicy_translations['special']   = '[{ oxmultilang ident="OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL" }]';
 

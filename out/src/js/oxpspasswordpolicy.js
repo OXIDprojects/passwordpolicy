@@ -72,7 +72,7 @@ function passwordStrength(password) {
 
     var score = 0;
 
-    //if password bigger than 6 give 1 point
+    //if password bigger than 8 give 1 point
     if (password.length >= min_length) score++;
 
     //if password has both lower and uppercase characters give 1 point
@@ -81,7 +81,7 @@ function passwordStrength(password) {
     //if password has at least one number and one non number give 1 point
     if (password.match(/\d+/) && password.match(/[^\d]+/)) score++;
 
-    //if password has at least one special caracther give 1 point
+    //if password has at least one special character give 1 point
     if (password.match(/.[!,@#$%^&*?_~()\-]/))    score++;
 
     //if password bigger than 12 give another 1 point
@@ -108,16 +108,16 @@ function passwordValidate(object, password) {
     // Loading settings
     var min_length = oxpspasswordpolicy_settings['minPasswordLength'];
     var digits = oxpspasswordpolicy_settings['digits'];
-    var capital = oxpspasswordpolicy_settings['capital'];
-    var lower   = oxpspasswordpolicy_settings['lower'];
+    var uppercase = oxpspasswordpolicy_settings['uppercase'];
+    var lowercase   = oxpspasswordpolicy_settings['lowercase'];
     var special = oxpspasswordpolicy_settings['special'];
 
     if (password.length < min_length) validationError(object, 'minlength');
     //unicode class check like /\p{Lu}/u are not yet supported by FF and IE
     //see https://javascript.info/regexp-unicode so fall back to ASCII
-    if (capital && !(password.match(/[A-Z]/))) validationError(object, 'capital');
+    if (uppercase && !(password.match(/[A-Z]/))) validationError(object, 'uppercase');
 
-    if (lower && !(password.match(/[a-z]/))) validationError(object, 'lower');
+    if (lowercase && !(password.match(/[a-z]/))) validationError(object, 'lowercase');
 
     if (digits && !(password.match(/\d+/))) validationError(object, 'digits');
 
