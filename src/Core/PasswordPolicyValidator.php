@@ -29,6 +29,7 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\InputException;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck;
 
 class PasswordPolicyValidator extends PasswordPolicyValidator_parent
 {
@@ -94,6 +95,11 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
             !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
         ) {
             $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL';
+        }
+
+        $pc = new PasswordCheck();
+        if ($pc->isPasswordKnown($sPassword)) {
+            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN';
         }
 
         $res = null;
