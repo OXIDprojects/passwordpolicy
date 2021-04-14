@@ -82,6 +82,9 @@ $aModule = [
         ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingLower, 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingSpecial, 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingDigits, 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingAPIKey, 'type' => 'str'],
+        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingSecretKey, 'type' => 'str'],
+
     ],
     'events' => [],
 ];

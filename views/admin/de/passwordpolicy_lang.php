@@ -30,4 +30,7 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Großbuchstaben',
     'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Kleinbuchstaben',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Sonderzeichen',
+    'SHOP_MODULE_GROUP_passwordpolicy_apisettings' => 'API Einstellungen',
+    'SHOP_MODULE_oxpspasswordpolicyAPIKey' => 'Enzoic API Schlüssel',
+    'SHOP_MODULE_oxpspasswordpolicySecretKey' => 'Enzoic Geheimschlüssel'
 );
