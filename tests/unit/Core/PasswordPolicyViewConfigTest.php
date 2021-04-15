@@ -66,13 +66,13 @@ class PasswordPolicyViewConfigTest extends TestCase
         $this->assertArrayHasKey('goodPasswordLength', $array);
         $this->assertArrayHasKey('digits', $array);
         $this->assertArrayHasKey('special', $array);
-        $this->assertArrayHasKey('lower', $array);
-        $this->assertArrayHasKey('upper', $array);
+        $this->assertArrayHasKey('lowercase', $array);
+        $this->assertArrayHasKey('uppercase', $array);
         $this->assertInternalType('int', $array['minPasswordLength']);
         $this->assertInternalType('int', $array['goodPasswordLength']);
         $this->assertInternalType('bool', $array['digits']);
         $this->assertInternalType('bool', $array['special']);
-        $this->assertInternalType('bool', $array['lower']);
-        $this->assertInternalType('bool', $array['upper']);
+        $this->assertInternalType('bool', $array['lowercase']);
+        $this->assertInternalType('bool', $array['uppercase']);
     }
 }
