@@ -48,8 +48,8 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'Le mot de passe doit contenir au moins un des caract&egrave;res suivants&nbsp;: ! @ # $ % ^ &amp; * ? _ ~ - ( ) ',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'Le mot de passe est trop long, veuillez en saisir un plus court.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS'  => 'Le mot de passe doit contenir au moins un chiffre.',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPER'   => 'Le mot de passe doit contenir au moins une lettre majuscule.',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER'   => 'Le mot de passe doit contenir au moins une lettre minuscules.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPERCASE'   => 'Le mot de passe doit contenir au moins une lettre majuscule.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE'   => 'Le mot de passe doit contenir au moins une lettre minuscules.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'Le mot de passe doit contenir au moins un caract&egrave;re sp&eacute;cial.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Type erron&eacute;, veuillez saisir une valeur valide. Pour d&apos;autres questions, veuillez contacter le support.',
 );

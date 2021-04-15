@@ -48,8 +48,8 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDVALIDATION_SPECIAL'             => 'The password must include at least one of the following characters: ! @ # $ % ^ &amp; * ? _ ~ - ( ) ',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG'         => 'The password is too long. Please enter a shorter one.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS'  => 'The password must include at least one figure.',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPER'   => 'The password must include at least one capital letter.',
-    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWER'   => 'The password must include at least one lower case letter.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPERCASE'   => 'The password must include at least one capital letter.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE'   => 'The password must include at least one lower case letter.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'The password must include at least one special character and one figure.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Incorrect type, please enter a valid value. If you have any further questions, please contact the support.',
 );
