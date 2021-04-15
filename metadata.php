@@ -25,10 +25,12 @@
  * Metadata version
  */
 
+use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
+use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController as PasswordPolicyAccountPasswordController;
 
 $sMetadataVersion = '2.1';
 
@@ -52,7 +54,8 @@ $aModule = [
     'email' => 'info@oxid-esales.com',
     'extend' => [
         ViewConfig::class => PasswordPolicyViewConfig::class,
-        InputValidator::class => PasswordPolicyValidator::class
+        InputValidator::class => PasswordPolicyValidator::class,
+        AccountPasswordController::class => PasswordPolicyAccountPasswordController::class
         ],
     'controllers' => [],
     'templates' => [
