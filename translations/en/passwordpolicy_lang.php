@@ -52,4 +52,5 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE'   => 'The password must include at least one lower case letter.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL' => 'The password must include at least one special character and one figure.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Incorrect type, please enter a valid value. If you have any further questions, please contact the support.',
+    'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN'  => 'The password already exists in a hacked database. Please choose a safer one.'
 );
