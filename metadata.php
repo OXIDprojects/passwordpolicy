@@ -28,10 +28,12 @@
 use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
+use OxidEsales\Eshop\Application\Model\User;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController as PasswordPolicyAccountPasswordController;
+use OxidProfessionalServices\PasswordPolicy\Model\User as PasswordPolicyUser;
 
 $sMetadataVersion = '2.1';
 
@@ -56,7 +58,8 @@ $aModule = [
     'extend' => [
         ViewConfig::class => PasswordPolicyViewConfig::class,
         InputValidator::class => PasswordPolicyValidator::class,
-        AccountPasswordController::class => PasswordPolicyAccountPasswordController::class
+        AccountPasswordController::class => PasswordPolicyAccountPasswordController::class,
+        User::class => PasswordPolicyUser::class
         ],
     'controllers' => [],
     'templates' => [
