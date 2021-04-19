@@ -26,8 +26,8 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyGoodPasswordLength' => 'Good length',
     'HELP_SHOP_MODULE_oxpspasswordpolicyGoodlength' => 'Recommended, strong password length. Should be greater than 12.',
     'SHOP_MODULE_GROUP_passwordpolicy_requirements' => 'Required symbols',
-    'SHOP_MODULE_oxpspasswordpolicyDigits' => 'Digits',
-    'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Capital (UPPERCASE) letters',
-    'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Lowercase letters',
-    'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Special characters',
+    'SHOP_MODULE_oxpspasswordpolicyDigits' => 'Digits (0...9)',
+    'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Capital (UPPERCASE) letters (A...Z)',
+    'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Lowercase letters (a...z)',
+    'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Special characters (!,@#$%^&*?_~()-)',
 );

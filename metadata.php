@@ -43,7 +43,7 @@ $sMetadataVersion = '2.1';
 $aModule = [
     'id' => 'oxpspasswordpolicy',
     'title' => [
-        'de' => 'Kennwortrichtlinie',
+        'de' => 'Passwortrichtlinie',
         'en' => 'Password Policy'
     ],
     'description' => [
