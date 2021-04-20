@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OxidProfessionalServices\PasswordPolicy\Api;
 use Enzoic\Enzoic;
-use Enzoic\PasswordType;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
 class PasswordCheck
