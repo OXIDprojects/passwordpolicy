@@ -26,8 +26,6 @@ declare(strict_types=1);
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\Model\BaseModel;
-use OxidEsales\Eshop\Core\DatabaseProvider;
 
 /**
  * Password policy config helpers used in controllers mostly
