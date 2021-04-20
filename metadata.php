@@ -88,6 +88,7 @@ $aModule = [
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyLowerCase', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicySpecial', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyDigits', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingAPI, 'type' => 'bool', 'value' => false],
         ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingAPIKey, 'type' => 'str'],
         ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingSecretKey, 'type' => 'str'],
     ],
