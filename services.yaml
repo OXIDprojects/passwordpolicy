@@ -1,0 +1,12 @@
+services:
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyVisitor:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyVisitor
+    arguments:
+      $validators:
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck'
+    autowire: true
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck
