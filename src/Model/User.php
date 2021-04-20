@@ -16,10 +16,10 @@ class User extends User_parent
      */
     public function onLogin($userName, $password)
     {
-        $check = new PasswordPolicyValidator();
-        if ($err = $check->validatePassword($password)) {
-            $forgot = new ForgotPasswordController();
-            $forgot->forgotPassword();
+        $passValidator = new PasswordPolicyValidator();
+        if ($err = $passValidator->validatePassword($password)) {
+            $forgotPass = new ForgotPasswordController();
+            $forgotPass->forgotPassword();
             throw oxNew(UserException::class, $err->getMessage());
         }
         return parent::onLogin($userName,$password);
