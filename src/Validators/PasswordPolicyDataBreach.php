@@ -14,7 +14,7 @@ class PasswordPolicyDataBreach implements PasswordPolicyValidationInterface
     {
         $settings = new PasswordPolicyConfig();
         $passwordCheck = new PasswordCheck();
-        if ($settings->getAPINeeded() && $passwordCheck->isPasswordKnown($sPassword)) {
+        if ($settings->getAPINeeded() && ($passwordCheck->isPasswordKnown($sPassword) || $passwordCheck->isCredentialsKnown($sUsername,$sPassword))) {
            return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN';
         }
         return true;
