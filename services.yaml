@@ -1,12 +1,21 @@
 services:
-  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyVisitor:
-    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyVisitor
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector
     arguments:
       $validators:
-        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck'
-        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter'
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach'
     autowire: true
-  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck:
-    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyRequirementsCheck
-  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck:
-    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDatabaseCheck
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach
