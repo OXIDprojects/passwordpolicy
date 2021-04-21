@@ -66,10 +66,19 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
         $sError = $passwordPolicyValidatorsCollector->validate($sUsername, $sPassword);
         if (is_string($sError)) {
             $translateString = Registry::getLang()->translateString($sError);
-            /** @var StandardException $exception (makes psalm happy) */
             $exception = oxNew(InputException::class, $translateString);
-            return $exception;
+            return $this->addValidationError("oxuser__oxpassword", $exception);
         }
         return null;
+    }
+
+    /**
+     * Min length of password.
+     *
+     * @return int
+     */
+    public function getPasswordLength()
+    {
+        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, 8);
     }
 }
