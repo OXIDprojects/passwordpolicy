@@ -5,10 +5,10 @@ namespace OxidProfessionalServices\PasswordPolicy\Validators;
 
 
 /**
- * Interface PasswordPolicyCheckInterface
+ * Interface PasswordPolicyValidationInterface
  * @package OxidProfessionalServices\PasswordPolicy\Validators
  */
-interface PasswordPolicyCheckInterface
+interface PasswordPolicyValidationInterface
 {
     /**
      * @param string $sUsername

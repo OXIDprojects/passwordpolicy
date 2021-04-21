@@ -3,14 +3,14 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Validators;
 
-class PasswordPolicyVisitor implements PasswordPolicyCheckInterface
+class PasswordPolicyValidatorsCollector implements PasswordPolicyValidationInterface
 {
     /**
-     * @var PasswordPolicyCheckInterface[]
+     * @var PasswordPolicyValidationInterface[]
      */
     private $validators;
     /**
-     * PasswordPolicyVisitor constructor.
+     * PasswordPolicyValidatorsCollector constructor.
      */
     public function __construct(array $validators)
     {

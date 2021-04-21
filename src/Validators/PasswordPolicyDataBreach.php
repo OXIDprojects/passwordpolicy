@@ -5,14 +5,16 @@ namespace OxidProfessionalServices\PasswordPolicy\Validators;
 
 
 use OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
-class PasswordPolicyDatabaseCheck implements PasswordPolicyCheckInterface
+class PasswordPolicyDataBreach implements PasswordPolicyValidationInterface
 {
 
     public function validate(string $sUsername, string $sPassword)
     {
-        $pc = new PasswordCheck();
-        if ($pc->isPasswordKnown($sPassword)) {
+        $settings = new PasswordPolicyConfig();
+        $passwordCheck = new PasswordCheck();
+        if ($settings->getAPINeeded() && $passwordCheck->isPasswordKnown($sPassword)) {
            return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN';
         }
         return true;
