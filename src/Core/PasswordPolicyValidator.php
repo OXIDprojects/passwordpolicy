@@ -29,7 +29,7 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\InputException;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
-use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyVisitor;
+use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector;
 
 class PasswordPolicyValidator extends PasswordPolicyValidator_parent
 {
@@ -44,6 +44,7 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
     {
+        /** Muss noch besser gelöst werden */
         $username = $user->oxuser__oxusername->value ?: "";
         $ex = $this->validatePassword($username, $newPassword);
         if (isset($ex)) {
@@ -61,8 +62,8 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
     public function validatePassword(string $sUsername, string $sPassword): ?StandardException
     {
         $container = $this->getContainer();
-        $passwordPolicyVisitor = $container->get(PasswordPolicyVisitor::class);
-        $sError = $passwordPolicyVisitor->validate($sUsername, $sPassword);
+        $passwordPolicyValidatorsCollector = $container->get(PasswordPolicyValidatorsCollector::class);
+        $sError = $passwordPolicyValidatorsCollector->validate($sUsername, $sPassword);
         if (is_string($sError)) {
             $translateString = Registry::getLang()->translateString($sError);
             /** @var StandardException $exception (makes psalm happy) */
