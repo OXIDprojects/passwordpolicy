@@ -83,6 +83,10 @@ class PasswordPolicyValidatorTest extends TestCase
     {
         return array_merge(
             $this->withPolicyCombinations(
+            "Test1234!",
+            false
+        ),
+            $this->withPolicyCombinations(
                 "ThisPasswordFulfills5Requirements!",
                 true
             ),
@@ -163,7 +167,7 @@ class PasswordPolicyValidatorTest extends TestCase
     public function testValidatePasswordPolicy(array $policy, string $password, bool $shouldPass)
     {
         $this->setPolicy($policy);
-        $this->subjectUnderTest->validatePassword($password);
+        $this->subjectUnderTest->validatePassword('', $password);
         $ex = $this->subjectUnderTest->getFirstValidationError();
         if ($shouldPass) {
             $this->assertNull($ex);

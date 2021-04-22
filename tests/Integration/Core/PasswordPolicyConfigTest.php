@@ -25,9 +25,7 @@ declare(strict_types=1);
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests\Integration\Core;
 
-use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\ViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use PHPUnit\Framework\TestCase;
 
@@ -52,12 +50,6 @@ class PasswordPolicyConfigTest extends TestCase
     {
         parent::setUp();
         $this->subjectUnderTest = new PasswordPolicyConfig();
-    }
-
-    public function testGetAPIKey(): void
-    {
-        $this->saveAPIKey("2342355ss33wsada3");
-        $this->assertEquals("2342355ss33wsada3", $this->subjectUnderTest->getAPIKey());
     }
     /**
      * @dataProvider lengthProvider
@@ -115,10 +107,6 @@ class PasswordPolicyConfigTest extends TestCase
         ];
     }
 
-    public function saveAPIKey(string $key): void
-    {
-        $this->setConfig(PasswordPolicyConfig::SettingAPIKey, $key);
-    }
     public function saveGoodPasswordLength(int $len): void
     {
         $this->setConfig(PasswordPolicyConfig::SettingGoodPasswordLength, $len);
