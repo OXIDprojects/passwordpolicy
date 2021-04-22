@@ -27,7 +27,6 @@
 
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
-use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 
@@ -76,12 +75,12 @@ $aModule = [
         ]
     ],
     'settings' => [
-        ['group' => 'passwordpolicy', 'name' => PasswordPolicyConfig::SettingGoodPasswordLength, 'type' => 'num', 'value' => 12],
-        ['group' => 'passwordpolicy', 'name' => PasswordPolicyConfig::SettingMinPasswordLength, 'type' => 'num', 'value' => 8],
-        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingUpper, 'type' => 'bool', 'value' => true],
-        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingLower, 'type' => 'bool', 'value' => true],
-        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingSpecial, 'type' => 'bool', 'value' => true],
-        ['group' => 'passwordpolicy_requirements', 'name' => PasswordPolicyConfig::SettingDigits, 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy', 'name' => 'oxpspasswordpolicyGoodPasswordLength', 'type' => 'num', 'value' => 12],
+        ['group' => 'passwordpolicy', 'name' => 'oxpspasswordpolicyMinPasswordLength', 'type' => 'num', 'value' => 8],
+        ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyUpperCase', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyLowerCase', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicySpecial', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyDigits', 'type' => 'bool', 'value' => true],
     ],
     'events' => [],
 ];
