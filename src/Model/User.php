@@ -19,8 +19,7 @@ class User extends User_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-
-        if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
+        if (!isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
             $forgotPass = new ForgotPasswordController();
             $forgotPass->forgotPassword();
             throw oxNew(UserException::class, $err->getMessage());
