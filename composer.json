@@ -7,7 +7,8 @@
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
-    "enzoic/enzoic": "dev-master"
+    "enzoic/enzoic": "dev-master",
+    "divineomega/password_exposed": "v3.2.0"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.2",

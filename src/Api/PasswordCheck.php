@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OxidProfessionalServices\PasswordPolicy\Api;
 
+use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use Enzoic\Enzoic;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
@@ -14,15 +15,16 @@ use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 class PasswordCheck
 {
     private $config;
-    private $apiCon;
-
+    private $enzoicApiCon;
+    private $haveIBeenPwned;
     /**
      * PasswordCheck constructor.
      */
     public function __construct()
     {
         $this->config = new PasswordPolicyConfig();
-        $this->apiCon = new Enzoic($this->config->getAPIKey(), $this->config->getSecretKey());
+        $this->enzoicApiCon = new Enzoic($this->config->getAPIKey(), $this->config->getSecretKey());
+        $this->haveIBeenPwned = new PasswordExposedChecker();
     }
 
     /**
@@ -31,8 +33,11 @@ class PasswordCheck
      */
     public function isPasswordKnown(string $password): bool
     {
-        $result = $this->apiCon->checkPassword($password);
+        if($this->haveIBeenPwned->passwordExposed($password)=="exposed")
+            return true;
+        $result = $this->enzoicApiCon->checkPassword($password);
         return $result !== null;
+
     }
 
     /**
@@ -42,7 +47,8 @@ class PasswordCheck
      */
     public function isCredentialsKnown(string $username, string $password): bool
     {
-        $result = $this->apiCon->checkCredentials($username, $password);
-        return $result;
+        return false;
+//        $result = $this->apiCon->checkCredentials($username, $password);
+//        return $result;
     }
 }
