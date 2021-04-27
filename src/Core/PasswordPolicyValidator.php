@@ -29,6 +29,7 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Request;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector;
 
 class PasswordPolicyValidator extends PasswordPolicyValidator_parent
@@ -44,8 +45,8 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
     {
-        $user->loadUserByUpdateId((new \OxidEsales\Eshop\Core\Request)->getRequestEscapedParameter('uid'));
-        $username = $user->oxuser__oxusername->value?: (new \OxidEsales\Eshop\Core\Request)->getRequestEscapedParameter('lgn_usr');
+        $user->loadUserByUpdateId((new Request)->getRequestEscapedParameter('uid'));
+        $username = $user->oxuser__oxusername->value?: (new Request)->getRequestEscapedParameter('lgn_usr');
         $ex = $this->validatePassword($username, $newPassword);
         if (isset($ex)) {
             return $ex;
