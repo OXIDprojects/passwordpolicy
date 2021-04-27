@@ -6,7 +6,8 @@
   "license": "GPL-3.0-only",
   "require": {
     "php": ">=7.3",
-    "ext-json": "*"
+    "ext-json": "*",
+    "Enzoic/Enzoic": "dev-master"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.2",
