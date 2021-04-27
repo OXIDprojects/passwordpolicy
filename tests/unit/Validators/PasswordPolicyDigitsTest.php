@@ -2,7 +2,6 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
-
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits;
 use PHPUnit\Framework\TestCase;
 
@@ -30,14 +29,11 @@ class PasswordPolicyDigitsTest extends TestCase
     public function testCredentialsCheck($password, $shouldPass): void
     {
         $result = $this->subjectUnderTest->validate('', $password);
-        if($shouldPass)
-        {
+        if ($shouldPass) {
             $this->assertTrue($result);
-        }
-        else{
+        } else {
             $this->assertInternalType('string', $result);
         }
-
     }
 
     public function PasswordData()
@@ -51,6 +47,5 @@ class PasswordPolicyDigitsTest extends TestCase
             ['pf!ped', false],
 
         ];
-
     }
 }

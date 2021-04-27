@@ -13,7 +13,6 @@ use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
  */
 class PasswordCheck
 {
-
     private $config;
     private $apiCon;
 
@@ -46,5 +45,4 @@ class PasswordCheck
         $result = $this->apiCon->checkCredentials($username, $password);
         return $result;
     }
-
 }

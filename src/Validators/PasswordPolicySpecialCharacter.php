@@ -3,7 +3,6 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Validators;
 
-
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
 class PasswordPolicySpecialCharacter implements PasswordPolicyValidationInterface

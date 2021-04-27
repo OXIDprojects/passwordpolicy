@@ -26,6 +26,6 @@ class User extends User_parent
             $errorMessage = $err->getMessage() .  '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
             throw oxNew(UserException::class, $errorMessage);
         }
-        return parent::onLogin($userName,$password);
+        return parent::onLogin($userName, $password);
     }
 }
