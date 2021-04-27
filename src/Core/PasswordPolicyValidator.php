@@ -44,7 +44,7 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
     {
         $user->loadUserByUpdateId((new \OxidEsales\Eshop\Core\Request)->getRequestEscapedParameter('uid'));
-        $username = $user->oxuser__oxusername->value;
+        $username = $user->oxuser__oxusername->value?: (new \OxidEsales\Eshop\Core\Request)->getRequestEscapedParameter('lgn_usr');
         $ex = $this->validatePassword($username, $newPassword);
         if (isset($ex)) {
             return $ex;
