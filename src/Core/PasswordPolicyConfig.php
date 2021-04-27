@@ -38,8 +38,10 @@ class PasswordPolicyConfig
     public const SettingDigits = self::SettingsPrefix . 'Digits';
     public const SettingSpecial = self::SettingsPrefix . 'Special';
     public const SettingAPI = self::SettingsPrefix . 'API';
-    public const SettingAPIKey = self::SettingsPrefix . 'APIKey';
-    public const SettingSecretKey = self::SettingsPrefix . 'SecretKey';
+    public const SettingEnzoicAPIKey = self::SettingsPrefix . 'EnzoicAPIKey';
+    public const SettingEnzoicSecretKey = self::SettingsPrefix . 'EnzoicSecretKey';
+    public const SettingEnzoic = self::SettingsPrefix . 'Enzoic';
+    public const SettingHaveIBeenPwned = self::SettingsPrefix . 'HaveIBeenPwned';
     public const SettingUpper = self::SettingsPrefix . 'UpperCase';
     public const SettingLower = self::SettingsPrefix . 'LowerCase';
 
@@ -88,17 +90,27 @@ class PasswordPolicyConfig
 
     public function getAPIKey(): string
     {
-        return (string) Registry::getConfig()->getConfigParam(self::SettingAPIKey);
+        return (string) Registry::getConfig()->getConfigParam(self::SettingEnzoicAPIKey);
     }
 
     public function getSecretKey(): string
     {
-        return (string) Registry::getConfig()->getConfigParam(self::SettingSecretKey);
+        return (string) Registry::getConfig()->getConfigParam(self::SettingEnzoicSecretKey);
     }
 
     public function getAPINeeded(): bool
     {
         return $this->isConfigParam(self::SettingAPI);
+    }
+
+    public function getEnzoicNeeded(): bool
+    {
+        return $this->isConfigParam(self::SettingEnzoic);
+    }
+
+    public function getHaveIBeenPwnedNeeded(): bool
+    {
+        return $this->isConfigParam(self::SettingHaveIBeenPwned);
     }
 
     private function isConfigParam(string $name): bool

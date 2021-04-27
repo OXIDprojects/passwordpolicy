@@ -31,8 +31,9 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Kleinbuchstaben (a...z)',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Sonderzeichen (!,@#$%^&*?_~()-)',
     'SHOP_MODULE_GROUP_passwordpolicy_apisettings' => 'API Einstellungen',
-    'SHOP_MODULE_oxpspasswordpolicyAPI' => 'Passwort Prüfung',
-    'SHOP_MODULE_oxpspasswordpolicyAPIKey' => 'Enzoic API Schlüssel',
-    'SHOP_MODULE_oxpspasswordpolicySecretKey' => 'Enzoic Geheimschlüssel'
-
+    'SHOP_MODULE_oxpspasswordpolicyAPI' => 'Veröffentliche Passwörter überprüfen',
+    'SHOP_MODULE_oxpspasswordpolicyHaveIBeenPwned' => 'HaveIBeenPwned',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoicAPIKey' => 'Enzoic API Schlüssel',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoicSecretKey' => 'Enzoic Geheimschlüssel'
 );

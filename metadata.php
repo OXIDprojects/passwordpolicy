@@ -29,7 +29,6 @@ use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
-use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController as PasswordPolicyAccountPasswordController;
@@ -88,9 +87,11 @@ $aModule = [
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyLowerCase', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicySpecial', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_requirements', 'name' => 'oxpspasswordpolicyDigits', 'type' => 'bool', 'value' => true],
-        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingAPI, 'type' => 'bool', 'value' => false],
-        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingAPIKey, 'type' => 'str'],
-        ['group' => 'passwordpolicy_apisettings', 'name' => PasswordPolicyConfig::SettingSecretKey, 'type' => 'str'],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyAPI', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyHaveIBeenPwned', 'type' => 'bool', 'value' => true],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoic', 'type' => 'bool', 'value' => false],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicAPIKey', 'type' => 'str'],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicSecretKey', 'type' => 'str'],
     ],
     'events' => [],
 ];

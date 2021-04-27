@@ -30,4 +30,10 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Capital (UPPERCASE) letters (A...Z)',
     'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Lowercase letters (a...z)',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Special characters (!,@#$%^&*?_~()-)',
+    'SHOP_MODULE_GROUP_passwordpolicy_apisettings' => 'API Settings',
+    'SHOP_MODULE_oxpspasswordpolicyAPI' => 'Check leaked passwords',
+    'SHOP_MODULE_oxpspasswordpolicyHaveIBeenPwned' => 'HaveIBeenPwned',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoicAPIKey' => 'Enzoic API Key',
+    'SHOP_MODULE_oxpspasswordpolicyEnzoicSecretKey' => 'Enzoic Secret Key'
 );

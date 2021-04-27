@@ -33,11 +33,12 @@ class PasswordCheck
      */
     public function isPasswordKnown(string $password): bool
     {
-        if($this->haveIBeenPwned->passwordExposed($password)=="exposed")
+        // Überarbeiten, dass hier nicht so oft die Config geprüft werden muss
+        if($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password)=="exposed")
             return true;
-        $result = $this->enzoicApiCon->checkPassword($password);
-        return $result !== null;
-
+        elseif ($this->config->getEnzoicNeeded() && $result = $this->enzoicApiCon->checkPassword($password))
+            return $result !== null;
+        return false;
     }
 
     /**
@@ -47,8 +48,8 @@ class PasswordCheck
      */
     public function isCredentialsKnown(string $username, string $password): bool
     {
+        if($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkCredentials($username, $password))
+             return true;
         return false;
-//        $result = $this->apiCon->checkCredentials($username, $password);
-//        return $result;
     }
 }
