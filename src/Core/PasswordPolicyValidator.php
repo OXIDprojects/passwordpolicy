@@ -28,7 +28,8 @@ namespace OxidProfessionalServices\PasswordPolicy\Core;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Exception\UserException;
-use OxidEsales\Eshop\Core\Registry;use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector;
+use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector;
 
 class PasswordPolicyValidator extends PasswordPolicyValidator_parent
 {

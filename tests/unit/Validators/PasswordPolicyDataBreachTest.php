@@ -5,11 +5,8 @@ namespace OxidProfessionalServices\PasswordPolicy\Tests;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach;
 use PHPUnit\Framework\TestCase;
 
-
-
 class PasswordPolicyDataBreachTest extends TestCase
 {
-
     protected $subjectUnderTest;
 
 
@@ -33,14 +30,11 @@ class PasswordPolicyDataBreachTest extends TestCase
     public function testCredentialsCheck($username, $password, $known): void
     {
         $result = $this->subjectUnderTest->validate($username, $password);
-        if($known)
-        {
+        if ($known) {
             $this->assertInternalType('string', $result);
-        }
-        else{
+        } else {
             $this->assertTrue($result);
         }
-
     }
 
     public function credentialsData()
@@ -54,8 +48,5 @@ class PasswordPolicyDataBreachTest extends TestCase
             ['','h38nn?hdos9!', false],
             ['','975673fh29!', false]
         ];
-
     }
-
-
 }

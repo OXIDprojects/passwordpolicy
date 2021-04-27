@@ -2,7 +2,6 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
-
 use PHPUnit\Framework\TestCase;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength;
 
@@ -30,14 +29,11 @@ class PasswordPolicyPasswordLengthTest extends TestCase
     public function testCredentialsCheck($password, $shouldPass): void
     {
         $result = $this->subjectUnderTest->validate('', $password);
-        if($shouldPass)
-        {
+        if ($shouldPass) {
             $this->assertTrue($result);
-        }
-        else{
+        } else {
             $this->assertInternalType('string', $result);
         }
-
     }
 
     public function PasswordData()
@@ -51,6 +47,5 @@ class PasswordPolicyPasswordLengthTest extends TestCase
             ['pf!ped', false],
 
         ];
-
     }
 }

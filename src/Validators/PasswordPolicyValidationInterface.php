@@ -3,7 +3,6 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Validators;
 
-
 /**
  * Interface PasswordPolicyValidationInterface
  * @package OxidProfessionalServices\PasswordPolicy\Validators

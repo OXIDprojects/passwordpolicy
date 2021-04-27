@@ -19,8 +19,7 @@ class PasswordPolicyValidatorsCollector implements PasswordPolicyValidationInter
 
     public function validate(string $sUsername, string $sPassword)
     {
-        foreach ($this->validators as $validator)
-        {
+        foreach ($this->validators as $validator) {
             $sError = $validator->validate($sUsername, $sPassword);
             if (is_string($sError)) {
                 return $sError;

@@ -2,7 +2,6 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
-
 use PHPUnit\Framework\TestCase;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase;
 
@@ -30,14 +29,11 @@ class PasswordPolicyUpperLowerCaseTest extends TestCase
     public function testCredentialsCheck($password, $shouldPass): void
     {
         $result = $this->subjectUnderTest->validate('', $password);
-        if($shouldPass)
-        {
+        if ($shouldPass) {
             $this->assertTrue($result);
-        }
-        else{
+        } else {
             $this->assertInternalType('string', $result);
         }
-
     }
 
     public function PasswordData()
@@ -51,6 +47,5 @@ class PasswordPolicyUpperLowerCaseTest extends TestCase
             ['pf!ped', false],
 
         ];
-
     }
 }

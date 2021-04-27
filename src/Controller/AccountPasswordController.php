@@ -39,11 +39,11 @@ class AccountPasswordController extends AccountPasswordController_parent
         if (($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true))) {
             $tmpInputValidator = oxNew(InputValidator::class);
             \OxidEsales\Eshop\Core\Registry::set(InputValidator::class, $tmpInputValidator);
-                    return \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay(
-                        $oExcp,
-                        false,
-                        true
-                    );
+            return \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay(
+                $oExcp,
+                false,
+                true
+            );
         }
 
 
@@ -55,5 +55,4 @@ class AccountPasswordController extends AccountPasswordController_parent
             \OxidEsales\Eshop\Core\Registry::getUtilsServer()->deleteUserCookie($this->getConfig()->getShopId());
         }
     }
-
 }
