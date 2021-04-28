@@ -36,8 +36,8 @@ class PasswordCheck
         // Überarbeiten, dass hier nicht so oft die Config geprüft werden muss
         if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password)=="exposed") {
             return true;
-        } elseif ($this->config->getEnzoicNeeded() && $result = $this->enzoicApiCon->checkPassword($password)) {
-            return $result !== null;
+        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password)["status"] = "200") {
+            return true;
         }
         return false;
     }
