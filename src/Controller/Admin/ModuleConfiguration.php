@@ -11,14 +11,19 @@ class ModuleConfiguration extends ModuleConfiguration_parent
     public function saveConfVars()
     {
         $variables = $this->getConfigVariablesFromRequest();
-        $enzoicAPIKey = $variables[PasswordPolicyConfig::SettingEnzoicAPIKey];
-        $enzoicSecretKey = $variables[PasswordPolicyConfig::SettingEnzoicSecretKey];
-        $enzoicApiCon = new Enzoic($enzoicAPIKey,$enzoicSecretKey);
-        $testAPICall = $enzoicApiCon->checkPassword("Test");
-        if($testAPICall["status"] != "200")
-        {
-            Registry::getUtilsView()->addErrorToDisplay(Registry::getLang()->translateString("oxpspasswordpolicy_EnzoicError" . $testAPICall["status"]));
-            return;
+        if($variables[PasswordPolicyConfig::SettingEnzoic] == "true") {
+            $enzoicAPIKey = $variables[PasswordPolicyConfig::SettingEnzoicAPIKey];
+            $enzoicSecretKey = $variables[PasswordPolicyConfig::SettingEnzoicSecretKey];
+            $enzoicApiCon = new Enzoic($enzoicAPIKey, $enzoicSecretKey);
+            $testAPICall = $enzoicApiCon->checkPassword("Test");
+            if ($testAPICall["status"] != "200") {
+                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError" . $testAPICall["status"]);
+                # reset API, Secret Key and deactivate Enzoic setting
+                # needs better solution
+                $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicAPIKey] = "";
+                $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicSecretKey] = "";
+                $_POST["confbools"][PasswordPolicyConfig::SettingEnzoic] = "false";
+            }
         }
         parent::saveConfVars();
     }
