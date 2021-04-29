@@ -36,6 +36,6 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
     'SHOP_MODULE_oxpspasswordpolicyEnzoicAPIKey' => 'Enzoic API Schlüssel',
     'SHOP_MODULE_oxpspasswordpolicyEnzoicSecretKey' => 'Enzoic Geheimschlüssel',
-    'oxpspasswordpolicy_EnzoicError401' => 'Ihr API Key oder Secret Key ist nicht gültig. Sie sind nicht autorisiert.',
+    'oxpspasswordpolicy_EnzoicError401' => 'Ihr Enzoic API Key oder Secret Key ist nicht gültig. Sie sind nicht autorisiert.',
     'oxpspasswordpolicy_EnzoicError0' => 'Es gibt ein Problem beim Verbinden mit der Enzoic API. Bitte versuchen Sie es erneut.'
 );
