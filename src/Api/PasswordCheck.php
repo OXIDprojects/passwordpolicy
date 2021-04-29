@@ -17,6 +17,7 @@ class PasswordCheck
     private $config;
     private $enzoicApiCon;
     private $haveIBeenPwned;
+
     /**
      * PasswordCheck constructor.
      */
@@ -34,9 +35,9 @@ class PasswordCheck
     public function isPasswordKnown(string $password): bool
     {
         // Überarbeiten, dass hier nicht so oft die Config geprüft werden muss
-        if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password)=="exposed") {
+        if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password) == "exposed") {
             return true;
-        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password)["status"] = "200") {
+        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password)["status"] == 200) {
             return true;
         }
         return false;
