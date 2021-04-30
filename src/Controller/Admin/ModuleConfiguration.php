@@ -2,6 +2,7 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
 
+use Enzoic\AuthenticationException;
 use Enzoic\Enzoic;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
@@ -15,9 +16,11 @@ class ModuleConfiguration extends ModuleConfiguration_parent
             $enzoicAPIKey = $variables[PasswordPolicyConfig::SettingEnzoicAPIKey];
             $enzoicSecretKey = $variables[PasswordPolicyConfig::SettingEnzoicSecretKey];
             $enzoicApiCon = new Enzoic($enzoicAPIKey, $enzoicSecretKey);
-            $testAPICall = $enzoicApiCon->checkPassword("Test");
-            if ($testAPICall["status"] != "200") {
-                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError" . $testAPICall["status"]);
+
+            try {
+                $testAPICall = $enzoicApiCon->checkPassword("Test");
+            } catch (AuthenticationException $e) {
+                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError401");
                 # reset API, Secret Key and deactivate Enzoic setting
                 # needs better solution
                 $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicAPIKey] = "";
