@@ -2,6 +2,7 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use PHPUnit\Framework\TestCase;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter;
 
@@ -18,7 +19,7 @@ class PasswordPolicySpecialCharacterTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->subjectUnderTest = new PasswordPolicySpecialCharacter();
+        $this->subjectUnderTest = new PasswordPolicySpecialCharacter(new PasswordPolicyConfig());
     }
 
     /**

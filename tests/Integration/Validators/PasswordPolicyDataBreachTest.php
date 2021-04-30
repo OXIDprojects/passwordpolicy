@@ -2,6 +2,9 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
+use DivineOmega\PasswordExposed\PasswordExposedChecker;
+use OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach;
 use PHPUnit\Framework\TestCase;
 

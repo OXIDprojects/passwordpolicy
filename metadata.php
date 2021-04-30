@@ -93,8 +93,8 @@ $aModule = [
         ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyAPI', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyHaveIBeenPwned', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoic', 'type' => 'bool', 'value' => false],
-        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicAPIKey', 'type' => 'str'],
-        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicSecretKey', 'type' => 'str'],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicAPIKey', 'type' => 'str', 'value'=>''],
+        ['group' => 'passwordpolicy_apisettings', 'name' => 'oxpspasswordpolicyEnzoicSecretKey', 'type' => 'str', 'value'=>''],
     ],
     'events' => [],
 ];

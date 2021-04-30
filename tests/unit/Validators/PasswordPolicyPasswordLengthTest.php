@@ -2,6 +2,7 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use PHPUnit\Framework\TestCase;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength;
 

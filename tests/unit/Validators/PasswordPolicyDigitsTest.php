@@ -2,6 +2,7 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Tests;
 
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ class PasswordPolicyDigitsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->subjectUnderTest = new PasswordPolicyDigits();
+        $this->subjectUnderTest = new PasswordPolicyDigits(new PasswordPolicyConfig());
     }
 
     /**

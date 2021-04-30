@@ -14,9 +14,9 @@ use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
  */
 class PasswordCheck
 {
-    private $config;
-    private $enzoicApiCon;
-    private $haveIBeenPwned;
+    private PasswordPolicyConfig $config;
+    private Enzoic $enzoicApiCon;
+    private PasswordExposedChecker $haveIBeenPwned;
 
     /**
      * PasswordCheck constructor.
@@ -37,7 +37,7 @@ class PasswordCheck
         // Überarbeiten, dass hier nicht so oft die Config geprüft werden muss
         if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password) == "exposed") {
             return true;
-        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password)["status"] == 200) {
+        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password) !== null) {
             return true;
         }
         return false;

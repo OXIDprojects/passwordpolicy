@@ -19,3 +19,12 @@ services:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach
+    autowire: true;
+  OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig:
+    class: OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig
+    autowire: true;
+  OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck:
+    class: OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck
+    autowire: true;
+  DivineOmega\PasswordExposed\PasswordExposedChecker:
+    class: DivineOmega\PasswordExposed\PasswordExposedChecker
