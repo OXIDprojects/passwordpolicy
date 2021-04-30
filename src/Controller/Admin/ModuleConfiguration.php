@@ -18,9 +18,9 @@ class ModuleConfiguration extends ModuleConfiguration_parent
             $enzoicApiCon = new Enzoic($enzoicAPIKey, $enzoicSecretKey);
 
             try {
-                $testAPICall = $enzoicApiCon->checkPassword("Test");
-            } catch (AuthenticationException $e) {
-                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError401");
+                $enzoicApiCon->checkPassword("Test");
+            } catch (\RuntimeException $ex) {
+                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError" . $ex->getCode());
                 # reset API, Secret Key and deactivate Enzoic setting
                 # needs better solution
                 $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicAPIKey] = "";
