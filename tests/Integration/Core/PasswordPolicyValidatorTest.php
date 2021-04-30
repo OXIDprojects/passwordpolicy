@@ -23,7 +23,7 @@
 
 declare(strict_types=1);
 
-namespace OxidProfessionalServices\PasswordPolicy\Tests;
+namespace OxidProfessionalServices\PasswordPolicy\Tests\Integration\Core;
 
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
