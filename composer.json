@@ -4,12 +4,6 @@
   "type": "oxideshop-module",
   "keywords": ["oxid", "modules", "eShop", "password", "password-strength", "password-policy"],
   "license": "GPL-3.0-only",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/moritzdemmer/enzoic-php-client"
-    }
-  ],
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
