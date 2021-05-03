@@ -96,6 +96,7 @@ $aModule = [
         ['group' => 'passwordpolicy_api', 'name' => 'oxpspasswordpolicyEnzoicAPIKey', 'type' => 'str', 'value'=>''],
         ['group' => 'passwordpolicy_api', 'name' => 'oxpspasswordpolicyEnzoicSecretKey', 'type' => 'str', 'value'=>''],
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimitingDrivers', 'type' => 'select', 'value' => 'APCu', 'constraints' => 'Redis|Predis|Memcached|APCu'],
+        ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimitingLimit', 'type' => 'num', 'value' => 60],
     ],
     'events' => [],
 ];

@@ -44,6 +44,8 @@ class PasswordPolicyConfig
     public const SettingHaveIBeenPwned = self::SettingsPrefix . 'HaveIBeenPwned';
     public const SettingUpper = self::SettingsPrefix . 'UpperCase';
     public const SettingLower = self::SettingsPrefix . 'LowerCase';
+    public const SettingDrivers = self::SettingsPrefix . 'RateLimitingDrivers';
+    public const SettingLimit = self::SettingsPrefix . 'RateLimitingLimit';
 
     public function getMinPasswordLength(): int
     {
@@ -111,6 +113,16 @@ class PasswordPolicyConfig
     public function getHaveIBeenPwnedNeeded(): bool
     {
         return $this->isConfigParam(self::SettingHaveIBeenPwned);
+    }
+
+    public function getSelectedDriver(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SettingDrivers);
+    }
+
+    public function getRateLimit(): int
+    {
+        return (int) Registry::getConfig()->getConfigParam(self::SettingLimit, 60);
     }
 
     private function isConfigParam(string $name): bool

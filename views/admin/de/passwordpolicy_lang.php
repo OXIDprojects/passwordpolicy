@@ -45,5 +45,6 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Predis' => 'Predis',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Memcached' => 'Memcached',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_APCu' => 'APCu',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingLimit' => 'Einlogversuche pro Minute'
 
 );
