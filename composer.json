@@ -4,11 +4,18 @@
   "type": "oxideshop-module",
   "keywords": ["oxid", "modules", "eShop", "password", "password-strength", "password-policy"],
   "license": "GPL-3.0-only",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/moritzdemmer/enzoic-php-client"
+    }
+  ],
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
     "enzoic/enzoic": "dev-master",
-    "divineomega/password_exposed": "v3.2.0"
+    "divineomega/password_exposed": "v3.2.0",
+    "nikolaposa/rate-limit": "dev-master"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.2",
