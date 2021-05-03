@@ -35,5 +35,14 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyHaveIBeenPwned' => 'HaveIBeenPwned',
     'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
     'SHOP_MODULE_oxpspasswordpolicyEnzoicAPIKey' => 'Enzoic API Key',
-    'SHOP_MODULE_oxpspasswordpolicyEnzoicSecretKey' => 'Enzoic Secret Key'
+    'SHOP_MODULE_oxpspasswordpolicyEnzoicSecretKey' => 'Enzoic Secret Key',
+    'oxpspasswordpolicy_EnzoicError401' => 'Your entered Enzoic api/secret key is not valid.',
+    'oxpspasswordpolicy_EnzoicError0' => 'There was an error connecting to the Enzoic service. Please try again later.',
+    'oxpspasswordpolicy_EnzoicError500' => 'An unexpected error ocurred. Please try again later.',
+    'SHOP_MODULE_GROUP_passwordpolicy_ratelimiting' => 'Rate Limiting Settings',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers' => 'Drivers',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Redis' => 'Redis',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Predis' => 'Predis',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Memcached' => 'Memcached',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_APCu' => 'APCu',
 );

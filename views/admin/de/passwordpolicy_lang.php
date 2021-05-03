@@ -30,7 +30,7 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Großbuchstaben (A...Z)',
     'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Kleinbuchstaben (a...z)',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Sonderzeichen (!,@#$%^&*?_~()-)',
-    'SHOP_MODULE_GROUP_passwordpolicy_apisettings' => 'API Einstellungen',
+    'SHOP_MODULE_GROUP_passwordpolicy_api' => 'API Einstellungen',
     'SHOP_MODULE_oxpspasswordpolicyAPI' => 'Veröffentliche Passwörter überprüfen',
     'SHOP_MODULE_oxpspasswordpolicyHaveIBeenPwned' => 'HaveIBeenPwned',
     'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
@@ -39,5 +39,11 @@ $aLang = array(
     'oxpspasswordpolicy_EnzoicError401' => 'Ihr Enzoic API Key oder Secret Key ist nicht gültig. Sie sind nicht autorisiert.',
     'oxpspasswordpolicy_EnzoicError0' => 'Es gibt ein Problem beim Verbinden mit der Enzoic API. Bitte versuchen Sie es erneut.',
     'oxpspasswordpolicy_EnzoicError500' => 'Ein unerwarteter Fehler ist aufgetreten. Btte probieren Sie es später erneut.',
+    'SHOP_MODULE_GROUP_passwordpolicy_ratelimiting' => 'Rate Limiting Einstellungen',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers' => 'Treiber',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Redis' => 'Redis',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Predis' => 'Predis',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Memcached' => 'Memcached',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_APCu' => 'APCu',
 
 );
