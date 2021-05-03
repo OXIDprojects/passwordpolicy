@@ -28,18 +28,21 @@ class User extends User_parent
         if (!isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
             $forgotPass = new ForgotPasswordController();
             $forgotPass->forgotPassword();
-            $errorMessage = $err->getMessage() .  '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
+            $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
             throw oxNew(UserException::class, $errorMessage);
         }
-        if (!$this->isLoaded()) {
-            $rateLimiter = new ApcuRateLimiter();
-            $config = new PasswordPolicyConfig();
-            try {
-                $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
-            } catch (LimitExceeded $exception) {
-                throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED');
-            }
-        }
         parent::onLogin($userName, $password);
+    }
+
+    public function login($userName, $password, $setSessionCookie = false)
+    {
+        $rateLimiter = new ApcuRateLimiter();
+        $config = new PasswordPolicyConfig();
+        try {
+            $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
+        } catch (LimitExceeded $exception) {
+            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED');
+        }
+        parent::login($userName, $password, $setSessionCookie);
     }
 }
