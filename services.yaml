@@ -11,12 +11,16 @@ services:
     autowire: true
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength
+    autowire: true;
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase
+    autowire: true;
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits
+    autowire: true;
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicySpecialCharacter
+    autowire: true;
   OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDataBreach
     autowire: true;
