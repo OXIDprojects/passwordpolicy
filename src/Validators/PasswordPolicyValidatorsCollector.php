@@ -8,7 +8,7 @@ class PasswordPolicyValidatorsCollector implements PasswordPolicyValidationInter
     /**
      * @var PasswordPolicyValidationInterface[]
      */
-    private $validators;
+    private array $validators;
     /**
      * PasswordPolicyValidatorsCollector constructor.
      */
