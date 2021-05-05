@@ -4,7 +4,7 @@ namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
 use OxidEsales\Eshop\Core\InputValidator;
 
-class AccountPasswordController extends AccountPasswordController_parent
+class PasswordPolicyAccountPasswordController extends PasswordPolicyAccountPasswordController_parent
 {
     /**
      * changes current user password

@@ -7,7 +7,7 @@ use Enzoic\Enzoic;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
-class ModuleConfiguration extends ModuleConfiguration_parent
+class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguration_parent
 {
     public function saveConfVars()
     {
