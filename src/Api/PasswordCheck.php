@@ -21,26 +21,11 @@ class PasswordCheck
     /**
      * PasswordCheck constructor.
      */
-    public function __construct()
+    public function __construct(PasswordPolicyConfig $config, PasswordExposedChecker $haveIBeenPwned)
     {
-        $this->config = new PasswordPolicyConfig();
+        $this->config = $config;
         $this->enzoicApiCon = new Enzoic($this->config->getAPIKey(), $this->config->getSecretKey());
-        $this->haveIBeenPwned = new PasswordExposedChecker();
-    }
-
-    /**
-     * @param string $password
-     * @return bool
-     */
-    public function isPasswordKnown(string $password): bool
-    {
-        // Überarbeiten, dass hier nicht so oft die Config geprüft werden muss
-        if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password) == "exposed") {
-            return true;
-        } elseif ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkPassword($password) !== null) {
-            return true;
-        }
-        return false;
+        $this->haveIBeenPwned = $haveIBeenPwned;
     }
 
     /**
@@ -48,11 +33,14 @@ class PasswordCheck
      * @param string $password
      * @return bool
      */
-    public function isCredentialsKnown(string $username, string $password): bool
+    public function isPasswordKnown(string $username, string $password): bool
     {
-        if ($this->config->getEnzoicNeeded() && $this->enzoicApiCon->checkCredentials($username, $password)) {
+        if ($this->config->getHaveIBeenPwnedNeeded() && $this->haveIBeenPwned->passwordExposed($password) == "exposed") {
+            return true;
+        } elseif ($this->config->getEnzoicNeeded() &&  ($this->enzoicApiCon->checkPassword($password) !== null || $this->enzoicApiCon->checkCredentials($username, $password))) {
             return true;
         }
         return false;
     }
+
 }
