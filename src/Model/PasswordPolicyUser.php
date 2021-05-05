@@ -8,11 +8,12 @@ use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
-use RateLimit\ApcuRateLimiter;
+use OxidProfessionalServices\PasswordPolicy\Exception\LimiterNotFound;
+use OxidProfessionalServices\PasswordPolicy\Factory\PasswordPolicyRateLimiterFactory;
 use RateLimit\Exception\LimitExceeded;
 use RateLimit\Rate;
 
-class User extends User_parent
+class PasswordPolicyUser extends PasswordPolicyUser_parent
 {
     /**
      * Method is used for overriding and add additional actions when logging in.
@@ -34,14 +35,26 @@ class User extends User_parent
         parent::onLogin($userName, $password);
     }
 
+    /**
+     * @param string $userName
+     * @param string $password
+     * @param bool $setSessionCookie
+     * @return void
+     * @throws UserException|
+     * @throws LimiterNotFound
+     */
     public function login($userName, $password, $setSessionCookie = false)
     {
-        $rateLimiter = new ApcuRateLimiter();
         $config = new PasswordPolicyConfig();
-        try {
-            $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
-        } catch (LimitExceeded $exception) {
-            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED');
+        if($config->getRateLimitingNeeded()) {
+            $driverName = $config->getSelectedDriver();
+            $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
+
+            try {
+                $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
+            } catch (LimitExceeded $exception) {
+                throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED');
+            }
         }
         parent::login($userName, $password, $setSessionCookie);
     }
