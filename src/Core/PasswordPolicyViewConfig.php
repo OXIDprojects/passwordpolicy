@@ -32,6 +32,9 @@ use OxidEsales\Eshop\Core\Registry;
  */
 class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
 {
+    /**
+     * @throws \Exception
+     */
     public function getJsonPasswordPolicySettings(): string
     {
         $config = Registry::get(PasswordPolicyConfig::class);
@@ -45,7 +48,7 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
         $res = json_encode($array, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
         if ($res === false) {
             $error = json_last_error_msg();
-            throw new \Exception("Password policy configuration broken? - Cloud not convert to JSON: $error");
+            throw new \Exception("Password policy configuration broken? - Could not convert to JSON: $error");
         }
         return $res;
     }
