@@ -32,9 +32,9 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
-use OxidProfessionalServices\PasswordPolicy\Controller\AccountPasswordController as PasswordPolicyAccountPasswordController;
-use OxidProfessionalServices\PasswordPolicy\Model\User as PasswordPolicyUser;
-use OxidProfessionalServices\PasswordPolicy\Controller\Admin\ModuleConfiguration as PasswordPolicyModuleConfiguration;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountPasswordController;
+use OxidProfessionalServices\PasswordPolicy\Model\PasswordPolicyUser;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyModuleConfiguration;
 
 $sMetadataVersion = '2.1';
 
@@ -95,8 +95,11 @@ $aModule = [
         ['group' => 'passwordpolicy_api', 'name' => 'oxpspasswordpolicyEnzoic', 'type' => 'bool', 'value' => false],
         ['group' => 'passwordpolicy_api', 'name' => 'oxpspasswordpolicyEnzoicAPIKey', 'type' => 'str', 'value'=>''],
         ['group' => 'passwordpolicy_api', 'name' => 'oxpspasswordpolicyEnzoicSecretKey', 'type' => 'str', 'value'=>''],
+        ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimiting', 'type' => 'bool', 'value' => true],
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimitingDrivers', 'type' => 'select', 'value' => 'APCu', 'constraints' => 'Redis|Predis|Memcached|APCu'],
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimitingLimit', 'type' => 'num', 'value' => 60],
+        ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedHost', 'type' => 'str', 'value' => 'memcached'],
+        ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedPort', 'type' => 'num', 'value' => 11211],
     ],
     'events' => [],
 ];

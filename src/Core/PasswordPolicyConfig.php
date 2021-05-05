@@ -46,6 +46,9 @@ class PasswordPolicyConfig
     public const SettingLower = self::SettingsPrefix . 'LowerCase';
     public const SettingDrivers = self::SettingsPrefix . 'RateLimitingDrivers';
     public const SettingLimit = self::SettingsPrefix . 'RateLimitingLimit';
+    public const SettingRateLimiting = self::SettingsPrefix . 'RateLimiting';
+    public const SettingMemcachedHost = self::SettingsPrefix . 'MemcachedHost';
+    public const SettingMemcachedPort = self::SettingsPrefix . 'MemcachedPort';
 
     public function getMinPasswordLength(): int
     {
@@ -115,6 +118,11 @@ class PasswordPolicyConfig
         return $this->isConfigParam(self::SettingHaveIBeenPwned);
     }
 
+    public function getRateLimitingNeeded(): bool
+    {
+        return $this->isConfigParam(self::SettingRateLimiting);
+    }
+
     public function getSelectedDriver(): string
     {
         return (string) Registry::getConfig()->getConfigParam(self::SettingDrivers);
@@ -125,6 +133,15 @@ class PasswordPolicyConfig
         return (int) Registry::getConfig()->getConfigParam(self::SettingLimit, 60);
     }
 
+    public function getMemcachedHost(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SettingMemcachedHost);
+    }
+
+    public function getMemcachedPort(): int
+    {
+        return (int) Registry::getConfig()->getConfigParam(self::SettingMemcachedPort, 11211);
+    }
     private function isConfigParam(string $name): bool
     {
         return (bool) Registry::getConfig()->getConfigParam($name, true);

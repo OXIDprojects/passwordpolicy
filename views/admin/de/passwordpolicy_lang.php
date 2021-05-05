@@ -40,11 +40,15 @@ $aLang = array(
     'oxpspasswordpolicy_EnzoicError0' => 'Es gibt ein Problem beim Verbinden mit der Enzoic API. Bitte versuchen Sie es erneut.',
     'oxpspasswordpolicy_EnzoicError500' => 'Ein unerwarteter Fehler ist aufgetreten. Btte probieren Sie es später erneut.',
     'SHOP_MODULE_GROUP_passwordpolicy_ratelimiting' => 'Rate Limiting Einstellungen',
+    'SHOP_MODULE_oxpspasswordpolicyRateLimiting' => 'Aktiv',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers' => 'Treiber',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Redis' => 'Redis',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Predis' => 'Predis',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_Memcached' => 'Memcached',
     'SHOP_MODULE_oxpspasswordpolicyRateLimitingDrivers_APCu' => 'APCu',
-    'SHOP_MODULE_oxpspasswordpolicyRateLimitingLimit' => 'Einlogversuche pro Minute'
+    'SHOP_MODULE_oxpspasswordpolicyRateLimitingLimit' => 'Einlogversuche pro Minute',
+    'SHOP_MODULE_GROUP_passwordpolicy_memcached' => 'Memcached Einstellungen',
+    'SHOP_MODULE_oxpspasswordpolicyMemcachedHost' => 'Host',
+    'SHOP_MODULE_oxpspasswordpolicyMemcachedPort' => 'Port',
 
 );
