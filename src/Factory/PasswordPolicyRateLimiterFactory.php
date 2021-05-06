@@ -16,7 +16,7 @@ class PasswordPolicyRateLimiterFactory
      */
     public function getRateLimiter(string $limiter): PasswordPolicyRateLimiterInterface
     {
-        $class = 'OxidProfessionalServices\PasswordPolicy\Factory\RateLimiter\\PasswordPolicy' . $limiter;
+        $class = 'PasswordPolicy' . $limiter;
         $container = ContainerFactory::getInstance()->getContainer();
         try {
             $driver = $container->get($class);

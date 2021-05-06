@@ -30,5 +30,10 @@ services:
   OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck:
     class: OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck
     autowire: true;
+  PasswordPolicyAPCu:
+    class: OxidProfessionalServices\PasswordPolicy\Factory\RateLimiter\PasswordPolicyAPCu
+  PasswordPolicyMemcached:
+    class: OxidProfessionalServices\PasswordPolicy\Factory\RateLimiter\PasswordPolicyMemcached
+    autowire: true;
   DivineOmega\PasswordExposed\PasswordExposedChecker:
     class: DivineOmega\PasswordExposed\PasswordExposedChecker
