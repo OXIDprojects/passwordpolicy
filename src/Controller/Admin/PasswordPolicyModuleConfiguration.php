@@ -20,11 +20,8 @@ class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguratio
             try {
                 $enzoicApiCon->checkPassword("Test");
             } catch (\RuntimeException $ex) {
-                Registry::getUtilsView()->addErrorToDisplay("oxpspasswordpolicy_EnzoicError" . $ex->getCode());
-                # reset API, Secret Key and deactivate Enzoic setting
+                Registry::getUtilsView()->addErrorToDisplay("OXPS_PASSWORDPOLICY_ENZOICERROR" . $ex->getCode());
                 # needs better solution
-                $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicAPIKey] = "";
-                $_POST["confstrs"][PasswordPolicyConfig::SettingEnzoicSecretKey] = "";
                 $_POST["confbools"][PasswordPolicyConfig::SettingEnzoic] = "false";
             }
         }
