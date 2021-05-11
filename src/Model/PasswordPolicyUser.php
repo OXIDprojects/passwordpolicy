@@ -27,7 +27,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-        if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
+        if (!isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
             $forgotPass = new ForgotPasswordController();
             $forgotPass->forgotPassword();
             $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
@@ -53,7 +53,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
             $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
 
             try {
-                $rateLimiter->limit($userName, Rate::perDay($config->getRateLimit()));
+                $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
             } catch (LimitExceeded $exception) {
                 throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED');
             }
