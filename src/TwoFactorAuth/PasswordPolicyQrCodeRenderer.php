@@ -11,6 +11,10 @@ use BaconQrCode\Writer;
 
 class PasswordPolicyQrCodeRenderer
 {
+    /**
+     * @param string $dataUrl
+     * @return string writes QR Code
+     */
     public function generateQrCode(string $dataUrl)
     {
         $renderer = new ImageRenderer(new RendererStyle(200), new SvgImageBackEnd());

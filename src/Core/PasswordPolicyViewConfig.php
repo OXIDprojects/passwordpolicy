@@ -26,6 +26,8 @@ declare(strict_types=1);
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Core\Registry;
+use OxidProfessionalServices\PasswordPolicy\TwoFactorAuth\PasswordPolicyQrCodeRenderer;
+use OxidProfessionalServices\PasswordPolicy\TwoFactorAuth\PasswordPolicyTOTP;
 
 /**
  * Password policy config helpers used in controllers mostly
@@ -51,5 +53,14 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
             throw new \Exception("Password policy configuration broken? - Could not convert to JSON: $error");
         }
         return $res;
+    }
+
+    public function getTOTPQrCode()
+    {
+        $TOTP = new PasswordPolicyTOTP();
+        $TOTPurl = $TOTP->getTotpQrUrl();
+        $qrrenderer = new PasswordPolicyQrCodeRenderer();
+        $qrcode = $qrrenderer->generateQrCode($TOTPurl);
+        return $qrcode;
     }
 }

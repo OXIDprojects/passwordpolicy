@@ -3,6 +3,7 @@ services:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector
     arguments:
       $validators:
+        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyOTP'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits'
@@ -29,6 +30,9 @@ services:
     autowire: true;
   OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck:
     class: OxidProfessionalServices\PasswordPolicy\Api\PasswordCheck
+    autowire: true;
+  OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyOTP:
+    class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyOTP
     autowire: true;
   PasswordPolicyAPCu:
     class: OxidProfessionalServices\PasswordPolicy\Factory\RateLimiter\PasswordPolicyAPCu

@@ -10,7 +10,7 @@ class PasswordPolicyTOTP
     /**
      * @return string
      */
-    public function getTotpQrUrl(): string
+    public function getTOTPQrUrl(): string
     {
         $otp = TOTP::create();
         $secret = $otp->getSecret();
@@ -22,11 +22,12 @@ class PasswordPolicyTOTP
     }
 
     /**
+     * reads current OTP of the user from the DB and compares it with the entered OTP
      * @param string $secret
      * @param string $auth
-     * @return bool returns true if entered auth code is correct, false if not
+     * @return bool returns true if entered OTP is correct, false if not
      */
-    public function checkOtp(string $secret, string $auth): bool
+    public function checkOTP(string $secret, string $auth): bool
     {
         $otp = TOTP::create($secret);
         if($otp->now() == $auth)
