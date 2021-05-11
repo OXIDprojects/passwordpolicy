@@ -101,5 +101,7 @@ $aModule = [
         ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedHost', 'type' => 'str', 'value' => 'memcached'],
         ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedPort', 'type' => 'num', 'value' => 11211],
     ],
-    'events' => [],
+    'events'       => array(
+        'onActivate'   => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyEvents::onActivate',
+    ),
 ];
