@@ -16,10 +16,10 @@ class PasswordPolicyTwoFactor extends FrontendController
 
     public function render()
     {
-        $mode = (new Request())->getRequestEscapedParameter('mode');
-        $success = (new Request())->getRequestEscapedParameter('success');
-        $this->addTplParam('mode',$mode);
-        $this->addTplParam('success', $success);
+        $step = (new Request())->getRequestEscapedParameter('step');
+        $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
+        $this->addTplParam('step', $step);
+        $this->addTplParam('paymentActionLink', $paymentActionLink);
         parent::render();
         return 'twofactor.tpl';
     }
@@ -27,16 +27,16 @@ class PasswordPolicyTwoFactor extends FrontendController
     public function finalizeRegistration()
     {
         $OTP = (new Request())->getRequestEscapedParameter('otp');
-        $mode = (new Request())->getRequestEscapedParameter('mode');
-        $success = (new Request())->getRequestEscapedParameter('success');
+        $step = (new Request())->getRequestEscapedParameter('step');
+        $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
         $secret = Registry::getSession()->getVariable('otp_secret');
-        if($mode == 'registration')
+        if($step == 'registration')
         {
             $redirect = 'register?success=1';
         }
         else
         {
-            $redirect = urldecode($success);
+            $redirect = urldecode($paymentActionLink);
         }
         $TOTP = new PasswordPolicyTOTP();
         $checkOTP = $TOTP->checkOTP($secret, $OTP);
@@ -62,5 +62,13 @@ class PasswordPolicyTwoFactor extends FrontendController
         $qrrenderer = new PasswordPolicyQrCodeRenderer();
         $qrcode = $qrrenderer->generateQrCode($TOTPurl);
         return $qrcode;
+    }
+
+    public function getBreadCrumb()
+    {
+        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTH');
+        $aPath['link'] = $this->getLink();
+        $aPaths[] = $aPath;
+        return $aPaths;
     }
 }

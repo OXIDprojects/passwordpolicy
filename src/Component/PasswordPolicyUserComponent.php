@@ -7,23 +7,23 @@ use OxidEsales\Eshop\Core\Request;
 
 class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
 {
-    private string $mode = 'checkout';
+    private string $step = 'checkout';
     public function createUser()
     {
         $twoFactor = (new Request)->getRequestEscapedParameter('2FA');
-        $success = parent::createUser();
-        if($twoFactor && $success)
+        $paymentActionLink = parent::createUser();
+        if($twoFactor && $paymentActionLink)
         {
-            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactor&mode='. $this->mode . '&success='.urlencode($success));
+            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactor&step='. $this->step . '&paymentActionLink='. urlencode($paymentActionLink));
         }
-        return $success;
+        return $paymentActionLink;
 
 
     }
 
     public function registerUser()
     {
-        $this->mode = 'registration';
+        $this->step = 'registration';
         return parent::registerUser();
     }
 
