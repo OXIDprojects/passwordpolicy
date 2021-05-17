@@ -88,7 +88,13 @@ $aModule = [
             'template' => 'form/user_password.tpl',
             'block' => 'user_account_password',
             'file' => 'views/blocks/passwordpolicystrengthindicator.tpl',
+        ],
+        [
+            'template' => 'form/fieldset/user_account.tpl',
+            'block' => 'user_account_newsletter',
+            'file' => 'views/blocks/user_account.tpl',
         ]
+
     ],
     'settings' => [
         ['group' => 'passwordpolicy', 'name' => 'oxpspasswordpolicyGoodPasswordLength', 'type' => 'num', 'value' => 12],
