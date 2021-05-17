@@ -23,8 +23,8 @@ class PasswordPolicyTOTP
 
     /**
      * reads current OTP of the user from the DB and compares it with the entered OTP
-     * @param string $secret
-     * @param string $auth
+     * @param string $secret secret key of entered user
+     * @param string $auth entered OTP
      * @return bool returns true if entered OTP is correct, false if not
      */
     public function checkOTP(string $secret, string $auth): bool

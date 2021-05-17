@@ -25,11 +25,14 @@
  * Metadata version
  */
 
+use OxidEsales\Eshop\Application\Component\UserComponent;
 use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
+use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactor;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountPasswordController;
@@ -61,10 +64,14 @@ $aModule = [
         InputValidator::class => PasswordPolicyValidator::class,
         AccountPasswordController::class => PasswordPolicyAccountPasswordController::class,
         User::class => PasswordPolicyUser::class,
-        ModuleConfiguration::class => PasswordPolicyModuleConfiguration::class
+        ModuleConfiguration::class => PasswordPolicyModuleConfiguration::class,
+        UserComponent::class => PasswordPolicyUserComponent::class
         ],
-    'controllers' => [],
+    'controllers' => [
+        'twofactor' => PasswordPolicyTwoFactor::class
+    ],
     'templates' => [
+        'twofactor.tpl'   => 'oxps/passwordpolicy/views/tpl/twofactor.tpl',
     ],
     'blocks' => [
         [

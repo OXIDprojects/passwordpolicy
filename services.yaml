@@ -3,7 +3,6 @@ services:
     class: OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector
     arguments:
       $validators:
-        - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyOTP'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyPasswordLength'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyUpperLowerCase'
         - '@OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyDigits'

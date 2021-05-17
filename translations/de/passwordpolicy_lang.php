@@ -55,5 +55,6 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN'  => 'Das Passwort befindet sich bereits in einer gehackten Datenbank und ist somit unsicher.',
     'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP' => 'Der eingebene Code für die Zwei-Faktor-Authentifizierung war falsch.',
     'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED' => 'Sie haben sich zu oft versucht einzuloggen. Bitte versuchen Sie es später erneut.',
-    'TWOFACTORAUTH' => '2FA Code'
-);
+    'TWOFACTORAUTHCODE' => '2FA Code',
+    'TWOFACTORAUTH' => '2FA aktivieren'
+ );
