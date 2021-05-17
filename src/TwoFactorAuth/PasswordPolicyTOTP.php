@@ -3,9 +3,10 @@
 namespace OxidProfessionalServices\PasswordPolicy\TwoFactorAuth;
 
 use OTPHP\TOTP;
+use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\Registry;
 
-class PasswordPolicyTOTP
+class PasswordPolicyTOTP extends Base
 {
     /**
      * @return string
@@ -13,10 +14,11 @@ class PasswordPolicyTOTP
     public function getTOTPQrUrl(): string
     {
         $otp = TOTP::create();
+        $user = $this->getUser();
         $secret = $otp->getSecret();
         Registry::getSession()->setVariable('otp_secret', $secret);
-        $label = Registry::getConfig()->getShopUrl();
-        $otp->setLabel(str_replace('/','',preg_replace('#http://#','',$label)));
+        $otp->setLabel($user->oxuser__oxusername->value);
+        $otp->setIssuer(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
         $dataUrl = $otp->getProvisioningUri();
         return $dataUrl;
     }
