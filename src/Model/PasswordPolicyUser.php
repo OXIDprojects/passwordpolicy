@@ -60,13 +60,4 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         }
         parent::login($userName, $password, $setSessionCookie);
     }
-
-    public function loadUserByUsername($userName)
-    {
-        $oDb = \OxidEsales\Eshop\Core\DatabaseProvider::getDb();
-        $sQ = "select oxid from " . $this->getViewName() . " 
-            where oxusername = '$userName'";
-        $oxid = $oDb->getOne($sQ);
-        return $this->load($oxid);
-    }
 }
