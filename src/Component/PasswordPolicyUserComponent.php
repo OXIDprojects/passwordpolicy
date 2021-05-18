@@ -14,7 +14,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         $paymentActionLink = parent::createUser();
         if($twoFactor && $paymentActionLink)
         {
-            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactor&step='. $this->step . '&paymentActionLink='. urlencode($paymentActionLink));
+            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorregister&step='. $this->step . '&paymentActionLink='. urlencode($paymentActionLink));
         }
         return $paymentActionLink;
 
