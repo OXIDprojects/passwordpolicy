@@ -13,9 +13,10 @@ class PasswordPolicyTOTP extends Base
      */
     public function getTOTPQrUrl(): string
     {
-        $otp = TOTP::create();
-        $user = $this->getUser();
+        $sessionsecret = Registry::getSession()->getVariable('otp_secret');
+        $otp = TOTP::create($sessionsecret);
         $secret = $otp->getSecret();
+        $user = $this->getUser();
         Registry::getSession()->setVariable('otp_secret', $secret);
         $otp->setLabel($user->oxuser__oxusername->value);
         $otp->setIssuer(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
