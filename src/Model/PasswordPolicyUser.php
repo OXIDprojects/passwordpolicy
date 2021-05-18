@@ -59,5 +59,14 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
             }
         }
         parent::login($userName, $password, $setSessionCookie);
+        if(!isAdmin())
+        {
+            $sessionuser =  Registry::getSession()->getVariable('usr');
+            Registry::getSession()->setVariable('usr', "");
+            Registry::getUtilsServer()->deleteUserCookie();
+            Registry::getSession()->setVariable('usr2', $sessionuser);
+            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorlogin');
+        }
+
     }
 }

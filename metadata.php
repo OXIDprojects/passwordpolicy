@@ -32,7 +32,8 @@ use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
 use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
-use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactor;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRegister;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorLogin;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountPasswordController;
@@ -68,10 +69,12 @@ $aModule = [
         UserComponent::class => PasswordPolicyUserComponent::class
         ],
     'controllers' => [
-        'twofactor' => PasswordPolicyTwoFactor::class
+        'twofactorregister' => PasswordPolicyTwoFactorRegister::class,
+        'twofactorlogin' => PasswordPolicyTwoFactorLogin::class
     ],
     'templates' => [
-        'twofactor.tpl'   => 'oxps/passwordpolicy/views/tpl/twofactor.tpl',
+        'twofactorregister.tpl'   => 'oxps/passwordpolicy/views/tpl/twofactorregister.tpl',
+        'twofactorlogin.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorlogin.tpl'
     ],
     'blocks' => [
         [
