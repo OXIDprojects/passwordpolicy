@@ -55,6 +55,8 @@ class PasswordPolicyTwoFactorRegister extends FrontendController
             $user = $this->getUser();
             $user->oxuser__oxtotpsecret = new Field($secret, Field::T_TEXT);
             $user->save();
+            //cleans up session for next registration
+            Registry::getSession()->deleteVariable('otp_secret');
             return $redirect;
         }
         Registry::getUtilsView()->addErrorToDisplay(
