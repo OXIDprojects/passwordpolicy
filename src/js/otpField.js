@@ -3,7 +3,7 @@ const $otp_length = 6;
 const element = document.getElementById('OTPInput');
 for (let i = 0; i < $otp_length; i++) {
     let inputField = document.createElement('input'); // Creates a new input element
-    inputField.className = "border border-dark w-12 h-12 bg-gray-100 border-gray-50 outline-none focus:bg-gray-200 m-2 text-center rounded focus:border-blue-400 focus:shadow-outline";
+    inputField.className = "border border-dark w-12 h-12 bg-gray-100 border-gray-50 outline-none focus:bg-gray-200 m-2 text-center rounded focus:border-blue-200 focus:shadow-outline";
     inputField.style.cssText = "color: transparent; text-shadow: 0 0 0 gray;";
     inputField.id = 'otp-field' + i;
     inputField.maxLength = 1;
@@ -11,6 +11,7 @@ for (let i = 0; i < $otp_length; i++) {
 }
 
 const inputs = document.querySelectorAll('#OTPInput > *[id]');
+inputs[0].focus();
 for (let i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('keydown', function (event) {
         if (event.key === "Backspace") {
