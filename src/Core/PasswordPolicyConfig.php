@@ -104,22 +104,22 @@ class PasswordPolicyConfig
         return (string) Registry::getConfig()->getConfigParam(self::SettingEnzoicSecretKey);
     }
 
-    public function isAPINeeded(): bool
+    public function isAPI(): bool
     {
         return $this->isConfigParam(self::SettingAPI);
     }
 
-    public function isEnzoicNeeded(): bool
+    public function isEnzoic(): bool
     {
         return $this->isConfigParam(self::SettingEnzoic);
     }
 
-    public function isHaveIBeenPwnedNeeded(): bool
+    public function isHaveIBeenPwned(): bool
     {
         return $this->isConfigParam(self::SettingHaveIBeenPwned);
     }
 
-    public function isRateLimitingNeeded(): bool
+    public function isRateLimiting(): bool
     {
         return $this->isConfigParam(self::SettingRateLimiting);
     }

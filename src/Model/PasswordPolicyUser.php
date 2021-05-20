@@ -48,7 +48,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         $container = ContainerFactory::getInstance()->getContainer();
         $config = $container->get(PasswordPolicyConfig::class);
-        if ($config->isRateLimitingNeeded()) {
+        if ($config->isRateLimiting()) {
             $driverName = $config->getSelectedDriver();
             $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
 
