@@ -7,7 +7,6 @@ namespace OxidProfessionalServices\PasswordPolicy\Controller;
 use OxidEsales\Eshop\Application\Controller\FrontendController;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request;
-use OxidEsales\EshopCommunity\Core\Field;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidProfessionalServices\PasswordPolicy\TwoFactorAuth\PasswordPolicyQrCodeRenderer;
 use OxidProfessionalServices\PasswordPolicy\TwoFactorAuth\PasswordPolicyTOTP;
@@ -75,7 +74,10 @@ class PasswordPolicyTwoFactorRegister extends FrontendController
 
     public function getBreadCrumb()
     {
-        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTH');
+        $aPaths = [];
+        $aPath = [];
+        $iBaseLanguage = Registry::getLang()->getBaseLanguage();
+        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTH', $iBaseLanguage, false);
         $aPath['link'] = $this->getLink();
         $aPaths[] = $aPath;
         return $aPaths;
