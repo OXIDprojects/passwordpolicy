@@ -32,24 +32,36 @@ use OxidEsales\Eshop\Core\Registry;
  */
 class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
 {
+    private PasswordPolicyConfig $config;
+
+
+    public function __construct()
+    {
+        $this->config = Registry::get(PasswordPolicyConfig::class);
+    }
+
     /**
      * @throws \Exception
      */
     public function getJsonPasswordPolicySettings(): string
     {
-        $config = Registry::get(PasswordPolicyConfig::class);
         $array = [];
-        $array['goodPasswordLength'] = $config->getGoodPasswordLength();
+        $array['goodPasswordLength'] = $this->config->getGoodPasswordLength();
         $array['minPasswordLength'] = $this->getPasswordLength();
-        $array['digits'] = $config->getPasswordNeedDigits();
-        $array['special'] = $config->getPasswordNeedSpecialCharacter();
-        $array['lowercase'] = $config->getPasswordNeedLowerCase();
-        $array['uppercase'] = $config->getPasswordNeedUpperCase();
+        $array['digits'] = $this->config->getPasswordNeedDigits();
+        $array['special'] = $this->config->getPasswordNeedSpecialCharacter();
+        $array['lowercase'] = $this->config->getPasswordNeedLowerCase();
+        $array['uppercase'] = $this->config->getPasswordNeedUpperCase();
         $res = json_encode($array, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
         if ($res === false) {
             $error = json_last_error_msg();
             throw new \Exception("Password policy configuration broken? - Could not convert to JSON: $error");
         }
         return $res;
+    }
+
+    public function isTOTPNeeded(): bool
+    {
+        return $this->config->isTOTPNeeded();
     }
 }

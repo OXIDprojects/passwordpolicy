@@ -48,7 +48,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         $container = ContainerFactory::getInstance()->getContainer();
         $config = $container->get(PasswordPolicyConfig::class);
-        if ($config->getRateLimitingNeeded()) {
+        if ($config->isRateLimitingNeeded()) {
             $driverName = $config->getSelectedDriver();
             $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
 
@@ -63,8 +63,9 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         {
             $sessionuser =  Registry::getSession()->getVariable('usr');
             Registry::getSession()->deleteVariable('usr');
+            Registry::getUtilsServer()->deleteUserCookie();
             Registry::getSession()->setVariable('tmpusr', $sessionuser);
-            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorlogin');
+            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorlogin&setsessioncookie=' . $setSessionCookie);
         }
 
     }

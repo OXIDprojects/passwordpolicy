@@ -24,7 +24,7 @@ class PasswordPolicyDataBreach implements PasswordPolicyValidationInterface
     public function validate(string $sUsername, string $sPassword)
     {
         try {
-            if ($this->config->getAPINeeded() && $this->passwordCheck->isPasswordKnown($sUsername, $sPassword)) {
+            if ($this->config->isAPINeeded() && $this->passwordCheck->isPasswordKnown($sUsername, $sPassword)) {
                 return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN';
             }
         } catch (\RuntimeException $exception) {

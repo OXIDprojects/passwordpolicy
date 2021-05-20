@@ -49,6 +49,7 @@ class PasswordPolicyConfig
     public const SettingRateLimiting = self::SettingsPrefix . 'RateLimiting';
     public const SettingMemcachedHost = self::SettingsPrefix . 'MemcachedHost';
     public const SettingMemcachedPort = self::SettingsPrefix . 'MemcachedPort';
+    public const SettingTOTP = self::SettingsPrefix . 'TOTP';
 
     public function getMinPasswordLength(): int
     {
@@ -103,22 +104,22 @@ class PasswordPolicyConfig
         return (string) Registry::getConfig()->getConfigParam(self::SettingEnzoicSecretKey);
     }
 
-    public function getAPINeeded(): bool
+    public function isAPINeeded(): bool
     {
         return $this->isConfigParam(self::SettingAPI);
     }
 
-    public function getEnzoicNeeded(): bool
+    public function isEnzoicNeeded(): bool
     {
         return $this->isConfigParam(self::SettingEnzoic);
     }
 
-    public function getHaveIBeenPwnedNeeded(): bool
+    public function isHaveIBeenPwnedNeeded(): bool
     {
         return $this->isConfigParam(self::SettingHaveIBeenPwned);
     }
 
-    public function getRateLimitingNeeded(): bool
+    public function isRateLimitingNeeded(): bool
     {
         return $this->isConfigParam(self::SettingRateLimiting);
     }
@@ -141,6 +142,11 @@ class PasswordPolicyConfig
     public function getMemcachedPort(): int
     {
         return (int) Registry::getConfig()->getConfigParam(self::SettingMemcachedPort, 11211);
+    }
+
+    public function isTOTPNeeded(): bool
+    {
+        return $this->isConfigParam(self::SettingTOTP);
     }
     private function isConfigParam(string $name): bool
     {
