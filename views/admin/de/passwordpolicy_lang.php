@@ -52,5 +52,7 @@ $aLang = array(
     'SHOP_MODULE_GROUP_passwordpolicy_memcached' => 'Memcached Einstellungen',
     'SHOP_MODULE_oxpspasswordpolicyMemcachedHost' => 'Host',
     'SHOP_MODULE_oxpspasswordpolicyMemcachedPort' => 'Port',
+    'SHOP_MODULE_GROUP_passwordpolicy_twofactor' => '2FA Authentifizierung',
+    'SHOP_MODULE_oxpspasswordpolicyTOTP' => '2FA aktivieren'
 
 );

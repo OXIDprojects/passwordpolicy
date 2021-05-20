@@ -32,6 +32,7 @@ use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
 use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountTOTP;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRegister;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorLogin;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
@@ -70,11 +71,13 @@ $aModule = [
         ],
     'controllers' => [
         'twofactorregister' => PasswordPolicyTwoFactorRegister::class,
-        'twofactorlogin' => PasswordPolicyTwoFactorLogin::class
+        'twofactorlogin' => PasswordPolicyTwoFactorLogin::class,
+        'twofactoraccount' => PasswordPolicyAccountTOTP::class
     ],
     'templates' => [
         'twofactorregister.tpl'   => 'oxps/passwordpolicy/views/tpl/twofactorregister.tpl',
-        'twofactorlogin.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorlogin.tpl'
+        'twofactorlogin.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorlogin.tpl',
+        'twofactoraccount.tpl' => 'oxps/passwordpolicy/views/tpl/twofactoraccount.tpl'
     ],
     'blocks' => [
         [
@@ -96,6 +99,11 @@ $aModule = [
             'template' => 'form/fieldset/user_account.tpl',
             'block' => 'user_account_newsletter',
             'file' => 'views/blocks/user_account.tpl',
+        ],
+        [
+            'template' => 'page/account/inc/account_menu.tpl',
+            'block' => 'account_menu',
+            'file' => 'views/blocks/account_menu.tpl',
         ]
 
     ],
@@ -116,6 +124,7 @@ $aModule = [
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyRateLimitingLimit', 'type' => 'num', 'value' => 60],
         ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedHost', 'type' => 'str', 'value' => 'memcached'],
         ['group' => 'passwordpolicy_memcached', 'name' => 'oxpspasswordpolicyMemcachedPort', 'type' => 'num', 'value' => 11211],
+        ['group' => 'passwordpolicy_twofactor', 'name' => 'oxpspasswordpolicyTOTP', 'type' => 'bool', 'value' => false],
     ],
     'events'       => array(
         'onActivate'   => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyEvents::onActivate',
