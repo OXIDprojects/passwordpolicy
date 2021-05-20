@@ -13,6 +13,8 @@ class PasswordPolicyTwoFactorLogin extends FrontendController
     public function render()
     {
         parent::render();
+        $setsessioncookie = (new Request())->getRequestEscapedParameter('setsessioncookie');
+        $this->addTplParam('setsessioncookie', $setsessioncookie);
         return 'twofactorlogin.tpl';
     }
 

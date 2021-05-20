@@ -8,6 +8,7 @@
         [{$oViewConf->getNavFormParams()}]
         <input type="hidden" name="fnc" value="finalizeLogin">
         <input type="hidden" name="cl" value="twofactorlogin">
+        <input type="hidden" name="setsessioncookie" value="[{$setsessioncookie}]">
     </div>
     <div class="mt-3 flex justify-center " id="OTPInput">
     </div>
