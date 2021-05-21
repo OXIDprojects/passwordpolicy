@@ -43,7 +43,7 @@ class PasswordPolicyAccountTOTP extends AccountController
     public function isTOTP(): bool
     {
         $user = $this->getUser();
-        $secret = $user->oxuser__oxtotpsecret->value;
+        $secret = $user->oxuser__oxpstotpsecret->value;
         return $secret != null;
     }
 

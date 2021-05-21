@@ -64,7 +64,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         $sessionuser =  Registry::getSession()->getVariable('usr');
         $user = oxNew(User::class);
         $user->load($sessionuser);
-        $secret = $user->oxuser__oxtotpsecret->value;
+        $secret = $user->oxuser__oxpstotpsecret->value;
         // checks if user has 2FA enabled and is not admin
         if(!isAdmin() && $secret)
         {

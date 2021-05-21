@@ -60,7 +60,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         {
             //finalize
             $user = $this->getUser();
-            $user->oxuser__oxtotpsecret = new Field($secret, Field::T_TEXT);
+            $user->oxuser__oxpstotpsecret = new Field($secret, Field::T_TEXT);
             $user->save();
             //cleans up session for next registration
             Registry::getSession()->deleteVariable('otp_secret');
@@ -83,7 +83,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         $usr = Registry::getSession()->getVariable('tmpusr');
         $user = oxNew(User::class);
         $user->load($usr);
-        $secret = $user->oxuser__oxtotpsecret->value;
+        $secret = $user->oxuser__oxpstotpsecret->value;
         $checkOTP = $TOTP->checkOTP($secret, $otp);
         if($checkOTP)
         {
