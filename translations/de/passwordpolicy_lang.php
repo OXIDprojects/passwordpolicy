@@ -61,6 +61,7 @@ $aLang = array(
     'TWOFACTORAUTHCHECKBOX' => '2FA aktivieren',
     'TWOFACTORDEACTIVATE' => '2FA deaktivieren',
     'MESSAGE_TWOFACTOR_HELP' => 'Die Zwei-Faktor-Authentifizierung bietet Ihrem Account eine zusätzliche Sicherheit. Durch aktivieren dieser Funktion, wird bei jedem Login nach einem zeitlich begrenzten einmaligen Passwort gefragt, welches Sie auf Ihrem Handy von einer App ablesen können.',
+    'MESSAGE_TWOFACTOR_LOGIN' => 'Öffnen Sie jetzt Ihre Authentifizierungsapp und geben Sie den 6-stelligen Code ein.',
     'MESSAGE_TWOFACTOR_SUCCESS' => '2FA wurde erfolgreich eingerichtet.',
     'MESSAGE_TWOFACTOR_DEACTIVATED' => '2FA wurde deaktiviert.'
  );
