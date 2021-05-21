@@ -42,6 +42,10 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         {
             $redirect = 'register?success=1';
         }
+        elseif($step == 'settings')
+        {
+            $redirect = 'twofactoraccount?success=1';
+        }
 
         $checkOTP = $this->TOTP->checkOTP($secret, $OTP);
         if($checkOTP)

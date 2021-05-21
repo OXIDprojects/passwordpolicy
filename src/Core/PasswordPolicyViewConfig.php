@@ -60,8 +60,8 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
         return $res;
     }
 
-    public function isTOTPNeeded(): bool
+    public function isTOTP(): bool
     {
-        return $this->config->isTOTPNeeded();
+        return $this->config->isTOTP();
     }
 }

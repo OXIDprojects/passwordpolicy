@@ -124,6 +124,11 @@ class PasswordPolicyConfig
         return $this->isConfigParam(self::SettingRateLimiting);
     }
 
+    public function isTOTP(): bool
+    {
+        return $this->isConfigParam(self::SettingTOTP);
+    }
+
     public function getSelectedDriver(): string
     {
         return (string) Registry::getConfig()->getConfigParam(self::SettingDrivers);
@@ -142,11 +147,6 @@ class PasswordPolicyConfig
     public function getMemcachedPort(): int
     {
         return (int) Registry::getConfig()->getConfigParam(self::SettingMemcachedPort, 11211);
-    }
-
-    public function isTOTPNeeded(): bool
-    {
-        return $this->isConfigParam(self::SettingTOTP);
     }
     private function isConfigParam(string $name): bool
     {

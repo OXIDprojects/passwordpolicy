@@ -55,9 +55,12 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN'  => 'Das Passwort befindet sich bereits in einer gehackten Datenbank und ist somit unsicher.',
     'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP' => 'Der eingebene Code für die Zwei-Faktor-Authentifizierung war falsch.',
     'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED' => 'Sie haben sich zu oft versucht einzuloggen. Bitte versuchen Sie es später erneut.',
-    'TWOFACTORAUTH' => '2-Faktor-Authentifizierung Einrichtung',
+    'TWOFACTORAUTHREGISTER' => '2-Faktor-Authentifizierung Einrichtung',
     'TWOFACTORAUTHLOGIN' => '2-Faktor-Authentifizierung',
     'TWOFACTORAUTHCODE' => '2FA Code',
     'TWOFACTORAUTHCHECKBOX' => '2FA aktivieren',
-    'MESSAGE_TWOFACTOR_HELP' => 'Die Zwei-Faktor-Authentifizierung bietet Ihrem Account eine zusätzliche Sicherheit. Durch aktivieren dieser Funktion, wird bei jedem Login nach einem zeitlich begrenzten einmaligen Passwort gefragt, welches Sie auf Ihrem Handy von einer App ablesen können.'
+    'TWOFACTORDEACTIVATE' => '2FA deaktivieren',
+    'MESSAGE_TWOFACTOR_HELP' => 'Die Zwei-Faktor-Authentifizierung bietet Ihrem Account eine zusätzliche Sicherheit. Durch aktivieren dieser Funktion, wird bei jedem Login nach einem zeitlich begrenzten einmaligen Passwort gefragt, welches Sie auf Ihrem Handy von einer App ablesen können.',
+    'MESSAGE_TWOFACTOR_SUCCESS' => '2FA wurde erfolgreich eingerichtet.',
+    'MESSAGE_TWOFACTOR_DEACTIVATED' => '2FA wurde deaktiviert.'
  );
