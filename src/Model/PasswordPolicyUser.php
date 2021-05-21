@@ -3,10 +3,12 @@
 namespace OxidProfessionalServices\PasswordPolicy\Model;
 
 use OxidEsales\Eshop\Application\Controller\ForgotPasswordController;
+use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidEsales\EshopCommunity\Tests\Unit\Application\Model\oxnewsletterForUnit_oxnewsletterTest;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Exception\LimiterNotFound;
@@ -51,7 +53,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         if ($config->isRateLimiting()) {
             $driverName = $config->getSelectedDriver();
             $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
-
+            // checks whether rate limit is exceeded
             try {
                 $rateLimiter->limit($userName, Rate::perMinute($config->getRateLimit()));
             } catch (LimitExceeded $exception) {
@@ -59,9 +61,13 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
             }
         }
         parent::login($userName, $password, $setSessionCookie);
-        if(!isAdmin())
+        $sessionuser =  Registry::getSession()->getVariable('usr');
+        $user = oxNew(User::class);
+        $user->load($sessionuser);
+        $secret = $user->oxuser__oxtotpsecret->value;
+        // checks if user has 2FA enabled and is not admin
+        if(!isAdmin() && $secret)
         {
-            $sessionuser =  Registry::getSession()->getVariable('usr');
             Registry::getSession()->deleteVariable('usr');
             Registry::getUtilsServer()->deleteUserCookie();
             Registry::getSession()->setVariable('tmpusr', $sessionuser);
