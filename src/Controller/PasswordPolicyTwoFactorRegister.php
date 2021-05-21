@@ -45,7 +45,7 @@ class PasswordPolicyTwoFactorRegister extends FrontendController
         $aPaths = [];
         $aPath = [];
         $iBaseLanguage = Registry::getLang()->getBaseLanguage();
-        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTH', $iBaseLanguage, false);
+        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTHREGISTER', $iBaseLanguage, false);
         $aPath['link'] = $this->getLink();
         $aPaths[] = $aPath;
         return $aPaths;
