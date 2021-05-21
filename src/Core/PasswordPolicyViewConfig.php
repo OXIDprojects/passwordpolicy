@@ -64,4 +64,10 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
     {
         return $this->config->isTOTP();
     }
+
+    public function setFullWidth()
+    {
+        $this->getConfig()->setConfigParam('blFullwidthLayout', true);
+    }
+
 }
