@@ -1,15 +1,14 @@
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-[{capture append="oxidBlock_content"}]
+[{capture append="oxidBlock_pageBody"}]
 [{$oViewConf->setFullWidth()}]
 <div class="min-h-screen flex flex-col justify-center text-center">
-<div class="container h-100 border border-dark align-items-center" style="width: 500px; background-color:white">
-    <div class="content mb-3" id="content">
-        <br>
+<div class="container rounded h-100 align-items-center col-12 col-md-6 col-lg-6" style="width: 500px; background-color:white">
+    <div class="content mt-3" id="content">
         [{include file="message/errors.tpl"}]
     </div>
-    <h1 class="page-header text-center">[{oxmultilang ident="TWOFACTORAUTHLOGIN"}]</h1>
-
-<form class="form-horizontal" action="[{$oViewConf->getSslSelfLink()}]" name="order" method="post" novalidate="novalidate">
+    <h1 class="mt-1 page-header text-center">[{oxmultilang ident="TWOFACTORAUTHLOGIN"}]</h1>
+    <span class="help-block">[{oxmultilang ident="MESSAGE_TWOFACTOR_LOGIN"}]</span>
+    <form class="form-horizontal" action="[{$oViewConf->getSslSelfLink()}]" name="order" method="post" novalidate="novalidate">
     <div class="hidden">
         [{$oViewConf->getHiddenSid()}]
         [{$oViewConf->getNavFormParams()}]
@@ -20,7 +19,7 @@
     </div>
     <input hidden id="otp" name="otp" value="">
     <div class="flex justify-center">
-            <button id="accUserSaveTop" type="submit" name="save" class="mt-10 btn btn-primary">[{oxmultilang ident="TWOFACTORDEACTIVATE"}]</button>
+            <button id="accUserSaveTop" type="submit" name="save" class="mt-8 mb-3 btn btn-primary">[{oxmultilang ident="TWOFACTORDEACTIVATE"}]</button>
 </div>
 </form>
 </div>
