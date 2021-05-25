@@ -67,6 +67,7 @@ class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
 
     public function setFullWidth()
     {
+        $this->getConfig()->setConfigParam('sBackgroundColor', '#f6f6f6');
         $this->getConfig()->setConfigParam('blFullwidthLayout', true);
     }
 
