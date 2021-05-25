@@ -4,6 +4,7 @@ namespace OxidProfessionalServices\PasswordPolicy\Model;
 
 use OxidEsales\Eshop\Application\Controller\ForgotPasswordController;
 use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\Config;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
@@ -13,6 +14,7 @@ use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Exception\LimiterNotFound;
 use OxidProfessionalServices\PasswordPolicy\Factory\PasswordPolicyRateLimiterFactory;
+use OxidProfessionalServices\PasswordPolicy\TwoFactorAuth\PasswordPolicyTOTP;
 use RateLimit\Exception\LimitExceeded;
 use RateLimit\Rate;
 
@@ -74,5 +76,34 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
             Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorlogin&setsessioncookie=' . $setSessionCookie);
         }
 
+    }
+
+    public function finalizeLogin($otp, $setsessioncookie = false)
+    {
+        $container = ContainerFactory::getInstance()->getContainer();
+        $TOTP = $container->get(PasswordPolicyTOTP::class);
+        $config = $container->get(Config::class);
+        $session = Registry::getSession();
+        $usr = $session->getVariable('tmpusr');
+        $this->load($usr);
+        $secret = $this->oxuser__oxpstotpsecret->value;
+        $checkOTP = $TOTP->checkOTP($secret, $otp);
+        if($checkOTP)
+        {
+            $session->deleteVariable('tmpusr');
+            $session->setVariable('usr', $usr);
+            // in case user wants to stay logged in, set user cookie again
+            if ($setsessioncookie && $config->getConfigParam('blShowRememberMe')) {
+                Registry::getUtilsServer()->setUserCookie(
+                    $this->oxuser__oxusername->value,
+                    $this->oxuser__oxpassword->value,
+                    $config->getShopId(),
+                    31536000,
+                    static::USER_COOKIE_SALT
+                );
+            }
+            return $this;
+        }
+        throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
     }
 }
