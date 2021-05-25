@@ -1,11 +1,11 @@
 [{capture append="oxidBlock_content"}]
     [{assign var="template_title" value="TWOFACTORAUTHLOGIN"|oxmultilangassign}]
-    [{if $oView->getStatus() == '1'}]
+    [{if $success == '1'}]
     <div class="alert alert-success">[{oxmultilang ident="MESSAGE_TWOFACTOR_SUCCESS"}]</div>
-    [{elseif $oView->getStatus() == '2'}]
+    [{elseif $success == '2'}]
     <div class="alert alert-success">[{oxmultilang ident="MESSAGE_TWOFACTOR_DEACTIVATED"}]</div>
     [{/if}]
-    <h1 id="newsletterSettingsHeader" class="page-header">[{oxmultilang ident="TWOFACTORAUTHLOGIN"}]</h1>
+    <h1 id="twofactorheader" class="page-header">[{oxmultilang ident="TWOFACTORAUTHLOGIN"}]</h1>
     <form action="[{$oViewConf->getSelfActionLink()}]" name="newsletter" class="form-horizontal" method="post">
         <div class="hidden">
             [{$oViewConf->getHiddenSid()}]

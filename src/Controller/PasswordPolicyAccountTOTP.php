@@ -17,7 +17,8 @@ class PasswordPolicyAccountTOTP extends AccountController
         if (!$oUser) {
             return $this->_sThisLoginTemplate;
         }
-
+        $success = (new Request())->getRequestEscapedParameter('success');
+        $this->addTplParam('success', $success);
         return 'twofactoraccount.tpl';
     }
 
@@ -57,11 +58,5 @@ class PasswordPolicyAccountTOTP extends AccountController
         {
             return 'twofactorconfirmation';
         }
-    }
-
-    public function getStatus()
-    {
-        $success = (new Request())->getRequestEscapedParameter('success');
-        return $success;
     }
 }
