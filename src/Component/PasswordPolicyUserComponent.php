@@ -25,7 +25,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         $paymentActionLink = parent::createUser();
         if($twofactorconf && $twoFactor && $paymentActionLink)
         {
-            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorregister&step='. $this->step . '&paymentActionLink='. urlencode($paymentActionLink));
+            Registry::getUtils()->redirect(Registry::getConfig()->getShopHomeUrl() . 'cl=twofactorregister&step='. $this->step . '&paymentActionLink='. urlencode($paymentActionLink) . '&success=1');
         }
         return $paymentActionLink;
 
@@ -52,14 +52,11 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             $user->save();
             //cleans up session for next registration
             Registry::getSession()->deleteVariable('otp_secret');
-            $redirect = $this->getRedirectLink();
-            return $redirect;
+            $step = (new Request())->getRequestEscapedParameter('step');
+            $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
+            return 'twofactorrecovery?step=' . $step . '&paymentActionLink=' . $paymentActionLink;
         }
-        Registry::getUtilsView()->addErrorToDisplay(
-            'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP',
-            false,
-            true
-        );
+        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
     }
 
     public function getRedirectLink()
@@ -89,7 +86,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             $this->setLoginStatus(USER_LOGIN_SUCCESS);
         }catch(UserException $ex)
         {
-            Registry::getUtilsView()->addErrorToDisplay($ex);
+            return Registry::getUtilsView()->addErrorToDisplay($ex);
         }
         return $this->_afterLogin($user);
     }
