@@ -34,6 +34,7 @@ use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
 use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountTOTP;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorConfirmation;
+use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRecovery;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRegister;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorLogin;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
@@ -74,13 +75,15 @@ $aModule = [
         'twofactorregister' => PasswordPolicyTwoFactorRegister::class,
         'twofactorlogin' => PasswordPolicyTwoFactorLogin::class,
         'twofactoraccount' => PasswordPolicyAccountTOTP::class,
-        'twofactorconfirmation' => PasswordPolicyTwoFactorConfirmation::class
+        'twofactorconfirmation' => PasswordPolicyTwoFactorConfirmation::class,
+        'twofactorrecovery' => PasswordPolicyTwoFactorRecovery::class
     ],
     'templates' => [
         'twofactorregister.tpl'   => 'oxps/passwordpolicy/views/tpl/twofactorregister.tpl',
         'twofactorlogin.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorlogin.tpl',
         'twofactoraccount.tpl' => 'oxps/passwordpolicy/views/tpl/twofactoraccount.tpl',
-        'twofactorconfirmation.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorconfirmation.tpl'
+        'twofactorconfirmation.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorconfirmation.tpl',
+        'twofactorrecovery.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorrecovery.tpl'
     ],
     'blocks' => [
         [
