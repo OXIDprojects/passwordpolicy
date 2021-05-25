@@ -27,8 +27,10 @@ class PasswordPolicyTwoFactorRegister extends FrontendController
     {
         $step = (new Request())->getRequestEscapedParameter('step');
         $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
+        $success =  (new Request())->getRequestEscapedParameter('success');
         $this->addTplParam('step', $step);
         $this->addTplParam('paymentActionLink', $paymentActionLink);
+        $this->addTplParam('success', $success);
         parent::render();
         return 'twofactorregister.tpl';
     }
