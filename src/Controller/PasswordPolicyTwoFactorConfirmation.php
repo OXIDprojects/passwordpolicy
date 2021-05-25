@@ -35,14 +35,11 @@ class PasswordPolicyTwoFactorConfirmation extends FrontendController
         {
             // resets 2FA secret code for user
             $user->oxuser__oxpstotpsecret = new Field("", Field::T_TEXT);
+            $user->oxuser__oxpsbackupcode = new Field("", Field::T_TEXT);
             $user->save();
             return 'twofactoraccount?success=2';
         }
-        Registry::getUtilsView()->addErrorToDisplay(
-            'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP',
-            false,
-            true
-        );
+        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
     }
 
     public function getBreadCrumb()
