@@ -1,4 +1,3 @@
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 [{capture append="oxidBlock_pageBody"}]
 [{$oViewConf->setFullWidth()}]
 <div class="min-h-screen flex flex-col justify-center text-center">
@@ -25,6 +24,7 @@
 </div>
 </div>
     [{oxscript include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/js/otpField.js')}]
+    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/tailwind.css')}]
 [{/capture}]
 
 

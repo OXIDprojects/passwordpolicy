@@ -1,4 +1,3 @@
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 [{capture append="oxidBlock_pageBody"}]
 [{$oViewConf->setFullWidth()}]
 <div class="min-h-screen flex flex-col justify-center text-center">
@@ -16,7 +15,7 @@
         <input type="hidden" name="cl" value="twofactorlogin">
         <input type="hidden" name="setsessioncookie" value="[{$setsessioncookie}]">
     </div>
-    <div class="mt-3 mb-3 flex justify-center " id="OTPInput">
+    <div class="mt-3 mb-3 flex justify-center" id="OTPInput">
     </div>
     <a href="?cl=twofactorrecovery">[{oxmultilang ident="MESSAGE_TWOFACTOR_LOST"}]</a>
     <input hidden id="otp" name="otp" value="">
@@ -26,6 +25,7 @@
 </form>
     </div>
 </div>
+    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/tailwind.css')}]
     [{oxscript include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/js/otpField.js')}]
 [{/capture}]
 
