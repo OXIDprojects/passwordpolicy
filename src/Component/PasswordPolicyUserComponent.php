@@ -54,7 +54,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             Registry::getSession()->deleteVariable('otp_secret');
             $step = (new Request())->getRequestEscapedParameter('step');
             $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
-            return 'twofactorrecovery?step=' . $step . '&paymentActionLink=' . $paymentActionLink;
+            return 'twofactorbackup?step=' . $step . '&paymentActionLink=' . $paymentActionLink;
         }
         Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
     }
