@@ -21,21 +21,18 @@ class PasswordPolicyEvents
         }
             $viewConf = oxNew(ViewConfig::class);
             $modulePath = $viewConf->getModulePath('oxpspasswordpolicy');
-            $file = 'twofactor.config.inc.php';
-            if(!file_exists($modulePath . $file))
+            $filePath = $modulePath . 'twofactor.config.inc.php';
+            if(!file_exists($filePath))
             {
-                file_put_contents($modulePath . $file, '<?php 
+                file_put_contents($modulePath . $filePath, '<?php 
 $this->key=' . 'self::generateKey();');
             }
     }
 
-    /**
-     * Regenerate views for changed tables
-     */
 
     protected static function generateKey()
     {
-        $key = openssl_random_pseudo_bytes(32);
+        $key = random_bytes(32);
         $hashedKey = base64_encode($key);
         return $hashedKey;
     }
