@@ -9,7 +9,6 @@ use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
-use OxidEsales\EshopCommunity\Tests\Unit\Application\Model\oxnewsletterForUnit_oxnewsletterTest;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Exception\LimiterNotFound;
@@ -87,7 +86,8 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         $usr = $session->getVariable('tmpusr');
         $this->load($usr);
         $secret = $this->oxuser__oxpstotpsecret->value;
-        $checkOTP = $TOTP->checkOTP($secret, $otp);
+        $decryptedSecret = $TOTP->decryptSecret($secret);
+        $checkOTP = $TOTP->checkOTP($decryptedSecret, $otp);
         if($checkOTP)
         {
             $session->deleteVariable('tmpusr');

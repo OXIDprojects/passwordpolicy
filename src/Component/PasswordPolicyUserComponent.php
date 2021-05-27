@@ -43,7 +43,8 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         $TOTP = $container->get(PasswordPolicyTOTP::class);
         $OTP = (new Request())->getRequestEscapedParameter('otp');
         $secret = Registry::getSession()->getVariable('otp_secret');
-        $checkOTP = $TOTP->checkOTP($secret, $OTP);
+        $decryptedsecret = $TOTP->decryptSecret($secret);
+        $checkOTP = $TOTP->checkOTP($decryptedsecret, $OTP);
         if($checkOTP)
         {
             //finalize
