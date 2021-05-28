@@ -30,7 +30,8 @@ class PasswordPolicyTwoFactorConfirmation extends FrontendController
         $otp = (new Request())->getRequestEscapedParameter('otp');
         $user = $this->getUser();
         $secret = $user->oxuser__oxpstotpsecret->value;
-        $checkOTP = $TOTP->checkOTP($secret, $otp);
+        $decryptedSecret = $TOTP->decryptSecret($secret);
+        $checkOTP = $TOTP->checkOTP($decryptedSecret, $otp);
         if($checkOTP)
         {
             // resets 2FA secret code for user
