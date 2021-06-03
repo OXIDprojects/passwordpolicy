@@ -35,7 +35,7 @@ class PasswordPolicyTOTP extends Base
     public function checkOTP(string $secret, string $auth): bool
     {
         $otp = TOTP::create($secret);
-        if ($otp->now() == $auth) {
+        if ($otp->verify($auth, null, 1)) {
             return true;
         }
         return false;
