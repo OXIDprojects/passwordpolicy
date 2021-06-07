@@ -54,6 +54,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_WRONGTYPE'       => 'Fehlerhafter Typ, bitte tragen Sie einen validen Wert ein. Bei weiteren Fragen wenden Sie sich an den Support.',
     'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_PASSWORD_KNOWN'  => 'Das Passwort befindet sich bereits in einer gehackten Datenbank und ist somit unsicher.',
     'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP' => 'Der eingebene Code für die Zwei-Faktor-Authentifizierung war falsch.',
+    'OXPS_PASSWORDPOLICY_TOTP_ERROR_USEDOTP' => 'Der eingegebene Code wurde bereits zum Login verwendet.',
     'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGBACKUPCODE' => 'Der eingebene Backup Code war falsch.',
     'OXPS_PASSWORDPOLICY_RATELIMIT_EXCEEDED' => 'Sie haben sich zu oft versucht einzuloggen. Bitte versuchen Sie es später erneut.',
     'TWOFACTORAUTHREGISTER' => '2-Faktor-Authentifizierung Einrichtung',

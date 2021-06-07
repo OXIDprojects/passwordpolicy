@@ -5,6 +5,7 @@ namespace OxidProfessionalServices\PasswordPolicy\Controller;
 
 
 use OxidEsales\Eshop\Application\Controller\FrontendController;
+use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request;
@@ -31,16 +32,18 @@ class PasswordPolicyTwoFactorConfirmation extends FrontendController
         $user = $this->getUser();
         $secret = $user->oxuser__oxpstotpsecret->value;
         $decryptedSecret = $TOTP->decryptSecret($secret);
-        $checkOTP = $TOTP->checkOTP($decryptedSecret, $otp);
-        if($checkOTP)
-        {
+        try {
+            $TOTP->verifyOTP($decryptedSecret, $otp, $user);
             // resets 2FA secret code for user
             $user->oxuser__oxpstotpsecret = new Field("", Field::T_TEXT);
             $user->oxuser__oxpsbackupcode = new Field("", Field::T_TEXT);
             $user->save();
             return 'twofactoraccount?success=2';
+        }catch (UserException $ex)
+        {
+            Registry::getUtilsView()->addErrorToDisplay($ex);
         }
-        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
+
     }
 
     public function getBreadCrumb()

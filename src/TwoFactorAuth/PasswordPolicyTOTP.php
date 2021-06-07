@@ -5,6 +5,7 @@ namespace OxidProfessionalServices\PasswordPolicy\TwoFactorAuth;
 use OTPHP\TOTP;
 use OxidEsales\Eshop\Core\Base;
 use OxidEsales\Eshop\Core\ConfigFile;
+use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\ViewConfig;
 
@@ -27,20 +28,27 @@ class PasswordPolicyTOTP extends Base
     }
 
     /**
-     * reads current OTP of the user from the DB and compares it with the entered OTP
-     * @param string $secret secret key of entered user
-     * @param string $auth entered OTP
-     * @return bool returns true if entered OTP is correct, false if not
+     * @param string $secret
+     * @param string $auth
+     * @throws UserException
      */
-    public function checkOTP(string $secret, string $auth): bool
+    public function verifyOTP(string $secret, string $auth, $user = null)
     {
-        $otp = TOTP::create($secret);
-        if ($otp->verify($auth, null, 1)) {
-            return true;
+        $totp = TOTP::create($secret);
+        if (!$totp->verify($auth, null, 1) && $this->isOTPUsed($user, $auth)) {
+            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
+        }
+    }
+
+    public function isOTPUsed($user, string $auth)
+    {
+        $otp = $user->oxuser__oxpsotp->value;
+        if($otp == $auth)
+        {
+            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_USEDOTP');
         }
         return false;
     }
-
     /**
      * @param $secret
      * @return false|string returns encrypted string or false when key in config file is not set

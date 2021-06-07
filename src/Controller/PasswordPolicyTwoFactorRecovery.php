@@ -12,21 +12,6 @@ use OxidEsales\EshopCommunity\Core\Field;
 
 class PasswordPolicyTwoFactorRecovery extends FrontendController
 {
-    private $session;
-    private $usr;
-    private User $user;
-
-    /**
-     * PasswordPolicyTwoFactorRecovery constructor.
-     */
-    public function __construct()
-    {
-        $this->session = Registry::getSession();
-        $this->usr = $this->session->getVariable('tmpusr');
-        $this->user = oxNew(User::class);
-        $this->user->load($this->usr);
-    }
-
     public function render()
     {
         parent::render();
@@ -34,24 +19,30 @@ class PasswordPolicyTwoFactorRecovery extends FrontendController
     }
     public function redirect()
     {
-        if($this->checkCode())
+        $recoveryCode = (new Request())->getRequestEscapedParameter('recoveryCode');
+        $session = Registry::getSession();
+        $usr = $session->getVariable('tmpusr');
+        $user = oxNew(User::class);
+        $user->load($usr);
+        if($this->checkCode($user, $recoveryCode))
         {
-            $this->resetCode();
-            $this->session->setVariable('usr', $this->usr);
+            $this->resetCode($user);
+            $session->setVariable('usr', $usr);
             return 'start';
         }
         Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGBACKUPCODE');
     }
-    public function resetCode()
+
+    public function resetCode($user)
     {
-        $this->user->oxuser__oxpstotpsecret = new Field("", Field::T_TEXT);
-        $this->user->oxuser__oxpsbackupcode = new Field("", Field::T_TEXT);
-        $this->user->save();
+        $user->oxuser__oxpstotpsecret = new Field("", Field::T_TEXT);
+        $user->oxuser__oxpsbackupcode = new Field("", Field::T_TEXT);
+        $user->save();
     }
-    public function checkCode()
+
+    public function checkCode($user, $recoveryCode)
     {
-        $recoveryCode = (new Request())->getRequestEscapedParameter('recoveryCode');
-        $userRecoveryCode = $this->user->oxuser__oxpsbackupcode->value;
+        $userRecoveryCode = $user->oxuser__oxpsbackupcode->value;
         if(password_verify($recoveryCode, $userRecoveryCode))
         {
             return true;

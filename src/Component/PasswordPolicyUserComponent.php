@@ -40,14 +40,12 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
     public function finalizeRegistration()
     {
         $container = ContainerFactory::getInstance()->getContainer();
-        $TOTP = $container->get(PasswordPolicyTOTP::class);
-        $OTP = (new Request())->getRequestEscapedParameter('otp');
+        $totp = $container->get(PasswordPolicyTOTP::class);
+        $otp = (new Request())->getRequestEscapedParameter('otp');
         $secret = Registry::getSession()->getVariable('otp_secret');
-        $decryptedsecret = $TOTP->decryptSecret($secret);
-        $checkOTP = $TOTP->checkOTP($decryptedsecret, $OTP);
-        if($checkOTP)
-        {
-            //finalize
+        $decryptedsecret = $totp->decryptSecret($secret);
+        try {
+            $totp->verifyOTP($decryptedsecret, $otp);
             $user = $this->getUser();
             $user->oxuser__oxpstotpsecret = new Field($secret, Field::T_TEXT);
             $user->save();
@@ -56,8 +54,10 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             $step = (new Request())->getRequestEscapedParameter('step');
             $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
             return 'twofactorbackup?step=' . $step . '&paymentActionLink=' . $paymentActionLink;
+        }catch (UserException $ex)
+        {
+            Registry::getUtilsView()->addErrorToDisplay($ex);
         }
-        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
     }
 
     public function getRedirectLink()
@@ -84,6 +84,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
         try {
             $user = oxNew(User::class);
             $user->finalizeLogin($otp, $setsessioncookie);
+            $user->save();
             $this->setLoginStatus(USER_LOGIN_SUCCESS);
         }catch(UserException $ex)
         {
