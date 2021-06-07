@@ -35,7 +35,7 @@ class PasswordPolicyTOTP extends Base
     public function verifyOTP(string $secret, string $auth, $user = null)
     {
         $totp = TOTP::create($secret);
-        if (!$totp->verify($auth, null, 1) && $this->isOTPUsed($user, $auth)) {
+        if (!$totp->verify($auth, null, 1) || $this->isOTPUsed($user, $auth)) {
             throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
         }
     }
