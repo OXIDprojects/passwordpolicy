@@ -24,13 +24,14 @@ class PasswordPolicyEvents
             $filePath = $modulePath . 'twofactor.config.inc.php';
             if(!file_exists($filePath))
             {
-                file_put_contents($modulePath . $filePath, '<?php 
-$this->key=' . 'self::generateKey();');
+                $key = self::generateKey();
+                file_put_contents($filePath, '<?php 
+$this->key=' . "\"$key\";");
             }
     }
 
 
-    protected static function generateKey()
+    protected static function generateKey(): string
     {
         $key = random_bytes(32);
         $hashedKey = base64_encode($key);
