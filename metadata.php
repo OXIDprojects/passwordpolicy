@@ -114,6 +114,11 @@ $aModule = [
             'template' => 'page/account/inc/account_menu.tpl',
             'block' => 'account_menu',
             'file' => 'views/blocks/account_menu.tpl',
+        ],
+        [
+            'template' => 'widget/header/servicebox.tpl',
+            'block' => 'widget_header_servicebox_items',
+            'file' => 'views/blocks/servicebox.tpl',
         ]
 
     ],
