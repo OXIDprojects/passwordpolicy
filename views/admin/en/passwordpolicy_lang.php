@@ -30,7 +30,7 @@ $aLang = array(
     'SHOP_MODULE_oxpspasswordpolicyUpperCase' => 'Capital (UPPERCASE) letters (A...Z)',
     'SHOP_MODULE_oxpspasswordpolicyLowerCase'   => 'Lowercase letters (a...z)',
     'SHOP_MODULE_oxpspasswordpolicySpecial' => 'Special characters (!,@#$%^&*?_~()-)',
-    'SHOP_MODULE_GROUP_passwordpolicy_apisettings' => 'API Settings',
+    'SHOP_MODULE_GROUP_passwordpolicy_api' => 'API Settings',
     'SHOP_MODULE_oxpspasswordpolicyAPI' => 'Check leaked passwords',
     'SHOP_MODULE_oxpspasswordpolicyHaveIBeenPwned' => 'HaveIBeenPwned',
     'SHOP_MODULE_oxpspasswordpolicyEnzoic' => 'Enzoic',
@@ -50,5 +50,6 @@ $aLang = array(
     'SHOP_MODULE_GROUP_passwordpolicy_memcached' => 'Memcached Settings',
     'SHOP_MODULE_oxpspasswordpolicyMemcachedHost' => 'Host',
     'SHOP_MODULE_oxpspasswordpolicyMemcachedPort' => 'Port',
-
+    'SHOP_MODULE_GROUP_passwordpolicy_twofactor' => '2FA Authentification',
+    'SHOP_MODULE_oxpspasswordpolicyTOTP' => 'Activate 2FA'
 );
