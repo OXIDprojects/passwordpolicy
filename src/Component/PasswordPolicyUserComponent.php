@@ -49,6 +49,13 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             $user = $this->getUser();
             $user->oxuser__oxpstotpsecret = new Field($secret, Field::T_TEXT);
             $user->save();
+            //reload user to check if save is successful
+            //because even if save returns true the fields may be not stored by oxid
+            $user->load($user->getId());
+            if ($user->oxuser__oxpstotpsecret->value != $secret) {
+                throw new UserException("OXPS_CANNOTSTOREUSERSECRET");
+            }
+
             //cleans up session for next registration
             Registry::getSession()->deleteVariable('otp_secret');
             $step = (new Request())->getRequestEscapedParameter('step');

@@ -76,5 +76,6 @@ $aLang = array(
     'MESSAGE_TWOFACTOR_BACKUPCODE' => 'Für Sie wurde ein Wiederherstellungscode generiert. Falls Sie mal Ihr Gerät für die 2-Faktor-Authentifizierung verlieren sollten, ist dieser die <b>einzige</b> Möglichkeit um wieder Zugang zu Ihrem Account zu erlangen. <br> <b>Bewahren Sie den Wiederherstellungscode an einem sicheren Ort auf!</b>',
     'MESSAGE_TWOFACTOR_BACKUPCODE_SUCCESS' => 'Die 2FA wurde erfolgreich resettet. ',
     'MESSAGE_TWOFACTOR_RECOVERY' => 'Falls Sie Ihr Gerät für die 2FA verloren haben oder es sonstige Probleme damit gibt, geben Sie den einmaligen Wiederherstellungscode ein, der Ihnen beim Einrichten der 2FA angezeigt wurde. Anschließend wird 2FA bei Ihrem Account deaktiviert.',
-    'MESSAGE_TWOFACTOR_LOST' => '<em>Sie brauchen Hilfe beim Login/haben Ihr Gerät für die 2FA verloren? Klicken Sie hier.</em>'
+    'MESSAGE_TWOFACTOR_LOST' => '<em>Sie brauchen Hilfe beim Login/haben Ihr Gerät für die 2FA verloren? Klicken Sie hier.</em>',
+    'OXPS_CANNOTSTOREUSERSECRET' => 'Die 2-Faktor Einrichtung kann derzeit nicht durchgeführt werden, bitten versuchen Sie es später nochmal oder kontaktieren Sie uns.'
  );
