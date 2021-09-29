@@ -10,7 +10,9 @@
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.2",
-    "oxid-esales/oxideshop-ide-helper": "^4"
+    "oxid-esales/oxideshop-ide-helper": "^4",
+    "oxid-esales/testing-library": "^8.0",
+    "oxid-esales/oxideshop-ce": "^6.4"
   },
   "extra": {
     "oxideshop": {
