@@ -1,0 +1,87 @@
+.w-12 {
+    width: 3rem;
+}
+
+.sm\:w-12 {
+    width: 3rem;
+}
+
+.md\:w-12 {
+    width: 3rem;
+}
+
+.lg\:w-12 {
+    width: 3rem;
+}
+
+.xl\:w-12 {
+    width: 3rem;
+}
+
+.h-12 {
+    height: 3rem;
+}
+
+.sm\:h-12 {
+    height: 3rem;
+}
+
+.md\:h-12 {
+    height: 3rem;
+}
+
+.lg\:h-12 {
+    height: 3rem;
+}
+
+.xl\:h-12 {
+    height: 3rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.sm\:justify-center {
+    justify-content: center;
+}
+
+.md\:justify-center {
+    justify-content: center;
+}
+
+.lg\:justify-center {
+    justify-content: center;
+}
+
+.xl\:justify-center {
+    justify-content: center;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.sm\:min-h-screen {
+    min-height: 100vh;
+}
+
+.md\:min-h-screen {
+    min-height: 100vh;
+}
+
+.lg\:min-h-screen {
+    min-height: 100vh;
+}
+
+.xl\:min-h-screen {
+    min-height: 100vh;
+}

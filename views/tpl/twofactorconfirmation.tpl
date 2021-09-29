@@ -24,7 +24,7 @@
 </div>
 </div>
     [{oxscript include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/js/otpField.js')}]
-    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/tailwind.css')}]
+    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
 [{/capture}]
 
 

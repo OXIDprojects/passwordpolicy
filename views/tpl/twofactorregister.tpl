@@ -26,12 +26,12 @@
     </div>
     <input hidden id="otp" name="otp" value="">
     <div class="flex justify-center">
-            <button id="accUserSaveTop" type="submit" name="save" class="mt-8 mb-3 btn btn-primary">[{oxmultilang ident="TWOFACTORCONTINUE"}]</button>
+            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 mb-3 btn btn-primary">[{oxmultilang ident="TWOFACTORCONTINUE"}]</button>
 </div>
 </form>
 </div>
 </div>
-    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/tailwind.css')}]
+    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
     [{oxscript include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/js/otpField.js')}]
 [{/capture}]
 

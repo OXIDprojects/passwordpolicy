@@ -20,7 +20,7 @@
             </form>
         </div>
     </div>
-    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/tailwind.css')}]
+    [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
     [{/capture}]
 
 [{include file="layout/base.tpl"}]
