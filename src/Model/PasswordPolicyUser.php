@@ -9,6 +9,7 @@ use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
@@ -31,11 +32,19 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-        if (!isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
-            $forgotPass = new ForgotPasswordController();
-            $forgotPass->forgotPassword();
-            $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
-            throw oxNew(UserException::class, $errorMessage);
+        if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
+            if(!$this->isAdmin()) {
+                $forgotPass = new ForgotPasswordController();
+                $forgotPass->forgotPassword();
+                $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
+                throw oxNew(UserException::class, $errorMessage);
+            }
+            // redirects admin to password reset page *temporary solution
+            $oViewConf = oxNew(ViewConfig::class);
+            $passwordResetLink = $oViewConf->getBaseDir() . 'index.php?cl=forgotpwd&uid=' . $this->getUpdateId() . '&lang=' . $oViewConf->getActLanguageId() . '&shp=' . $this->getShopId();
+            \OxidEsales\EshopCommunity\Core\Registry::getUtilsView()->addErrorToDisplay("Test");
+            Registry::getUtils()->redirect($passwordResetLink, true, 302);
+
         }
         parent::onLogin($userName, $password);
     }
