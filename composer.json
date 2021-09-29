@@ -6,13 +6,13 @@
   "license": "GPL-3.0-only",
   "require": {
     "php": ">=7.3",
-    "ext-json": "*",
-    "oxid-esales/oxideshop-ce": "^6.0"
+    "ext-json": "*"
   },
   "require-dev": {
     "php-parallel-lint/php-parallel-lint": "^1.2",
     "oxid-esales/oxideshop-ide-helper": "^4",
-    "oxid-esales/testing-library": "^8.0"
+    "oxid-esales/testing-library": "^8.0",
+    "oxid-esales/oxideshop-ce": "^6.4"
   },
   "extra": {
     "oxideshop": {
