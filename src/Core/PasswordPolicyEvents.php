@@ -4,20 +4,31 @@
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 
+use OxidEsales\Eshop\Application\Model\User;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\DbMetaDataHandler;
+use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\ViewConfig;
+use OxidEsales\EshopCommunity\Core\Exception\FileException;
 
 class PasswordPolicyEvents
 {
+    /**
+     * @throws UserException
+     * @throws FileException
+     */
     public static function onActivate()
     {
-        $query = "ALTER TABLE oxuser ADD OXPSTOTPSECRET varchar(255) NOT NULL,
+        $user = oxNew(User::class);
+        if(!(in_array('oxpstotpsecret',$user->getFieldNames()) && in_array('oxpsbackupcode',$user->getFieldNames()))) {
+            $query = "ALTER TABLE oxuser ADD OXPSTOTPSECRET varchar(255) NOT NULL,
                                      ADD OXPSBACKUPCODE varchar(255) NOT NULL;";
-        try {
-            \OxidEsales\Eshop\Core\DatabaseProvider::getDb()->execute($query);
-            self::regenerateViews();
-        }catch (\Exception $exception)
-        {
+            try {
+                DatabaseProvider::getDb()->execute($query);
+                self::regenerateViews();
+            } catch (\Exception $exception) {
+                throw new UserException("Ein Fehler ist bei der Erzeugung der neuen Datenbankspalten aufgetreten: \n" . $exception);
+            }
         }
             $viewConf = oxNew(ViewConfig::class);
             $modulePath = $viewConf->getModulePath('oxpspasswordpolicy');
