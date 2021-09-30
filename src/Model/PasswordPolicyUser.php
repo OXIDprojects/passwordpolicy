@@ -40,10 +40,9 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
                 throw oxNew(UserException::class, $errorMessage);
             }
             // redirects admin to password reset page *temporary solution
-            $oViewConf = oxNew(ViewConfig::class);
+         /*   $oViewConf = oxNew(ViewConfig::class);
             $passwordResetLink = $oViewConf->getBaseDir() . 'index.php?cl=forgotpwd&uid=' . $this->getUpdateId() . '&lang=' . $oViewConf->getActLanguageId() . '&shp=' . $this->getShopId();
-            \OxidEsales\EshopCommunity\Core\Registry::getUtilsView()->addErrorToDisplay("Test");
-            Registry::getUtils()->redirect($passwordResetLink, true, 302);
+            Registry::getUtils()->redirect($passwordResetLink, true);*/
 
         }
         parent::onLogin($userName, $password);
