@@ -140,6 +140,7 @@ $aModule = [
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyMemcachedHost', 'type' => 'str', 'value' => 'memcached'],
         ['group' => 'passwordpolicy_ratelimiting', 'name' => 'oxpspasswordpolicyMemcachedPort', 'type' => 'num', 'value' => 11211],
         ['group' => 'passwordpolicy_twofactor', 'name' => 'oxpspasswordpolicyTOTP', 'type' => 'bool', 'value' => false],
+        ['group' => 'passwordpolicy_admin', 'name' => 'oxpspasswordpolicyadmin', 'type' => 'bool', 'value' => false]
     ],
     'events'       => array(
         'onActivate'   => 'OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyEvents::onActivate',
