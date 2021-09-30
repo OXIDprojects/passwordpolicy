@@ -85,3 +85,9 @@
 .xl\:min-h-screen {
     min-height: 100vh;
 }
+
+
+.form-control:focus {
+    border-color: #74abb9 !important;
+    box-shadow: 0 0 5px rgb(102, 173, 217) !important;
+}
