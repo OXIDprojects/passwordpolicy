@@ -1,11 +1,11 @@
 [{capture append="oxidBlock_content"}]
-    [{assign var="template_title" value="TWOFACTORAUTHLOGIN"|oxmultilangassign}]
+    [{assign var="template_title" value="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"|oxmultilangassign}]
     [{if $success == '1'}]
-    <div class="alert alert-success">[{oxmultilang ident="MESSAGE_TWOFACTOR_SUCCESS"}]</div>
+    <div class="alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVATED"}]</div>
     [{elseif $success == '2'}]
-    <div class="alert alert-success">[{oxmultilang ident="MESSAGE_TWOFACTOR_DEACTIVATED"}]</div>
+    <div class="alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_DEACTIVATED"}]</div>
     [{/if}]
-    <h1 id="twofactorheader" class="page-header">[{oxmultilang ident="TWOFACTORAUTHLOGIN"}]</h1>
+    <h1 id="twofactorheader" class="page-header">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"}]</h1>
     <form action="[{$oViewConf->getSelfActionLink()}]" name="newsletter" class="form-horizontal" method="post">
         <div class="hidden">
             [{$oViewConf->getHiddenSid()}]
@@ -15,7 +15,7 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-lg-3">[{oxmultilang ident="TWOFACTORAUTHCHECKBOX"}]</label>
+            <label class="control-label col-lg-3">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVATE"}]</label>
             <div class="col-lg-4">
                 <select name="status" id="status" class="form-control ">
                     <option value="1"[{if $oView->isTOTP()}] selected[{/if}] >[{oxmultilang ident="YES"}]</option>

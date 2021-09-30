@@ -30,7 +30,7 @@ class PasswordPolicyTwoFactorRecovery extends FrontendController
             $session->setVariable('usr', $usr);
             return 'start';
         }
-        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGBACKUPCODE');
+        Registry::getUtilsView()->addErrorToDisplay('OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ERROR_WRONGBACKUPCODE');
     }
 
     public function resetCode($user)

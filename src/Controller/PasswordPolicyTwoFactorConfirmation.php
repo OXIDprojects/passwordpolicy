@@ -51,7 +51,7 @@ class PasswordPolicyTwoFactorConfirmation extends FrontendController
         $aPaths = [];
         $aPath = [];
         $iBaseLanguage = Registry::getLang()->getBaseLanguage();
-        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTHLOGIN', $iBaseLanguage, false);
+        $aPath['title'] = Registry::getLang()->translateString('OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN', $iBaseLanguage, false);
         $aPath['link'] = $this->getLink();
         $aPaths[] = $aPath;
         return $aPaths;

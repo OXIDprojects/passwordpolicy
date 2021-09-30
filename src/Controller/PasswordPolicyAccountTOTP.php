@@ -34,7 +34,7 @@ class PasswordPolicyAccountTOTP extends AccountController
         $aPath['link'] = Registry::getSeoEncoder()->getStaticUrl($sSelfLink . 'cl=account');
         $aPaths[] = $aPath;
 
-        $aPath['title'] = Registry::getLang()->translateString('TWOFACTORAUTHLOGIN', $iBaseLanguage, false);
+        $aPath['title'] = Registry::getLang()->translateString('OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN', $iBaseLanguage, false);
         $aPath['link'] = $oUtils->cleanUrl($this->getLink(), ['fnc']);
         $aPaths[] = $aPath;
 

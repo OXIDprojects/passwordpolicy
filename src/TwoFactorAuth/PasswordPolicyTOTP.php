@@ -36,7 +36,7 @@ class PasswordPolicyTOTP extends Base
     {
         $totp = TOTP::create($secret);
         if (!$totp->verify($auth, null, 1) || $this->isOTPUsed($user, $auth)) {
-            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_WRONGOTP');
+            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ERROR_WRONGOTP');
         }
     }
 
@@ -45,7 +45,7 @@ class PasswordPolicyTOTP extends Base
         $otp = $user->oxuser__oxpsotp->value;
         if($otp == $auth)
         {
-            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TOTP_ERROR_USEDOTP');
+            throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ERROR_USEDOTP');
         }
         return false;
     }
