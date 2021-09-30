@@ -2,8 +2,8 @@
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
 
-use Enzoic\AuthenticationException;
 use Enzoic\Enzoic;
+use OxidEsales\Eshop\Core\DatabaseProvider;
 use OxidEsales\Eshop\Core\Registry;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
@@ -23,6 +23,28 @@ class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguratio
                 Registry::getUtilsView()->addErrorToDisplay("OXPS_PASSWORDPOLICY_ENZOICERROR" . $ex->getCode());
                 # needs better solution
                 $_POST["confbools"][PasswordPolicyConfig::SettingEnzoic] = "false";
+            }
+        }
+        if($variables[PasswordPolicyConfig::SettingAdminUser] == "true")
+        {
+            $query =  "Select oxusername from oxuser where oxrights != 'user'";
+            $result = DatabaseProvider::getDb()->getCol($query);
+            $invalidMails = [];
+            foreach ($result as $user)
+            {
+                if(!filter_var($user, FILTER_VALIDATE_EMAIL))
+                {
+                    $invalidMails[] = $user;
+                }
+            }
+            if(!empty($invalidMails))
+            {
+                $_POST["confbools"][PasswordPolicyConfig::SettingAdminUser] = "false";
+                Registry::getUtilsView()->addErrorToDisplay("OXPS_PASSWORDPOLICY_INVALIDADMINUSERS");
+                foreach ($invalidMails as $invalidUser)
+                {
+                    Registry::getUtilsView()->addErrorToDisplay($invalidUser);
+                }
             }
         }
         parent::saveConfVars();

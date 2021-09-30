@@ -50,6 +50,7 @@ class PasswordPolicyConfig
     public const SettingMemcachedHost = self::SettingsPrefix . 'MemcachedHost';
     public const SettingMemcachedPort = self::SettingsPrefix . 'MemcachedPort';
     public const SettingTOTP = self::SettingsPrefix . 'TOTP';
+    public const SettingAdminUser = self::SettingsPrefix . 'admin';
 
     public function getMinPasswordLength(): int
     {
@@ -127,6 +128,11 @@ class PasswordPolicyConfig
     public function isTOTP(): bool
     {
         return $this->isConfigParam(self::SettingTOTP);
+    }
+
+    public function isAdminUsers(): bool
+    {
+        return $this->isConfigParam(self::SettingAdminUser);
     }
 
     public function getSelectedDriver(): string
