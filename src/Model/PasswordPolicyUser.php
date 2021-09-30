@@ -9,7 +9,6 @@ use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
@@ -90,11 +89,22 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         $container = ContainerFactory::getInstance()->getContainer();
         $totp = $container->get(PasswordPolicyTOTP::class);
-        $config = $container->get(Config::class);
+        $passwordpolicyConfig = $container->get(PasswordPolicyConfig::class);
+        $config = oxNew(Config::class);
         $session = Registry::getSession();
         $usr = $session->getVariable('tmpusr');
         $this->load($usr);
         $secret = $this->oxuser__oxpstotpsecret->value;
+        if ($passwordpolicyConfig->isRateLimiting()) {
+            $driverName = $passwordpolicyConfig->getSelectedDriver();
+            $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
+            // checks whether rate limit is exceeded
+            try {
+                $rateLimiter->limit($secret, Rate::perMinute($passwordpolicyConfig->getRateLimit()));
+            } catch (LimitExceeded $exception) {
+                throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_TWOFACTOR_EXCEEDED');
+            }
+        }
         $decryptedSecret = $totp->decryptSecret($secret);
         $totp->verifyOTP($decryptedSecret, $otp, $this);
         $this->oxuser__oxpsotp = new Field($otp, Field::T_TEXT);
