@@ -7,7 +7,7 @@
   "require": {
     "php": ">=7.3",
     "ext-json": "*",
-    "enzoic/enzoic": "dev-master",
+    "moritzdemmer/enzoic": "dev-master",
     "divineomega/password_exposed": "v3.2.0",
     "nikolaposa/rate-limit": "dev-master",
     "spomky-labs/otphp": "v10.0.1",
