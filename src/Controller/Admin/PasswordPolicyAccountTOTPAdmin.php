@@ -29,6 +29,8 @@ class PasswordPolicyAccountTOTPAdmin extends AdminController
     {
         $totpenabled = (new Request())->getRequestEscapedParameter('status');
         if ($totpenabled && !$this->isTOTP()) {
+            //avoid predefined otp_secret (by attacker with temp access)
+            Registry::getSession()->deleteVariable('otp_secret');
             \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($this->getViewConfig()->getSelfLink() . 'cl=admin_twofactorregister&step=settings');
         }
         elseif (!$totpenabled && $this->isTOTP())
