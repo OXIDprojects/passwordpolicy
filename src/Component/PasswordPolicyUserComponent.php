@@ -53,7 +53,7 @@ class PasswordPolicyUserComponent extends PasswordPolicyUserComponent_parent
             //because even if save returns true the fields may be not stored by oxid
             $user->load($user->getId());
             if ($user->oxuser__oxpstotpsecret->value != $secret) {
-                throw new UserException("OXPS_CANNOTSTOREUSERSECRET");
+                throw oxNew(UserException::class, "OXPS_CANNOTSTOREUSERSECRET");
             }
 
             //cleans up session for next registration
