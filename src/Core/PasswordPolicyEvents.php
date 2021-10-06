@@ -19,6 +19,7 @@ class PasswordPolicyEvents
      */
     public static function onActivate()
     {
+
         $user = oxNew(User::class);
         if (!(in_array('oxpstotpsecret', $user->getFieldNames()) && in_array('oxpsbackupcode', $user->getFieldNames()))) {
             $query = "ALTER TABLE oxuser ADD OXPSTOTPSECRET varchar(255) NOT NULL,

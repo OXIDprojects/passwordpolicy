@@ -31,13 +31,12 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-        if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
-            if(!$this->isAdmin()) {
+        if (!$this->isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
                 $forgotPass = new ForgotPasswordController();
                 $forgotPass->forgotPassword();
                 $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
                 throw oxNew(UserException::class, $errorMessage);
-            }
+
             // redirects admin to password reset page *temporary solution
          /*   $oViewConf = oxNew(ViewConfig::class);
             $passwordResetLink = $oViewConf->getBaseDir() . 'index.php?cl=forgotpwd&uid=' . $this->getUpdateId() . '&lang=' . $oViewConf->getActLanguageId() . '&shp=' . $this->getShopId();
