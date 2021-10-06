@@ -13,6 +13,8 @@ class PasswordPolicyAccountTOTPAdmin extends AdminController
     public function render()
     {
         parent::render();
+        $success = (new Request())->getRequestEscapedParameter('success');
+        $this->addTplParam('success', $success);
         return 'admin_twofactoraccount.tpl';
     }
 
@@ -31,11 +33,11 @@ class PasswordPolicyAccountTOTPAdmin extends AdminController
         if ($totpenabled && !$this->isTOTP()) {
             //avoid predefined otp_secret (by attacker with temp access)
             Registry::getSession()->deleteVariable('otp_secret');
-            \OxidEsales\Eshop\Core\Registry::getUtils()->redirect($this->getViewConfig()->getSelfLink() . 'cl=admin_twofactorregister&step=settings');
+            return 'admin_twofactorregister';
         }
         elseif (!$totpenabled && $this->isTOTP())
         {
-            return 'twofactorconfirmation';
+            return 'admin_twofactorconfirmation';
         }
     }
 }

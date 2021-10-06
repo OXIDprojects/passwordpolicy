@@ -33,10 +33,12 @@ use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
 use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyAccountTOTPAdmin;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorBackupCodeAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorRegisterAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountTOTP;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorConfirmation;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorBackupCode;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorConfirmationAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRecovery;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorRegister;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorLogin;
@@ -83,6 +85,9 @@ $aModule = [
         'twofactorrecovery' => PasswordPolicyTwoFactorRecovery::class,
         'admin_twofactoraccount' => PasswordPolicyAccountTOTPAdmin::class,
         'admin_twofactorregister' => PasswordPolicyTwoFactorRegisterAdmin::class,
+        'admin_twofactorconfirmation' => PasswordPolicyTwoFactorConfirmationAdmin::class,
+        'admin_twofactorbackup' => PasswordPolicyTwoFactorBackupCodeAdmin::class,
+
 
     ],
     'templates' => [
@@ -94,7 +99,11 @@ $aModule = [
         'twofactorrecovery.tpl' => 'oxps/passwordpolicy/views/tpl/twofactorrecovery.tpl',
         'admin_twofactoraccount.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactoraccount.tpl',
         'admin_twofactorregister.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorregister.tpl',
-        'layout/page.tpl' => 'oxps/passwordpolicy/views/admin/tpl/layout/page.tpl'
+        'admin_twofactorconfirmation.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorconfirmation.tpl',
+        'admin_twofactorbackupcode.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorbackupcode.tpl',
+        'layout/page.tpl' => 'oxps/passwordpolicy/views/admin/tpl/layout/page.tpl',
+        'message/errors.tpl' => 'oxps/passwordpolicy/views/admin/tpl/message/errors.tpl',
+        'message/error.tpl' => 'oxps/passwordpolicy/views/admin/tpl/message/error.tpl',
 
     ],
     'blocks' => [

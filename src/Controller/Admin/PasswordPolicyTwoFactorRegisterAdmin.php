@@ -4,7 +4,7 @@
 namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
 
 
-use OxidEsales\B2BModule\Budget\Controller\Admin\AdminController;
+use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request;
@@ -27,12 +27,6 @@ class PasswordPolicyTwoFactorRegisterAdmin extends AdminController
 
     public function render()
     {
-        $step = (new Request())->getRequestEscapedParameter('step');
-        $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
-        $success =  (new Request())->getRequestEscapedParameter('success');
-        $this->addTplParam('step', $step);
-        $this->addTplParam('paymentActionLink', $paymentActionLink);
-        $this->addTplParam('success', $success);
         parent::render();
         return 'admin_twofactorregister.tpl';
     }
@@ -53,14 +47,12 @@ class PasswordPolicyTwoFactorRegisterAdmin extends AdminController
             //because even if save returns true the fields may be not stored by oxid
             $user->load($user->getId());
             if ($user->oxuser__oxpstotpsecret->value != $secret) {
-                throw new UserException("OXPS_CANNOTSTOREUSERSECRET");
+                throw oxNew(UserException::class, "OXPS_CANNOTSTOREUSERSECRET");
             }
 
             //cleans up session for next registration
             Registry::getSession()->deleteVariable('otp_secret');
-            $step = (new Request())->getRequestEscapedParameter('step');
-            $paymentActionLink = (new Request())->getRequestEscapedParameter('paymentActionLink');
-            return 'twofactorbackup?step=' . $step . '&paymentActionLink=' . $paymentActionLink;
+            return 'admin_twofactorbackup';
         }catch (UserException $ex)
         {
             Registry::getUtilsView()->addErrorToDisplay($ex);

@@ -1,12 +1,13 @@
-[{include file="headitem.tpl" title="$TITLE"|oxmultilangassign}]
 [{oxscript include="js/libs/jquery.min.js"}]
 [{assign var="template_title" value="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"|oxmultilangassign}]
-[{if $success == '1'}]
-    <div class="alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVATED"}]</div>
+<div class="min-h-screen flex flex-col justify-center text-center">
+<div class="container rounded h-100 align-items-center col-12 col-md-6 col-lg-6" style="width: 500px; background-color:white">
+    [{if $success == '1'}]
+    <div class="mt-3 alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVATED"}]</div>
     [{elseif $success == '2'}]
-    <div class="alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_DEACTIVATED"}]</div>
+    <div class="mt-3 alert alert-success">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_DEACTIVATED"}]</div>
     [{/if}]
-<h1 id="twofactorheader" class="page-header">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"}]</h1>
+<h1 id="twofactorheader" class="page-header align-self-center">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"}]</h1>
 <form action="[{$oViewConf->getSelfLink()}]" name="newsletter" class="form-horizontal" method="post">
     <div class="hidden">
         [{$oViewConf->getHiddenSid()}]
@@ -24,10 +25,20 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="offset-lg-3 col-lg-7">
+    <div class="form-group flex justify-center">
             <button id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
-        </div>
     </div>
 </form>
-[{include file="bottomitem.tpl"}]
+</div>
+</div>
+[{assign var="oViewConf" value=$oView->getViewConfig()}]
+[{assign var="oConf" value=$oView->getConfig()}]
+[{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
+[{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/styles.css')}]
+[{oxstyle}]
+[{oxscript}]
+<style>
+    body {
+        background: #f6f6f6;
+    }
+</style>
