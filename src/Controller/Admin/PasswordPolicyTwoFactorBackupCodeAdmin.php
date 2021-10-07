@@ -25,7 +25,7 @@ class PasswordPolicyTwoFactorBackupCodeAdmin extends AdminController
     {
         $result = '';
         for($i = 0; $i < 20; $i++) {
-            $result .= mt_rand(0, 9);
+            $result .= random_int(0, 9);
         }
         $backupCode = password_hash($result, PASSWORD_BCRYPT);
         $user = $this->getUser();
