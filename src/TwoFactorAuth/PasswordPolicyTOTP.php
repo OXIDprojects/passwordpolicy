@@ -8,6 +8,11 @@ use OxidEsales\Eshop\Core\ConfigFile;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\ViewConfig;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
+use OxidProfessionalServices\PasswordPolicy\Factory\PasswordPolicyRateLimiterFactory;
+use RateLimit\Exception\LimitExceeded;
+use RateLimit\Rate;
 
 class PasswordPolicyTOTP extends Base
 {
@@ -34,6 +39,18 @@ class PasswordPolicyTOTP extends Base
      */
     public function verifyOTP(string $secret, string $auth, $user = null)
     {
+        $container = ContainerFactory::getInstance()->getContainer();
+        $passwordpolicyConfig = $container->get(PasswordPolicyConfig::class);
+        if ($passwordpolicyConfig->isRateLimiting()) {
+            $driverName = $passwordpolicyConfig->getSelectedDriver();
+            $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
+            // checks whether rate limit is exceeded
+            try {
+                $rateLimiter->limit($secret, Rate::perMinute($passwordpolicyConfig->getRateLimit()));
+            } catch (LimitExceeded $exception) {
+                throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_TWOFACTOR_EXCEEDED');
+            }
+        }
         $totp = TOTP::create($secret);
         if (!$totp->verify($auth, null, 1) || $this->isOTPUsed($user, $auth)) {
             throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ERROR_WRONGOTP');
