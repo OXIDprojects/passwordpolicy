@@ -87,6 +87,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ERROR_WRONGBACKUPCODE' => 'Der eingebene Backup Code war falsch.',
     'OXPS_PASSWORDPOLICY_RATELIMIT_TWOFACTOR_EXCEEDED' => 'Sie haben zu oft den falschen Code für die Zwei-Faktor-Authentifizierung eingegeben. Bitte versuchen Sie es später erneut.',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_REGISTER' => '2-Faktor-Authentifizierung Einrichtung',
+    'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_MYDATA' => 'Meine Daten',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_BACKUPCODE' => 'Backup-Code',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_RECOVERY' => '2-Faktor-Authentifizierung Reset',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN' => '2-Faktor-Authentifizierung',
