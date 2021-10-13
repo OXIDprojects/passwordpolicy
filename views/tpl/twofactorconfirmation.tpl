@@ -17,8 +17,9 @@
     <div class="mt-3 flex justify-center " id="OTPInput">
     </div>
     <input hidden id="otp" name="otp" value="">
+        <a href="?cl=twofactorrecovery">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_HELP_LOST"}]</a>
     <div class="flex justify-center">
-            <button id="accUserSaveTop" type="submit" name="save" class="mt-3 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_DEACTIVATE"}]</button>
+            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_DEACTIVATE"}]</button>
 </div>
 </form>
 </div>

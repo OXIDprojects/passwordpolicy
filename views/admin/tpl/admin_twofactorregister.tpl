@@ -19,8 +19,8 @@
     <div class="mt-3 flex justify-center " id="OTPInput">
     </div>
     <input hidden id="otp" name="otp" value="">
-    <div class="flex justify-center">
-            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_CONTINUE"}]</button>
+    <div class="pull-right">
+            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_CONTINUE"}]</button>
 </div>
 </form>
 </div>

@@ -13,7 +13,7 @@
                     <input type="hidden" name="paymentActionLink" value="[{$paymentActionLink}]">
                 </div>
                 <div class="flex justify-center">
-                    <button id="accUserSaveTop" type="submit" name="save" class="mt-3 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_CONFIRM"}]</button>
+                    <button id="accUserSaveTop" type="submit" name="save" class="mt-3 mb-1 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_CONFIRM"}]</button>
                 </div>
             </form>
         </div>

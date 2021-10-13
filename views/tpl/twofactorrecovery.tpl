@@ -18,7 +18,7 @@
                     <input class="border border-dark w-100 h-12 bg-gray-100 border-gray-50 font-light outline-none focus:bg-gray-200 m-2 text-center rounded focus:border-blue-200 focus:shadow-outline" name="recoveryCode"  maxlength="20" style="font-family: HelveticaNeue-Light,sans-serif; font-size: large">
                 </div>
                 <div class="flex justify-center">
-                    <button id="accUserSaveTop" type="submit" name="save" class="mt-3 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_RESET"}]</button>
+                    <button id="accUserSaveTop" type="submit" name="save" class="mt-1 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_RESET"}]</button>
                 </div>
             </form>
         </div>
