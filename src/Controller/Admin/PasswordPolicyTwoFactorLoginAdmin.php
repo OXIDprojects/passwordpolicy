@@ -31,6 +31,7 @@ class PasswordPolicyTwoFactorLoginAdmin extends AdminController
         try {
             $user = oxNew(User::class);
             $user->finalizeLogin($otp, false);
+            $user->save();
         }catch(UserException $ex)
         {
             return Registry::getUtilsView()->addErrorToDisplay($ex);
