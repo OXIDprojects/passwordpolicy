@@ -107,6 +107,7 @@ $aLang = array(
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_REGISTER_ERROR' => 'Die 2-Faktor Einrichtung kann derzeit nicht durchgeführt werden, bitten versuchen Sie es später nochmal oder kontaktieren Sie uns.',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_RESET_SUCCESS' => 'Die 2FA wurde erfolgreich resettet. ',
     'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_YES' => "Aktivieren",
-    'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_NO' => 'Deaktivieren'
+    'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_NO' => 'Deaktivieren',
+    'OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ADMIN_LOGIN' => 'Anmelden'
 
 );
