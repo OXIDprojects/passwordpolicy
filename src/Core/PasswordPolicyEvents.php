@@ -21,9 +21,10 @@ class PasswordPolicyEvents
     {
 
         $user = oxNew(User::class);
-        if (!(in_array('oxpstotpsecret', $user->getFieldNames()) && in_array('oxpsbackupcode', $user->getFieldNames()))) {
+        if (!(in_array('oxpstotpsecret', $user->getFieldNames()) && in_array('oxpsbackupcode', $user->getFieldNames()) && in_array('oxpsotp', $user->getFieldNames()))) {
             $query = "ALTER TABLE oxuser ADD OXPSTOTPSECRET varchar(255) NOT NULL,
-                                     ADD OXPSBACKUPCODE varchar(255) NOT NULL;";
+                                     ADD OXPSBACKUPCODE varchar(255) NOT NULL,
+                                     ADD OXPSOTP varchar(255) NOT NULL;";
             try {
                 DatabaseProvider::getDb()->execute($query);
                 self::regenerateViews();
