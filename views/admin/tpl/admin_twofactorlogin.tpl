@@ -16,7 +16,7 @@
     <a href="?cl=admin_twofactorrecovery">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_HELP_LOST"}]</a>
     <input hidden id="otp" name="otp" value="">
     <div class="flex justify-center">
-            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 mb-3 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ADMIN_LOGIN"}]</button>
+            <button id="accUserSaveTop" type="submit" name="save" class="mt-4 mb-1 btn btn-primary">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ADMIN_LOGIN"}]</button>
 </div>
 </form>
     </div>
