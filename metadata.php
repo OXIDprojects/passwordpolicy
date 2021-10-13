@@ -27,13 +27,17 @@
 
 use OxidEsales\Eshop\Application\Component\UserComponent;
 use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
+use OxidEsales\Eshop\Application\Controller\Admin\LoginController;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Application\Controller\Admin\ModuleConfiguration;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorRecoveryAdmin;
 use OxidProfessionalServices\PasswordPolicy\Component\PasswordPolicyUserComponent;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyAccountTOTPAdmin;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyLoginController;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorBackupCodeAdmin;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorLoginAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorRegisterAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountTOTP;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorConfirmation;
@@ -74,7 +78,8 @@ $aModule = [
         AccountPasswordController::class => PasswordPolicyAccountPasswordController::class,
         User::class => PasswordPolicyUser::class,
         ModuleConfiguration::class => PasswordPolicyModuleConfiguration::class,
-        UserComponent::class => PasswordPolicyUserComponent::class
+        UserComponent::class => PasswordPolicyUserComponent::class,
+        LoginController::class => PasswordPolicyLoginController::class
         ],
     'controllers' => [
         'twofactorregister' => PasswordPolicyTwoFactorRegister::class,
@@ -87,6 +92,8 @@ $aModule = [
         'admin_twofactorregister' => PasswordPolicyTwoFactorRegisterAdmin::class,
         'admin_twofactorconfirmation' => PasswordPolicyTwoFactorConfirmationAdmin::class,
         'admin_twofactorbackup' => PasswordPolicyTwoFactorBackupCodeAdmin::class,
+        'admin_twofactorlogin' => PasswordPolicyTwoFactorLoginAdmin::class,
+        'admin_twofactorrecovery' => PasswordPolicyTwoFactorRecoveryAdmin::class,
 
 
     ],
@@ -101,6 +108,8 @@ $aModule = [
         'admin_twofactorregister.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorregister.tpl',
         'admin_twofactorconfirmation.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorconfirmation.tpl',
         'admin_twofactorbackupcode.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorbackupcode.tpl',
+        'admin_twofactorlogin.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorlogin.tpl',
+        'admin_twofactorrecovery.tpl' => 'oxps/passwordpolicy/views/admin/tpl/admin_twofactorrecovery.tpl',
         'layout/page.tpl' => 'oxps/passwordpolicy/views/admin/tpl/layout/page.tpl',
         'message/errors.tpl' => 'oxps/passwordpolicy/views/admin/tpl/message/errors.tpl',
         'message/error.tpl' => 'oxps/passwordpolicy/views/admin/tpl/message/error.tpl',
