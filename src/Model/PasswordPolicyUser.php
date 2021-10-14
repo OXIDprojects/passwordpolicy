@@ -10,6 +10,7 @@ use OxidEsales\Eshop\Core\Field;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyForgotPasswordControllerAdmin;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyValidator;
 use OxidProfessionalServices\PasswordPolicy\Exception\LimiterNotFound;
@@ -31,8 +32,12 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-        if (!$this->isAdmin() && $this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
-                $forgotPass = new ForgotPasswordController();
+        $forgotPass = oxNew(ForgotPasswordController::class);
+        if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
+            if($this->isAdmin())
+            {
+                $forgotPass = oxNew(PasswordPolicyForgotPasswordControllerAdmin::class);
+            }
                 $forgotPass->forgotPassword();
                 $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
                 throw oxNew(UserException::class, $errorMessage);
@@ -89,9 +94,9 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         $secret = $this->oxuser__oxpstotpsecret->value;
         $decryptedSecret = $totp->decryptSecret($secret);
         $totp->verifyOTP($decryptedSecret, $otp, $this);
+        $name = $this->isAdmin() ? 'auth': 'usr';
         $session->deleteVariable('tmpusr');
-        $session->setVariable('usr', $usr);
-        $session->setVariable('auth', $usr);
+        $session->setVariable($name, $usr);
         // to prevent replay attacks
         $this->oxuser__oxpsotp = new \OxidEsales\EshopCommunity\Core\Field($otp, Field::T_TEXT);
         // in case user wants to stay logged in, set user cookie again
