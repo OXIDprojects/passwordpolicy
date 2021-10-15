@@ -9,6 +9,8 @@ use OxidEsales\Eshop\Core\Registry;
 
 class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
 {
+    protected $_sForgotEmail = null;
+
     public function render()
     {
         return 'forgotpwd.tpl';
@@ -42,8 +44,7 @@ class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
         /** @var \OxidEsales\Eshop\Core\InputValidator $oInputValidator */
         $oInputValidator = Registry::getInputValidator();
         if (($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true))) {
-            Registry::getUtilsView()->addErrorToDisplay($oExcp->getMessage(), false, true);
-            return 'admin_forgotpwd';
+            return Registry::getUtilsView()->addErrorToDisplay($oExcp->getMessage(), false, true);
         }
 
         // passwords are fine - updating and loggin user in
