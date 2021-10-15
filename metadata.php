@@ -122,7 +122,6 @@ $aModule = [
         'email/plain/forgotpwd.tpl' => 'oxps/passwordpolicy/views/admin/tpl/email/plain/forgotpwd.tpl',
         'forgotpwd.tpl' => 'oxps/passwordpolicy/views/admin/tpl/page/account/forgotpwd.tpl',
         'layout/page.tpl' => 'oxps/passwordpolicy/views/admin/tpl/layout/page.tpl',
-        'form/forgotpwd_email.tpl' => 'oxps/passwordpolicy/views/admin/tpl/form/forgotpwd_email.tpl',
         'form/forgotpwd_change_pwd.tpl' => 'oxps/passwordpolicy/views/admin/tpl/form/forgotpwd_change_pwd.tpl'
 
 
@@ -157,8 +156,7 @@ $aModule = [
             'template' => 'widget/header/servicebox.tpl',
             'block' => 'widget_header_servicebox_items',
             'file' => 'views/blocks/servicebox.tpl',
-        ]
-
+        ],
     ],
     'settings' => [
         ['group' => 'passwordpolicy', 'name' => 'oxpspasswordpolicyGoodPasswordLength', 'type' => 'num', 'value' => 12],
