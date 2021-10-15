@@ -1,6 +1,6 @@
 [{oxscript add="$('input,select,textarea').not('[type=submit]').jqBootstrapValidation();"}]
-
-<form action="[{$oViewConf->getSelfActionLink()}]" name="forgotpwd" method="post" role="form"  novalidate="novalidate">
+[{include file="message/errors.tpl"}]
+<form action="[{$oViewConf->getSelfLink()}]" name="forgotpwd" method="post" role="form"  novalidate="novalidate">
     <div class="hidden">
         [{$oViewConf->getHiddenSid()}]
         <input type="hidden" name="fnc" value="updatePassword">

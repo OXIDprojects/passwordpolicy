@@ -33,7 +33,7 @@
             [{block name="page_account_forgot_email_sent"}]
                 <div class="alert alert-info">[{oxmultilang ident="PASSWORD_WAS_SEND_TO"}] [{$oView->getForgotEmail()}]</div>
                 <div class="bar">
-                    <form action="[{$oViewConf->getSelfActionLink()}]" name="forgotpwd" method="post">
+                    <form action="[{$oViewConf->getSelfLink()}]" name="forgotpwd" method="post">
                         <div>
                             [{$oViewConf->getHiddenSid()}]
                             <input type="hidden" name="cl" value="start">
@@ -44,8 +44,6 @@
                     </form>
                 </div>
             [{/block}]
-        [{else}]
-            [{include file="form/forgotpwd_email.tpl"}]
         [{/if}]
     [{/if}]
 
