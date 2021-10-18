@@ -73,7 +73,7 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
         $user->load($sessionuser);
         $secret = $user->oxuser__oxpstotpsecret->value;
         // checks if user has 2FA enabled and is not admin
-        if(!isAdmin() && $secret)
+        if(!isAdmin() && $config->isTOTP() && $secret)
         {
             Registry::getSession()->deleteVariable('usr');
             Registry::getUtilsServer()->deleteUserCookie();
