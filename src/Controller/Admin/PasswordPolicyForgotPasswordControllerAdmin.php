@@ -58,9 +58,13 @@ class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
             // saving ..
             $oUser->save();
 
-            // forcing user login
+            // check whether 2FA is enabled, if yes redirect to 2FA login, if not login to admin
+            if($oUser->oxuser__oxpstotpsecret->value)
+            {
+                Registry::getSession()->setVariable('tmpusr', $oUser->getId());
+                return 'admin_twofactorlogin';
+            }
             Registry::getSession()->setVariable('auth', $oUser->getId());
-
             return 'admin_start';
         } else {
             // expired reminder
