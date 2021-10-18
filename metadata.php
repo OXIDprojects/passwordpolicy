@@ -28,6 +28,7 @@
 use OxidEsales\Eshop\Application\Component\UserComponent;
 use OxidEsales\Eshop\Application\Controller\AccountPasswordController;
 use OxidEsales\Eshop\Application\Controller\Admin\LoginController;
+use OxidEsales\Eshop\Application\Controller\Admin\UserMain;
 use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\ViewConfig;
 use OxidEsales\Eshop\Application\Model\User;
@@ -40,6 +41,7 @@ use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyLogin
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorBackupCodeAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorLoginAdmin;
 use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyTwoFactorRegisterAdmin;
+use OxidProfessionalServices\PasswordPolicy\Controller\Admin\PasswordPolicyUserMain;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyAccountTOTP;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorConfirmation;
 use OxidProfessionalServices\PasswordPolicy\Controller\PasswordPolicyTwoFactorBackupCode;
@@ -82,7 +84,8 @@ $aModule = [
         ModuleConfiguration::class => PasswordPolicyModuleConfiguration::class,
         UserComponent::class => PasswordPolicyUserComponent::class,
         LoginController::class => PasswordPolicyLoginController::class,
-        \OxidEsales\Eshop\Core\Language::class => PasswordPolicyLanguage::class
+        \OxidEsales\Eshop\Core\Language::class => PasswordPolicyLanguage::class,
+        UserMain::class => PasswordPolicyUserMain::class
         ],
     'controllers' => [
         'twofactorregister' => PasswordPolicyTwoFactorRegister::class,
@@ -156,6 +159,11 @@ $aModule = [
             'template' => 'widget/header/servicebox.tpl',
             'block' => 'widget_header_servicebox_items',
             'file' => 'views/blocks/servicebox.tpl',
+        ],
+        [
+            'template' => 'user_main.tpl',
+            'block' => 'admin_user_main_form',
+            'file' => 'views/admin/blocks/user_main.tpl',
         ],
     ],
     'settings' => [
