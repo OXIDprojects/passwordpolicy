@@ -1,42 +1,12 @@
-.w-12 {
+input.w-12 {
     width: 3rem;
 }
 
-.sm\:w-12 {
-    width: 3rem;
-}
 
-.md\:w-12 {
-    width: 3rem;
-}
-
-.lg\:w-12 {
-    width: 3rem;
-}
-
-.xl\:w-12 {
-    width: 3rem;
-}
-
-.h-12 {
+input.h-12 {
     height: 3rem;
 }
 
-.sm\:h-12 {
-    height: 3rem;
-}
-
-.md\:h-12 {
-    height: 3rem;
-}
-
-.lg\:h-12 {
-    height: 3rem;
-}
-
-.xl\:h-12 {
-    height: 3rem;
-}
 
 .flex {
     display: flex;
