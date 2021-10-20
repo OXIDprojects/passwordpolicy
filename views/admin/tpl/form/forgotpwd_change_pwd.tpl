@@ -36,6 +36,12 @@
             helpblock.append(str);
             return error_messages;
         });
+        $('.btn').click(function(e) {
+            if(error_messages.length)
+                {
+                    e.preventDefault();
+                }
+        });
 
     });
 
