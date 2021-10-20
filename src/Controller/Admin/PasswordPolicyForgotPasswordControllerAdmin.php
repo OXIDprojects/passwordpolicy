@@ -151,4 +151,9 @@ class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
     {
         return true;
     }
+
+    public function getFieldValidationErrors()
+    {
+        return Registry::getInputValidator()->getFieldValidationErrors();
+    }
 }
