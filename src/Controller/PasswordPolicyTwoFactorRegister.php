@@ -38,8 +38,7 @@ class PasswordPolicyTwoFactorRegister extends FrontendController
     public function getTOTPQrCode()
     {
         $TOTPurl = $this->TOTP->getTotpQrUrl();
-        $qrcode = $this->qrCodeRenderer->generateQrCode($TOTPurl);
-        return $qrcode;
+        return $this->qrCodeRenderer->generateQrCode($TOTPurl);
     }
 
     public function getBreadCrumb()

@@ -17,7 +17,7 @@ class PasswordPolicyDigits implements PasswordPolicyValidationInterface
 
     public function validate(string $sUsername, string $sPassword)
     {
-        if ($this->config->getPasswordNeedDigits() and !preg_match('(\d+)', $sPassword)) {
+        if ($this->config->getPasswordNeedDigits() && !preg_match('(\d+)', $sPassword)) {
             return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS';
         }
         return true;

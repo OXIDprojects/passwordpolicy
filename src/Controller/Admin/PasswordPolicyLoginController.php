@@ -46,7 +46,7 @@ class PasswordPolicyLoginController extends PasswordPolicyLoginController_parent
 
             return;
         } catch (\OxidEsales\Eshop\Core\Exception\CookieException $oEx) {
-            $myUtilsView->addErrorToDisplay($oEx->getMessage());
+            $myUtilsView->addErrorToDisplay($oEx);
             $oStr = getStr();
             $this->addTplParam('user', $oStr->htmlspecialchars($sUser));
             $this->addTplParam('pwd', $oStr->htmlspecialchars($sPass));
@@ -83,8 +83,7 @@ class PasswordPolicyLoginController extends PasswordPolicyLoginController_parent
 
         $myUtilsServer->setOxCookie("oxidadminlanguage", $aLanguages[$iLang]->abbr, time() + 31536000, "/");
 
-        //P
-        //\OxidEsales\Eshop\Core\Registry::getSession()->setVariable( "blAdminTemplateLanguage", $iLang );
+
         \OxidEsales\Eshop\Core\Registry::getLang()->setTplLanguage($iLang);
 
 

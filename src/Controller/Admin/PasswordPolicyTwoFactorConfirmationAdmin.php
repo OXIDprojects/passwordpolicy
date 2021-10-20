@@ -17,10 +17,6 @@ class PasswordPolicyTwoFactorConfirmationAdmin extends AdminController
     public function render()
     {
         parent::render();
-        $oUser = $this->getUser();
-        if (!$oUser) {
-            return 'page/account/login.tpl';
-        }
         return 'admin_twofactorconfirmation.tpl';
     }
 

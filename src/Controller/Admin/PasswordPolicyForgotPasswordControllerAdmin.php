@@ -43,7 +43,7 @@ class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
 
         /** @var \OxidEsales\Eshop\Core\InputValidator $oInputValidator */
         $oInputValidator = Registry::getInputValidator();
-        if (($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true))) {
+        if ($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true)) {
             return Registry::getUtilsView()->addErrorToDisplay($oExcp->getMessage(), false, true);
         }
 
@@ -111,7 +111,7 @@ class PasswordPolicyForgotPasswordControllerAdmin extends AdminController
      */
     public function isExpiredLink()
     {
-        if (($sKey = $this->getUpdateId())) {
+        if ($sKey = $this->getUpdateId()) {
             $blExpired = oxNew(\OxidEsales\Eshop\Application\Model\User::class)->isExpiredUpdateId($sKey);
         }
 

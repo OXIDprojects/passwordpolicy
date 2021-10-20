@@ -28,8 +28,7 @@ class PasswordPolicyTOTP extends Base
         Registry::getSession()->setVariable('otp_secret', $this->encryptSecret($secret));
         $otp->setLabel($user->oxuser__oxusername->value);
         $otp->setIssuer(Registry::getConfig()->getActiveShop()->getFieldData('oxname'));
-        $dataUrl = $otp->getProvisioningUri();
-        return $dataUrl;
+        return $otp->getProvisioningUri();
     }
 
     /**
@@ -81,8 +80,7 @@ class PasswordPolicyTOTP extends Base
         $key = base64_decode($twofactorconfig->getVar('key'));
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encrypted = openssl_encrypt($secret, 'aes-256-cbc', $key, 0, $iv);
-        $result = base64_encode($encrypted . '::' . $iv);
-        return $result;
+        return base64_encode($encrypted . '::' . $iv);
     }
 
     /**

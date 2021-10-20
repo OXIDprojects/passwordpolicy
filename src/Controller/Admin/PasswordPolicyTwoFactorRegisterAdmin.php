@@ -62,8 +62,7 @@ class PasswordPolicyTwoFactorRegisterAdmin extends AdminController
     public function getTOTPQrCode()
     {
         $TOTPurl = $this->TOTP->getTotpQrUrl();
-        $qrcode = $this->qrCodeRenderer->generateQrCode($TOTPurl);
-        return $qrcode;
+        return $this->qrCodeRenderer->generateQrCode($TOTPurl);
     }
 
 

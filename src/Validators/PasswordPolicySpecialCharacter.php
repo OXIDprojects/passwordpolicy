@@ -18,7 +18,7 @@ class PasswordPolicySpecialCharacter implements PasswordPolicyValidationInterfac
     {
 
         if (
-            $this->config->getPasswordNeedSpecialCharacter() and
+            $this->config->getPasswordNeedSpecialCharacter() &&
             !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
         ) {
             return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL';

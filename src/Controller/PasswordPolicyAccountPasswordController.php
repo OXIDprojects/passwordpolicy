@@ -36,7 +36,7 @@ class PasswordPolicyAccountPasswordController extends PasswordPolicyAccountPassw
         /** @var \OxidEsales\Eshop\Core\InputValidator $oInputValidator */
         $oInputValidator = \OxidEsales\Eshop\Core\Registry::getInputValidator();
 
-        if (($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true))) {
+        if ($oExcp = $oInputValidator->checkPassword($oUser, $sNewPass, $sConfPass, true)) {
             $tmpInputValidator = oxNew(InputValidator::class);
             \OxidEsales\Eshop\Core\Registry::set(InputValidator::class, $tmpInputValidator);
             return \OxidEsales\Eshop\Core\Registry::getUtilsView()->addErrorToDisplay(

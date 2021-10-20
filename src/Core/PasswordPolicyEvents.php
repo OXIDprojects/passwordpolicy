@@ -56,8 +56,7 @@ $this->key=' . "\"$key\";");
     protected static function generateKey(): string
     {
         $key = random_bytes(32);
-        $hashedKey = base64_encode($key);
-        return $hashedKey;
+        return base64_encode($key);
     }
 
     protected static function regenerateViews()
@@ -87,7 +86,7 @@ $this->key=' . "\"$key\";");
     {
         $templateFolderPath = (string)\OxidEsales\Eshop\Core\Registry::getConfig()->getConfigParam('sCompileDir');
 
-        if (!empty($clearFolderPath) and (strpos($clearFolderPath, $templateFolderPath) !== false)) {
+        if (!empty($clearFolderPath) && (strpos($clearFolderPath, $templateFolderPath) !== false)) {
             $folderPath = $clearFolderPath;
         } else {
             $folderPath = $templateFolderPath;

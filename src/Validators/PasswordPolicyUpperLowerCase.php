@@ -17,11 +17,11 @@ class PasswordPolicyUpperLowerCase implements PasswordPolicyValidationInterface
     public function validate(string $sUsername, string $sPassword)
     {
         $settings = $this->config;
-        if ($settings->getPasswordNeedUpperCase() and !preg_match('(\p{Lu}+)', $sPassword)) {
+        if ($settings->getPasswordNeedUpperCase() && !preg_match('(\p{Lu}+)', $sPassword)) {
             return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPERCASE';
         }
 
-        if ($settings->getPasswordNeedLowerCase() and !preg_match('(\p{Ll}+)', $sPassword)) {
+        if ($settings->getPasswordNeedLowerCase() && !preg_match('(\p{Ll}+)', $sPassword)) {
             return 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE';
         }
         return true;
