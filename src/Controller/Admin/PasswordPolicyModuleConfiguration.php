@@ -12,9 +12,9 @@ class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguratio
     public function saveConfVars()
     {
         $variables = $this->getConfigVariablesFromRequest();
-        if($variables[PasswordPolicyConfig::SettingEnzoic] == "true") {
-            $enzoicAPIKey = $variables[PasswordPolicyConfig::SettingEnzoicAPIKey];
-            $enzoicSecretKey = $variables[PasswordPolicyConfig::SettingEnzoicSecretKey];
+        if($variables[PasswordPolicyConfig::SETTING_ENZOIC] == "true") {
+            $enzoicAPIKey = $variables[PasswordPolicyConfig::SETTING_ENZOIC_API_KEY];
+            $enzoicSecretKey = $variables[PasswordPolicyConfig::SETTING_ENZOIC_SECRET_KEY];
             $enzoicApiCon = new Enzoic($enzoicAPIKey, $enzoicSecretKey);
 
             try {
@@ -22,10 +22,10 @@ class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguratio
             } catch (\RuntimeException $ex) {
                 Registry::getUtilsView()->addErrorToDisplay("OXPS_PASSWORDPOLICY_ENZOICERROR" . $ex->getCode());
                 # needs better solution
-                $_POST["confbools"][PasswordPolicyConfig::SettingEnzoic] = "false";
+                $_POST["confbools"][PasswordPolicyConfig::SETTING_ENZOIC] = "false";
             }
         }
-        if($variables[PasswordPolicyConfig::SettingAdminUser] == "true")
+        if($variables[PasswordPolicyConfig::SETTING_ADMIN_USER] == "true")
         {
             $query =  "Select oxusername from oxuser where oxrights != 'user'";
             $result = DatabaseProvider::getDb()->getCol($query);
@@ -39,7 +39,7 @@ class PasswordPolicyModuleConfiguration extends PasswordPolicyModuleConfiguratio
             }
             if(!empty($invalidMails))
             {
-                $_POST["confbools"][PasswordPolicyConfig::SettingAdminUser] = "false";
+                $_POST["confbools"][PasswordPolicyConfig::SETTING_ADMIN_USER] = "false";
                 Registry::getUtilsView()->addErrorToDisplay("OXPS_PASSWORDPOLICY_INVALIDADMINUSERS");
                 foreach ($invalidMails as $invalidUser)
                 {
