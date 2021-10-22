@@ -35,12 +35,30 @@ class PasswordCheck
      */
     public function isPasswordKnown(string $username, string $password): bool
     {
-        if ($this->config->isHaveIBeenPwned() && $this->haveIBeenPwned->passwordExposed($password) == "exposed") {
+        if ($this->isListedOnHaveIBeenPwned($password) || $this->isListedOnEnzoic($username,$password))
+        {
             return true;
-        } elseif ($this->config->isEnzoic() &&  ($this->enzoicApiCon->checkPassword($password) !== null || $this->enzoicApiCon->checkCredentials($username, $password))) {
+        }
+        return false;
+    }
+
+    public function isListedOnEnzoic(string $username, string $password): bool
+    {
+        if($this->config->isEnzoic() &&  ($this->enzoicApiCon->checkPassword($password) !== null || $this->enzoicApiCon->checkCredentials($username, $password)))
+            {
+                return true;
+            }
+        return false;
+    }
+
+    public function isListedOnHaveIBeenPwned(string $password): bool
+    {
+        if($this->config->isHaveIBeenPwned() && $this->haveIBeenPwned->passwordExposed($password) == "exposed")
+        {
             return true;
         }
         return false;
     }
 
 }
+
