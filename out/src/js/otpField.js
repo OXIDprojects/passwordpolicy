@@ -37,10 +37,9 @@ for (let i = 0; i < inputs.length; i++) {
 }
 
 document.getElementById('accUserSaveTop').addEventListener("click", function () {
-    const inputs = document.querySelectorAll('#OTPInput > *[id]');
     let compiledOtp = '';
-    for (let i = 0; i < inputs.length; i++) {
-        compiledOtp += inputs[i].value;
+    for (let input of inputs) {
+        compiledOtp += input.value;
     }
     document.getElementById('otp').value = compiledOtp;
     return true;
