@@ -80,6 +80,6 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function getPasswordLength()
     {
-        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, 8);
+        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SETTING_MIN_PASSWORD_LENGTH, 8);
     }
 }
