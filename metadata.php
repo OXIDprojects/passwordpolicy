@@ -165,6 +165,11 @@ $aModule = [
             'block' => 'admin_user_main_form',
             'file' => 'views/admin/blocks/user_main.tpl',
         ],
+        [
+            'template' => 'login.tpl',
+            'block' => 'admin_login_form',
+            'file' => 'views/admin/blocks/login.tpl',
+        ],
     ],
     'settings' => [
         ['group' => 'passwordpolicy', 'name' => 'oxpspasswordpolicyGoodPasswordLength', 'type' => 'num', 'value' => 12],
