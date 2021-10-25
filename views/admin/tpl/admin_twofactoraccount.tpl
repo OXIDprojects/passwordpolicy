@@ -20,14 +20,14 @@
         <label class="control-label col-lg-3">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"}]</label>
         <div class="col-lg-4">
             <select name="status" id="status" class="form-control ">
-                <option value="1"[{if $oView->isTOTP()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVE"}]</option>
-                <option value="0"[{if !$oView->isTOTP()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_INACTIVE"}]</option>
+                <option value="1"[{if $oView->isTOTP() && $oView->isAdminUsers()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVE"}]</option>
+                <option value="0"[{if !$oView->isTOTP() || !$oView->isAdminUsers()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_INACTIVE"}]</option>
             </select>
         </div>
     </div>
 
     <div class="form-group flex justify-center">
-            <button [{if $oView->isAdminUsers()}] disabled [{/if}] id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
+            <button [{if !$oView->isAdminUsers()}] disabled [{/if}] id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
     </div>
 </form>
 </div>

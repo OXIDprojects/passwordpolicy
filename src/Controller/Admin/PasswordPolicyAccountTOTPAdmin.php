@@ -33,7 +33,7 @@ class PasswordPolicyAccountTOTPAdmin extends AdminController
     {
         $container = ContainerFactory::getInstance()->getContainer();
         $config = $container->get(PasswordPolicyConfig::class);
-        if($config->isAdminUsers())
+        if($config->isTOTP() && $config->isAdminUsers())
         {
             return true;
         }
