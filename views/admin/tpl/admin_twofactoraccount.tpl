@@ -1,5 +1,6 @@
 [{oxscript include="js/libs/jquery.min.js"}]
 [{assign var="template_title" value="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"|oxmultilangassign}]
+[{assign var="oConf" value=$oView->getConfig()}]
 <div class="min-h-screen flex flex-col justify-center text-center">
 <div class="container rounded h-100 align-items-center col-12 col-md-6 col-lg-6" style="width: 500px; background-color:white">
     [{if $success == '1'}]
@@ -26,13 +27,13 @@
     </div>
 
     <div class="form-group flex justify-center">
-            <button id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
+            <button [{if $oView->isAdminUsers()}] disabled [{/if}] id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
     </div>
 </form>
 </div>
 </div>
 [{assign var="oViewConf" value=$oView->getViewConfig()}]
-[{assign var="oConf" value=$oView->getConfig()}]
+
 [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
 [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/styles.css')}]
 [{oxstyle}]

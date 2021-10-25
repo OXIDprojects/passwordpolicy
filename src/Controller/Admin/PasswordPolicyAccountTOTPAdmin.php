@@ -7,6 +7,8 @@ namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
 use OxidEsales\Eshop\Application\Controller\Admin\AdminController;
 use OxidEsales\Eshop\Core\Registry;
 use OxidEsales\Eshop\Core\Request;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
 class PasswordPolicyAccountTOTPAdmin extends AdminController
 {
@@ -25,6 +27,17 @@ class PasswordPolicyAccountTOTPAdmin extends AdminController
         $user = $this->getUser();
         $secret = $user->oxuser__oxpstotpsecret->value;
         return $secret != null;
+    }
+
+    public function isAdminUsers(): bool
+    {
+        $container = ContainerFactory::getInstance()->getContainer();
+        $config = $container->get(PasswordPolicyConfig::class);
+        if($config->isAdminUsers())
+        {
+            return true;
+        }
+        return false;
     }
 
     public function redirect()
