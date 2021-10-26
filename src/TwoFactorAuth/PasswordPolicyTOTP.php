@@ -45,7 +45,7 @@ class PasswordPolicyTOTP extends Base
             $rateLimiter = (new PasswordPolicyRateLimiterFactory())->getRateLimiter($driverName)->getLimiter();
             // checks whether rate limit is exceeded
             try {
-                $rateLimiter->limit($secret, Rate::perMinute($passwordpolicyConfig->getRateLimit()));
+                $rateLimiter->limit($secret, Rate::perMinute(5));
             } catch (LimitExceeded $exception) {
                 throw oxNew(UserException::class, 'OXPS_PASSWORDPOLICY_RATELIMIT_TWOFACTOR_EXCEEDED');
             }
@@ -56,7 +56,7 @@ class PasswordPolicyTOTP extends Base
         }
     }
 
-    public function isOTPUsed($user, string $auth)
+    public function isOTPUsed($user, string $auth): bool
     {
         $otp = $user->oxuser__oxpsotp->value;
         if($otp == $auth)
