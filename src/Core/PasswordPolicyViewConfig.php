@@ -26,29 +26,49 @@ declare(strict_types=1);
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\Model\BaseModel;
-use OxidEsales\Eshop\Core\DatabaseProvider;
 
 /**
  * Password policy config helpers used in controllers mostly
  */
 class PasswordPolicyViewConfig extends PasswordPolicyViewConfig_parent
 {
+    private PasswordPolicyConfig $config;
+
+
+    public function __construct()
+    {
+        $this->config = Registry::get(PasswordPolicyConfig::class);
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function getJsonPasswordPolicySettings(): string
     {
-        $config = Registry::get(PasswordPolicyConfig::class);
         $array = [];
-        $array['goodPasswordLength'] = $config->getGoodPasswordLength();
+        $array['goodPasswordLength'] = $this->config->getGoodPasswordLength();
         $array['minPasswordLength'] = $this->getPasswordLength();
-        $array['digits'] = $config->getPasswordNeedDigits();
-        $array['special'] = $config->getPasswordNeedSpecialCharacter();
-        $array['lowercase'] = $config->getPasswordNeedLowerCase();
-        $array['uppercase'] = $config->getPasswordNeedUpperCase();
+        $array['digits'] = $this->config->getPasswordNeedDigits();
+        $array['special'] = $this->config->getPasswordNeedSpecialCharacter();
+        $array['lowercase'] = $this->config->getPasswordNeedLowerCase();
+        $array['uppercase'] = $this->config->getPasswordNeedUpperCase();
         $res = json_encode($array, JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE);
         if ($res === false) {
             $error = json_last_error_msg();
-            throw new \Exception("Password policy configuration broken? - Cloud not convert to JSON: $error");
+            throw new \Exception("Password policy configuration broken? - Could not convert to JSON: $error");
         }
         return $res;
     }
+
+    public function isTOTP(): bool
+    {
+        return $this->config->isTOTP();
+    }
+
+    public function setFullWidth()
+    {
+        $this->getConfig()->setConfigParam('sBackgroundColor', '#f6f6f6');
+        $this->getConfig()->setConfigParam('blFullwidthLayout', true);
+    }
+
 }

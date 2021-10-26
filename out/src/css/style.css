@@ -1,0 +1,80 @@
+div.admin-login-box {
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+    background: #fff;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    width: 340px;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin: auto;
+    height: unset;
+    right: unset;
+    bottom: unset;
+    left: 50%;
+}
+
+input.w-12 {
+    width: 3rem;
+}
+
+
+input.h-12 {
+    height: 3rem;
+}
+
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.sm\:justify-center {
+    justify-content: center;
+}
+
+.md\:justify-center {
+    justify-content: center;
+}
+
+.lg\:justify-center {
+    justify-content: center;
+}
+
+.xl\:justify-center {
+    justify-content: center;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.sm\:min-h-screen {
+    min-height: 100vh;
+}
+
+.md\:min-h-screen {
+    min-height: 100vh;
+}
+
+.lg\:min-h-screen {
+    min-height: 100vh;
+}
+
+.xl\:min-h-screen {
+    min-height: 100vh;
+}
+
+
+.form-control:focus {
+    border-color: #74abb9 !important;
+    box-shadow: 0 0 5px rgb(102, 173, 217) !important;
+}

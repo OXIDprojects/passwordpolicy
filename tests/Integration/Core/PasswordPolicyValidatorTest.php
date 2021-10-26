@@ -23,7 +23,7 @@
 
 declare(strict_types=1);
 
-namespace OxidProfessionalServices\PasswordPolicy\Tests;
+namespace OxidProfessionalServices\PasswordPolicy\Tests\Integration\Core;
 
 use OxidEsales\Eshop\Core\Exception\StandardException;
 use OxidEsales\Eshop\Core\Registry;
@@ -83,25 +83,35 @@ class PasswordPolicyValidatorTest extends TestCase
     {
         return array_merge(
             $this->withPolicyCombinations(
+                "",
+                "Test1234!",
+                false
+            ),
+            $this->withPolicyCombinations(
+                "test@test.de",
                 "ThisPasswordFulfills5Requirements!",
                 true
             ),
             $this->withPolicyCombinations(
+                "",
                 "NOLOWER1/",
                 false,
                 PasswordPolicyConfig::SettingLower,
             ),
             $this->withPolicyCombinations(
+                "",
                 "noupper1/",
                 false,
                 PasswordPolicyConfig::SettingUpper,
             ),
             $this->withPolicyCombinations(
+                "",
                 "noSpecial2Day",
                 false,
                 PasswordPolicyConfig::SettingSpecial
             ),
             $this->withPolicyCombinations(
+                "",
                 "2Short!",
                 false
             )
@@ -109,6 +119,7 @@ class PasswordPolicyValidatorTest extends TestCase
     }
 
     private function withPolicyCombinations(
+        string $username,
         string $psw,
         bool $willPass,
         string $mainPolicyName='',
@@ -118,7 +129,7 @@ class PasswordPolicyValidatorTest extends TestCase
         $res = [];
         foreach ($permutations as $permutation) {
             $permutation[PasswordPolicyConfig::SettingMinPasswordLength] = 8;
-            $res[] = [$permutation, $psw, $willPass];
+            $res[] = [$permutation, $username,$psw, $willPass];
         }
 
         return $res;
@@ -160,10 +171,10 @@ class PasswordPolicyValidatorTest extends TestCase
     /**
      * @dataProvider passwordPolicyProvider
      */
-    public function testValidatePasswordPolicy(array $policy, string $password, bool $shouldPass)
+    public function testValidatePasswordPolicy(array $policy, string $username, string $password, bool $shouldPass)
     {
         $this->setPolicy($policy);
-        $this->subjectUnderTest->validatePassword($password);
+        $this->subjectUnderTest->validatePassword($username, $password);
         $ex = $this->subjectUnderTest->getFirstValidationError();
         if ($shouldPass) {
             $this->assertNull($ex);

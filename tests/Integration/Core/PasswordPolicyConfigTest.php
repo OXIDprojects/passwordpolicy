@@ -23,11 +23,9 @@
 
 declare(strict_types=1);
 
-namespace OxidProfessionalServices\PasswordPolicy\Tests;
+namespace OxidProfessionalServices\PasswordPolicy\Tests\Integration\Core;
 
-use OxidEsales\Eshop\Core\InputValidator;
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\ViewConfig;
 use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +51,6 @@ class PasswordPolicyConfigTest extends TestCase
         parent::setUp();
         $this->subjectUnderTest = new PasswordPolicyConfig();
     }
-
     /**
      * @dataProvider lengthProvider
      * @param int $len

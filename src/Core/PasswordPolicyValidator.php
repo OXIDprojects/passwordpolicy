@@ -26,12 +26,15 @@ declare(strict_types=1);
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Application\Model\User;
-use OxidEsales\Eshop\Core\Exception\InputException;
 use OxidEsales\Eshop\Core\Exception\StandardException;
+use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\Eshop\Core\Request;
+use OxidProfessionalServices\PasswordPolicy\Validators\PasswordPolicyValidatorsCollector;
 
 class PasswordPolicyValidator extends PasswordPolicyValidator_parent
 {
+
     /**
      * @param User $user
      * @param string $newPassword
@@ -42,16 +45,13 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
     {
-        $ex = $this->validatePassword($newPassword);
+        $user->loadUserByUpdateId((new Request)->getRequestEscapedParameter('uid'));
+        $username = $user->oxuser__oxusername->value?: (new Request)->getRequestEscapedParameter('lgn_usr');
+        $ex = $this->validatePassword($username, $newPassword);
         if (isset($ex)) {
             return $ex;
         }
         return parent::checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength);
-    }
-
-    public function getModuleSettings(): PasswordPolicyConfig
-    {
-        return Registry::get(PasswordPolicyConfig::class);
     }
 
     /**
@@ -60,52 +60,17 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      * @param string $sPassword
      * @return null|StandardException
      */
-    public function validatePassword(string $sPassword): ?StandardException
+    public function validatePassword(string $sUsername, string $sPassword): ?StandardException
     {
-        $sError = '';
-        $iPasswordLength = mb_strlen($sPassword, 'UTF-8');
-
-        // Load module settings
-        $settings = $this->getModuleSettings();
-
-        // Validate password according to settings params
-        if ($iPasswordLength < $settings->getMinPasswordLength()) {
-            $sError = 'ERROR_MESSAGE_PASSWORD_TOO_SHORT';
-        }
-
-        if ($iPasswordLength > $settings->getMaxPasswordLength()) {
-            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_TOOLONG';
-        }
-
-        if ($settings->getPasswordNeedDigits() and !preg_match('(\d+)', $sPassword)) {
-            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESDIGITS';
-        }
-
-        if ($settings->getPasswordNeedUpperCase() and !preg_match('(\p{Lu}+)', $sPassword)) {
-            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESUPPERCASE';
-        }
-
-        if ($settings->getPasswordNeedLowerCase() and !preg_match('(\p{Ll}+)', $sPassword)) {
-            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESLOWERCASE';
-        }
-
-        if (
-            $settings->getPasswordNeedSpecialCharacter() and
-            !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
-        ) {
-            $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL';
-        }
-
-        $res = null;
-        if (!empty($sError)) {
+        $container = $this->getContainer();
+        $passwordPolicyValidatorsCollector = $container->get(PasswordPolicyValidatorsCollector::class);
+        $sError = $passwordPolicyValidatorsCollector->validate($sUsername, $sPassword);
+        if (is_string($sError)) {
             $translateString = Registry::getLang()->translateString($sError);
-            /** @var StandardException $exception  (makes psalm happy) */
-            $exception = oxNew(InputException::class, $translateString);
-
-            $res = $this->addValidationError("oxuser__oxpassword", $exception);
+            $exception = oxNew(UserException::class, $translateString);
+            return $this->addValidationError("oxuser__oxpassword", $exception);
         }
-
-        return $res;
+        return null;
     }
 
     /**
@@ -115,6 +80,6 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function getPasswordLength()
     {
-        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SettingMinPasswordLength, 8);
+        return (int) Registry::getConfig()->getConfigParam(PasswordPolicyConfig::SETTING_MIN_PASSWORD_LENGTH, 8);
     }
 }

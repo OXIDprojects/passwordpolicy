@@ -26,50 +26,60 @@ declare(strict_types=1);
 namespace OxidProfessionalServices\PasswordPolicy\Core;
 
 use OxidEsales\Eshop\Core\Registry;
-use OxidEsales\Eshop\Core\Model\BaseModel;
-use OxidEsales\Eshop\Core\DatabaseProvider;
 
 /**
  * Password policy config helpers used in controllers mostly
  */
 class PasswordPolicyConfig
 {
-    private const SettingsPrefix = 'oxpspasswordpolicy';
-    public const SettingGoodPasswordLength = self::SettingsPrefix . 'GoodPasswordLength';
-    public const SettingMinPasswordLength = self::SettingsPrefix . 'MinPasswordLength';
-    public const SettingDigits = self::SettingsPrefix . 'Digits';
-    public const SettingSpecial = self::SettingsPrefix . 'Special';
-    public const SettingUpper = self::SettingsPrefix . 'UpperCase';
-    public const SettingLower = self::SettingsPrefix . 'LowerCase';
+    private const SETTINGS_PREFIX = 'oxpspasswordpolicy';
+    public const SETTING_GOOD_PASSWORD_LENGTH = self::SETTINGS_PREFIX . 'GoodPasswordLength';
+    public const SETTING_MIN_PASSWORD_LENGTH = self::SETTINGS_PREFIX . 'MinPasswordLength';
+    public const SETTING_DIGITS = self::SETTINGS_PREFIX . 'Digits';
+    public const SETTING_SPECIAL = self::SETTINGS_PREFIX . 'Special';
+    public const SETTING_API = self::SETTINGS_PREFIX . 'API';
+    public const SETTING_ENZOIC_API_KEY = self::SETTINGS_PREFIX . 'EnzoicAPIKey';
+    public const SETTING_ENZOIC_SECRET_KEY = self::SETTINGS_PREFIX . 'EnzoicSecretKey';
+    public const SETTING_ENZOIC = self::SETTINGS_PREFIX . 'Enzoic';
+    public const SETTING_HAVE_I_BEEN_PWNED = self::SETTINGS_PREFIX . 'HaveIBeenPwned';
+    public const SETTING_UPPER = self::SETTINGS_PREFIX . 'UpperCase';
+    public const SETTING_LOWER = self::SETTINGS_PREFIX . 'LowerCase';
+    public const SETTING_DRIVER = self::SETTINGS_PREFIX . 'RateLimitingDrivers';
+    public const SETTING_LIMIT = self::SETTINGS_PREFIX . 'RateLimitingLimit';
+    public const SETTING_RATELIMITING = self::SETTINGS_PREFIX . 'RateLimiting';
+    public const SETTING_MEMCACHED_HOST = self::SETTINGS_PREFIX . 'MemcachedHost';
+    public const SETTING_MEMCACHED_PORT = self::SETTINGS_PREFIX . 'MemcachedPort';
+    public const SETTING_TOTP = self::SETTINGS_PREFIX . 'TOTP';
+    public const SETTING_ADMIN_USER = self::SETTINGS_PREFIX . 'admin';
 
     public function getMinPasswordLength(): int
     {
-        return (int) Registry::getConfig()->getConfigParam(self::SettingMinPasswordLength, 8);
+        return (int) Registry::getConfig()->getConfigParam(self::SETTING_MIN_PASSWORD_LENGTH, 8);
     }
 
     public function getGoodPasswordLength(): int
     {
-        return (int) Registry::getConfig()->getConfigParam(self::SettingGoodPasswordLength, 12);
+        return (int) Registry::getConfig()->getConfigParam(self::SETTING_GOOD_PASSWORD_LENGTH, 12);
     }
 
     public function getPasswordNeedDigits(): bool
     {
-        return $this->isConfigParam(self::SettingDigits);
+        return $this->isConfigParam(self::SETTING_DIGITS);
     }
 
     public function getPasswordNeedUpperCase(): bool
     {
-        return $this->isConfigParam(self::SettingUpper);
+        return $this->isConfigParam(self::SETTING_UPPER);
     }
 
     public function getPasswordNeedLowerCase(): bool
     {
-        return $this->isConfigParam(self::SettingLower);
+        return $this->isConfigParam(self::SETTING_LOWER);
     }
 
     public function getPasswordNeedSpecialCharacter(): bool
     {
-        return $this->isConfigParam(self::SettingSpecial);
+        return $this->isConfigParam(self::SETTING_SPECIAL);
     }
 
     /**
@@ -85,8 +95,71 @@ class PasswordPolicyConfig
         return 255;
     }
 
+    public function getAPIKey(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SETTING_ENZOIC_API_KEY);
+    }
+
+    public function getSecretKey(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SETTING_ENZOIC_SECRET_KEY);
+    }
+
+    public function isAPI(): bool
+    {
+        return $this->isConfigParam(self::SETTING_API);
+    }
+
+    public function isEnzoic(): bool
+    {
+        return $this->isConfigParam(self::SETTING_ENZOIC);
+    }
+
+    public function isHaveIBeenPwned(): bool
+    {
+        return $this->isConfigParam(self::SETTING_HAVE_I_BEEN_PWNED);
+    }
+
+    public function isRateLimiting(): bool
+    {
+        return $this->isConfigParam(self::SETTING_RATELIMITING);
+    }
+
+    public function isTOTP(): bool
+    {
+        return $this->isConfigParam(self::SETTING_TOTP);
+    }
+
+    public function isAdminUsers(): bool
+    {
+        return  Registry::getConfig()->getConfigParam(self::SETTING_ADMIN_USER);
+    }
+
+    public function getSelectedDriver(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SETTING_DRIVER);
+    }
+
+    public function getRateLimit(): int
+    {
+        return (int) Registry::getConfig()->getConfigParam(self::SETTING_LIMIT, 60);
+    }
+
+    public function getMemcachedHost(): string
+    {
+        return (string) Registry::getConfig()->getConfigParam(self::SETTING_MEMCACHED_HOST);
+    }
+
+    public function getMemcachedPort(): int
+    {
+        return (int) Registry::getConfig()->getConfigParam(self::SETTING_MEMCACHED_PORT, 11211);
+    }
     private function isConfigParam(string $name): bool
     {
+        if(isAdmin() && !$this->isAdminUsers())
+        {
+            return false;
+        }
         return (bool) Registry::getConfig()->getConfigParam($name, true);
     }
 }
