@@ -1,6 +1,7 @@
 [{oxscript include="js/libs/jquery.min.js"}]
 [{assign var="template_title" value="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"|oxmultilangassign}]
 [{assign var="oConf" value=$oView->getConfig()}]
+[{assign var="oViewConf" value=$oView->getViewConfig()}]
 <div class="min-h-screen flex flex-col justify-center text-center">
 <div class="container rounded h-100 align-items-center col-12 col-md-6 col-lg-6" style="width: 500px; background-color:white">
     [{if $success == '1'}]
@@ -20,19 +21,18 @@
         <label class="control-label col-lg-3">[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_LOGIN"}]</label>
         <div class="col-lg-4">
             <select name="status" id="status" class="form-control ">
-                <option value="1"[{if $oView->isTOTP() && $oView->isAdminUsers()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVE"}]</option>
-                <option value="0"[{if !$oView->isTOTP() || !$oView->isAdminUsers()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_INACTIVE"}]</option>
+                <option value="1"[{if $oView->isTOTP() && $oViewConf->isTOTP()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_ACTIVE"}]</option>
+                <option value="0"[{if !$oView->isTOTP() || !$oViewConf->isTOTP()}] selected[{/if}] >[{oxmultilang ident="OXPS_PASSWORDPOLICY_TWOFACTORAUTH_INACTIVE"}]</option>
             </select>
         </div>
     </div>
 
     <div class="form-group flex justify-center">
-            <button [{if !$oView->isAdminUsers()}] disabled [{/if}] id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
+            <button [{if !$oViewConf->isTOTP()}] disabled [{/if}] id="twofactorsave" type="submit" class="btn btn-primary">[{oxmultilang ident="SAVE"}]</button>
     </div>
 </form>
 </div>
 </div>
-[{assign var="oViewConf" value=$oView->getViewConfig()}]
 
 [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/style.css')}]
 [{oxstyle include=$oViewConf->getModuleUrl('oxpspasswordpolicy','out/src/css/styles.css')}]

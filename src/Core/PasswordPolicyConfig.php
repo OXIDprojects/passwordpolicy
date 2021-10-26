@@ -132,7 +132,7 @@ class PasswordPolicyConfig
 
     public function isAdminUsers(): bool
     {
-        return $this->isConfigParam(self::SETTING_ADMIN_USER);
+        return  Registry::getConfig()->getConfigParam(self::SETTING_ADMIN_USER);
     }
 
     public function getSelectedDriver(): string
@@ -156,6 +156,10 @@ class PasswordPolicyConfig
     }
     private function isConfigParam(string $name): bool
     {
+        if(isAdmin() && !$this->isAdminUsers())
+        {
+            return false;
+        }
         return (bool) Registry::getConfig()->getConfigParam($name, true);
     }
 }

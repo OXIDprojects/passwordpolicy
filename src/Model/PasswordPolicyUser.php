@@ -32,12 +32,9 @@ class PasswordPolicyUser extends PasswordPolicyUser_parent
     {
         /** @var PasswordPolicyValidator $passValidator */
         $passValidator = oxNew(InputValidator::class);
-        $forgotPass = oxNew(ForgotPasswordController::class);
+        $container = ContainerFactory::getInstance()->getContainer();
         if ($this->isLoaded() && $err = $passValidator->validatePassword($userName, $password)) {
-            if($this->isAdmin())
-            {
-                $forgotPass = oxNew(PasswordPolicyForgotPasswordControllerAdmin::class);
-            }
+                $forgotPass = $this->isAdmin() ? oxNew(PasswordPolicyForgotPasswordControllerAdmin::class) : oxNew(ForgotPasswordController::class);
                 $forgotPass->forgotPassword();
                 $errorMessage = $err->getMessage() . '&nbsp' . Registry::getLang()->translateString('REQUEST_PASSWORD_AFTERCLICK');
                 throw oxNew(UserException::class, $errorMessage);

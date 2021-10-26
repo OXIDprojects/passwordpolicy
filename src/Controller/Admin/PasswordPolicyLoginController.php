@@ -1,9 +1,10 @@
 <?php
 
 namespace OxidProfessionalServices\PasswordPolicy\Controller\Admin;
-use OxidEsales\Eshop\Application\Model\User;
 use OxidEsales\Eshop\Core\Exception\UserException;
 use OxidEsales\Eshop\Core\Registry;
+use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
+use OxidProfessionalServices\PasswordPolicy\Core\PasswordPolicyConfig;
 
 
 class PasswordPolicyLoginController extends PasswordPolicyLoginController_parent
@@ -86,9 +87,10 @@ class PasswordPolicyLoginController extends PasswordPolicyLoginController_parent
 
         \OxidEsales\Eshop\Core\Registry::getLang()->setTplLanguage($iLang);
 
-
+        $container = ContainerFactory::getInstance()->getContainer();
+        $config = $container->get(PasswordPolicyConfig::class);
         $secret = $oUser->oxuser__oxpstotpsecret->value;
-        if($secret)
+        if($config->isTOTP() && $secret)
         {
             Registry::getSession()->setVariable('tmpusr', $oUser->getId());
             Registry::getSession()->deleteVariable('auth');
