@@ -121,7 +121,7 @@ function passwordValidate(object, password) {
 
     if (digits && !(password.match(/\d+/))) validationError(object, 'digits');
 
-    if (special && !(password.match(/.[!,@#$%^&*?_~()\-]/))) validationError(object, 'special');
+    if (special && !(password.match(/[!,@#$%^&*?_~()\-]/))) validationError(object, 'special');
 
 }
 
