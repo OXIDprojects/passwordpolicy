@@ -42,9 +42,11 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
      */
     public function checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength = false)
     {
-        $ex = $this->validatePassword($newPassword);
-        if (isset($ex)) {
-            return $ex;
+        if($shouldCheckPasswordLength) {
+            $ex = $this->validatePassword($newPassword);
+            if (isset($ex)) {
+                return $ex;
+            }
         }
         return parent::checkPassword($user, $newPassword, $confirmationPassword, $shouldCheckPasswordLength);
     }

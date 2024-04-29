@@ -42,8 +42,8 @@ $aModule = [
         'en' => 'Password Policy'
     ],
     'description' => [
-        'de' => 'Prüfung der Kennwortstärke, Visualisierung, Abflaufregeln',
-        'en' => 'Password validation, strength visualization and expiry rules',
+        'de' => 'Prüfung der Kennwortstärke, Visualisierung, Abflaufregeln (modified by tabsl / fix guest registration)',
+        'en' => 'Password validation, strength visualization and expiry rules (modified by tabsl / fix guest registration)',
     ],
     'thumbnail' => 'out/pictures/picture.png',
     'version' => '2.0.0',
