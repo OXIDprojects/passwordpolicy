@@ -91,7 +91,7 @@ class PasswordPolicyValidator extends PasswordPolicyValidator_parent
 
         if (
             $settings->getPasswordNeedSpecialCharacter() and
-            !preg_match('([\.,_@\~\(\)\!\#\$%\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
+            !preg_match('([\.,_@\~\(\)\!\#\$%\?\^\&\*\+=\-\\\/|:;`]+)', $sPassword)
         ) {
             $sError = 'OXPS_PASSWORDPOLICY_PASSWORDSTRENGTH_ERROR_REQUIRESSPECIAL';
         }
